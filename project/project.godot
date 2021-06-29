@@ -14,6 +14,11 @@ config/name="Blorgs"
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=800
+window/size/height=450
+
 [input]
 
 move_left={
