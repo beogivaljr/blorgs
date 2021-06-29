@@ -35,11 +35,17 @@ var minion_instance = null
 Register an input object which Controller script is going to listen for.
 """
 func register(object):
+	var body: PhysicsBody	
+	for child in object.get_children():
+		if child is PhysicsBody:
+			body = child
+			break
+	
 	if object.is_in_group("ClickableFloor"):
-		_register_input_event(object, "_on_Floor_input_event")
+		_register_input_event(body, "_on_Floor_input_event")
 		
 	if object.is_in_group("ClickableObject"):
-		_register_input_event(object, "_on_Object_input_event", [object])
+		_register_input_event(body, "_on_Object_input_event", [object])
 
 
 """
@@ -103,26 +109,46 @@ func _on_Object_input_event(_camera, event, click_position, click_normal, _shape
 
 # TODO improve parameters typing based on project Wiki.
 func move(param):
+	# Make sure target Minion is instantiated.
 	_assert_instance()
 	
 	match typeof(param):
 		TYPE_REAL:
-			_move(param)
+			# TODO Move body forward by "param" meters.
+			_move_to(param)
+		
+		TYPE_QUAT:
+			# TODO rotate
+			pass
 		
 		TYPE_VECTOR3:
-			_move(param)
+			if param.is_normalized():
+				# Slide one meter in "param" direction
+				_move_by(param)
+			else:
+				# Move to target position.
+				_move_to(param)
 			
 		TYPE_OBJECT:
 			match param.get_class():
 				'Spatial':
-					_move(param.translation)
+					# move to target position and orientation
+					_move_to(param.translation)
+					# Quat(param.global_transform.basis)
 
 
 """
 Move Minion (controlled body) to target position.
 """
-func _move(position: Vector3):
+func _move_to(position: Vector3):
 	minion_instance.target_position = position
+
+
+"""
+Move Minion (controlled body) by delta position.
+"""
+func _move_by(deltaPosition: Vector3):
+	minion_instance.target_position += deltaPosition
 
 
 """ - - - - - - - - - - - - - - - - - - - - - - """

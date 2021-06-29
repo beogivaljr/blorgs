@@ -1,4 +1,4 @@
-extends CollisionObject
+extends MeshInstance
 
 """
 This script registers a "Clickable" instance to Controller.
@@ -21,7 +21,6 @@ func _ready():
 Returns mesh bounds in 3D local space.
 """
 func get_aabb():
-	var mesh =  $MeshInstance.mesh
 	if mesh is PrimitiveMesh:
 		return (mesh as PrimitiveMesh).get_aabb()
 	elif mesh is ArrayMesh:

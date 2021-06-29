@@ -8,12 +8,14 @@ export(float) var MAX_SPEED = 5	# max speed in m/s.
 export(float) var ACCEL = 12 # constant acceleration in m/s².
 export(float) var DEACCEL = 2 # constant decceleration in m/s².
 export(float) var DISTANCE_THRESHOLD = 0.1 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
+export(float) var ROTATION_SPEED = PI # constant rotation speed in rad/s.
 
 """
 Runtime variables to control KinematicBody movement.
 """
 var velocity := Vector3()
 var target_position := Vector3() setget set_target_position
+var target_rotation := Vector3()
 var moving : bool = false
 
 
@@ -30,7 +32,9 @@ func set_target_position(position):
 """
 Retrieve default gravity (m/s²) from project settings.
 """
-onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+onready var gravity = \
+	ProjectSettings.get_setting("physics/3d/default_gravity") \
+	* ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
 
 """
@@ -39,7 +43,7 @@ Called during the physics processing step of the main loop.
 """
 func _physics_process(delta):
 	_process_movement(delta)
-	
+
 
 """
 Controls KinematicBody movement according to setted target position.
@@ -72,7 +76,7 @@ func _process_movement(delta):
 		velocity = velocity.linear_interpolate(target_velocity, accel * delta)	
 	
 	# Always apply gravity to KinematicBody.
-	velocity.y -= gravity * delta
+	velocity += gravity * delta
 	
 	# Finally move KinematicBody.
 	velocity = move_and_slide(velocity, Vector3.UP)

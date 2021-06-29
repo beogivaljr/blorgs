@@ -1,7 +1,6 @@
 extends KinematicBody
 
-export var walk_speed = 10
-export var jump_speed = 18
+export (float) var JUMP_SPEED = 12
 
 const MAX_SPEED = 20
 const ACCEL = 4.5
@@ -39,7 +38,7 @@ func _process_input(_delta):
 	
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = jump_speed
+			velocity.y = JUMP_SPEED
 	
 	direction = direction.normalized()
 
