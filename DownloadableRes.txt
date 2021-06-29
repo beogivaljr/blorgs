@@ -1,0 +1,12 @@
+MESHES:
+https://opengameart.org/
+https://www.turbosquid.com/
+https://www.3dcadbrowser.com/
+https://grabcad.com/library/
+https://3dwarehouse.sketchup.com/
+
+TEXTURES:
+https://ambientcg.com/
+
+SOUND:
+https://sound-effects.bbcrewind.co.uk/
