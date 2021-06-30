@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallSingle_door.obj-65a34bb3faa16ab34308320a21ca706a.mesh"
+
+[deps]
+
+files=[ "res://.import/wallSingle_door.obj-65a34bb3faa16ab34308320a21ca706a.mesh" ]
+
+source_file="res://art/wallSingle_door.obj"
+dest_files=[ "res://.import/wallSingle_door.obj-65a34bb3faa16ab34308320a21ca706a.mesh", "res://.import/wallSingle_door.obj-65a34bb3faa16ab34308320a21ca706a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

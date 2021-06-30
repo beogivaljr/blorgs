@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/crossbow_uncommon.obj-29b4fecfaf534c52f2a769bebff5b863.mesh"
+
+[deps]
+
+files=[ "res://.import/crossbow_uncommon.obj-29b4fecfaf534c52f2a769bebff5b863.mesh" ]
+
+source_file="res://art/crossbow_uncommon.obj"
+dest_files=[ "res://.import/crossbow_uncommon.obj-29b4fecfaf534c52f2a769bebff5b863.mesh", "res://.import/crossbow_uncommon.obj-29b4fecfaf534c52f2a769bebff5b863.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

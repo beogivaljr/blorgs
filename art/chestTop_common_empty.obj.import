@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/chestTop_common_empty.obj-3979242ea1d2ed5560bee94dbf6e6124.mesh"
+
+[deps]
+
+files=[ "res://.import/chestTop_common_empty.obj-3979242ea1d2ed5560bee94dbf6e6124.mesh" ]
+
+source_file="res://art/chestTop_common_empty.obj"
+dest_files=[ "res://.import/chestTop_common_empty.obj-3979242ea1d2ed5560bee94dbf6e6124.mesh", "res://.import/chestTop_common_empty.obj-3979242ea1d2ed5560bee94dbf6e6124.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

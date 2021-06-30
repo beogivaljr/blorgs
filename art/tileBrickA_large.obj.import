@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tileBrickA_large.obj-dc1474f4e3ec33e8b1d6d8b7deaf1904.mesh"
+
+[deps]
+
+files=[ "res://.import/tileBrickA_large.obj-dc1474f4e3ec33e8b1d6d8b7deaf1904.mesh" ]
+
+source_file="res://art/tileBrickA_large.obj"
+dest_files=[ "res://.import/tileBrickA_large.obj-dc1474f4e3ec33e8b1d6d8b7deaf1904.mesh", "res://.import/tileBrickA_large.obj-dc1474f4e3ec33e8b1d6d8b7deaf1904.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

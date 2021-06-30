@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/staff_uncommon.obj-6a5e5b2af0c3fc166745984b027585ee.mesh"
+
+[deps]
+
+files=[ "res://.import/staff_uncommon.obj-6a5e5b2af0c3fc166745984b027585ee.mesh" ]
+
+source_file="res://art/staff_uncommon.obj"
+dest_files=[ "res://.import/staff_uncommon.obj-6a5e5b2af0c3fc166745984b027585ee.mesh", "res://.import/staff_uncommon.obj-6a5e5b2af0c3fc166745984b027585ee.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

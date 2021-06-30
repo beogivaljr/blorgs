@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wallSingle_split.obj-82f955b02a55f38beeaf1f08e708e269.mesh"
+
+[deps]
+
+files=[ "res://.import/wallSingle_split.obj-82f955b02a55f38beeaf1f08e708e269.mesh" ]
+
+source_file="res://art/wallSingle_split.obj"
+dest_files=[ "res://.import/wallSingle_split.obj-82f955b02a55f38beeaf1f08e708e269.mesh", "res://.import/wallSingle_split.obj-82f955b02a55f38beeaf1f08e708e269.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
