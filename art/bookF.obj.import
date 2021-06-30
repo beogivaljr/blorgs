@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/bookF.obj-dceee7269056d0c9f13259959226a987.mesh"
+
+[deps]
+
+files=[ "res://.import/bookF.obj-dceee7269056d0c9f13259959226a987.mesh" ]
+
+source_file="res://art/bookF.obj"
+dest_files=[ "res://.import/bookF.obj-dceee7269056d0c9f13259959226a987.mesh", "res://.import/bookF.obj-dceee7269056d0c9f13259959226a987.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

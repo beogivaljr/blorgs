@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/detail_graveyard.obj-c98e8013a4cee206d86ed72799a93e5c.mesh"
+
+[deps]
+
+files=[ "res://.import/detail_graveyard.obj-c98e8013a4cee206d86ed72799a93e5c.mesh" ]
+
+source_file="res://art/detail_graveyard.obj"
+dest_files=[ "res://.import/detail_graveyard.obj-c98e8013a4cee206d86ed72799a93e5c.mesh", "res://.import/detail_graveyard.obj-c98e8013a4cee206d86ed72799a93e5c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
