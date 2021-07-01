@@ -8,23 +8,25 @@ export(float) var MAX_SPEED = 5	# max speed in m/s.
 export(float) var ACCEL = 12 # constant acceleration in m/s².
 export(float) var DEACCEL = 2 # constant decceleration in m/s².
 export(float) var DISTANCE_THRESHOLD = 0.1 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
-export(float) var ROTATION_SPEED = PI # constant rotation speed in rad/s.
+export(float) var ROTATION_SPEED = 90 # constant rotation speed in deg/s.
 
 """
 Runtime variables to control KinematicBody movement.
 """
 var velocity := Vector3()
 var target_position := Vector3() setget set_target_position
-var target_rotation := Vector3()
 var moving : bool = false
 
+"""
+Runtime parameter calculated from external one.
+"""
+onready var ROTATION_SPEED_RAD = deg2rad(ROTATION_SPEED)
+
 
 """
-Setting target position also start movement when first called.
+Setting target position also start movement.
 """
 func set_target_position(position):
-	if target_position == Vector3.ZERO:
-		translation = position
 	target_position = position
 	moving = true
 
@@ -50,7 +52,7 @@ Controls KinematicBody movement according to setted target position.
 """
 func _process_movement(delta):
 	# Vector pointing from current to target position.
-	var direction = target_position - translation
+	var direction: Vector3 = target_position - translation
 	var distance = direction.length()
 	direction = direction.normalized()
 	
@@ -74,9 +76,13 @@ func _process_movement(delta):
 
 		# Finally apply acceleration.
 		velocity = velocity.linear_interpolate(target_velocity, accel * delta)	
-	
+			
 	# Always apply gravity to KinematicBody.
 	velocity += gravity * delta
 	
 	# Finally move KinematicBody.
 	velocity = move_and_slide(velocity, Vector3.UP)
+	
+	# Update rotation by smoothly looking at target position.
+	var new_transform = transform.looking_at(target_position, Vector3.UP)
+	transform  = transform.interpolate_with(new_transform, ROTATION_SPEED_RAD * delta)

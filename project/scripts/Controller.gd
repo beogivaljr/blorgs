@@ -31,21 +31,27 @@ var minion_instance = null
 """ - - - - - - - - - REGISTER EVENTS - - - - - - - - - """
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
 
+func _ready():
+	var objects = get_tree().get_nodes_in_group("ClickableObject")
+	var floors = get_tree().get_nodes_in_group("ClickableFloor")
+
+	for obj in objects:
+		register(obj)
+		
+	for obj in floors:
+		register(obj)
+		
+	move(owner.get_node("Player"))
+
 """
 Register an input object which Controller script is going to listen for.
 """
-func register(object):
-	var body: PhysicsBody	
-	for child in object.get_children():
-		if child is PhysicsBody:
-			body = child
-			break
-	
+func register(object):	
 	if object.is_in_group("ClickableFloor"):
-		_register_input_event(body, "_on_Floor_input_event")
+		_register_input_event(object, "_on_Floor_input_event")
 		
 	if object.is_in_group("ClickableObject"):
-		_register_input_event(body, "_on_Object_input_event", [object])
+		_register_input_event(object, "_on_Object_input_event", [object])
 
 
 """

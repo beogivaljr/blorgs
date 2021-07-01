@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/NavigationController.gd" type="Script" id=2]
+
+[sub_resource type="NavigationMesh" id=1]
+vertices = PoolVector3Array( -18.7, 0.4, -24.7, -24.7, 0.4, -24.7, -24.7, 0.4, -18.7, -24.7, 0.4, 18.5, -24.7, 0.4, 24.8, -18.7, 0.4, 24.8, 24.8, 0.4, -18.7, 24.8, 0.4, -24.7, 18.5, 0.4, -24.7, 18.5, 0.4, 24.8, 24.8, 0.4, 24.8, 24.8, 0.4, 18.5, -12.4, 0.4, -24.7, -18.7, 0.4, -24.7, -24.7, 0.4, -18.7, -24.7, 0.4, -12.4, -24.7, 0.4, 18.5, -18.7, 0.4, 24.8, -12.4, 0.4, 24.8, -24.7, 0.4, 12.2, 24.8, 0.4, -12.4, 24.8, 0.4, -18.7, 18.5, 0.4, -24.7, 12.2, 0.4, -24.7, 12.2, 0.4, 24.8, 18.5, 0.4, 24.8, 24.8, 0.4, 18.5, -24.7, 0.4, -0.0999985, -6.4, 0.4, 24.8, -0.0999985, 0.4, 24.8, 24.8, 0.4, 5.9, 24.8, 0.4, -0.0999985, -0.0999985, 0.4, -24.7, 5.9, 0.4, 24.8, 24.8, 0.4, 12.2, 24.8, 0.4, 5.9, -0.0999985, 0.4, 24.8, 24.8, 0.4, -6.4, 5.9, 0.4, -24.7, -0.0999985, 0.4, -24.7, 24.8, 0.4, -0.0999985, 12.2, 0.4, 24.8, 24.8, 0.4, 18.5, 24.8, 0.4, 12.2, 5.9, 0.4, 24.8, -6.4, 0.4, -24.7, -12.4, 0.4, -24.7, -24.7, 0.4, -12.4, -24.7, 0.4, -6.4, -24.7, 0.4, 12.2, -12.4, 0.4, 24.8, -6.4, 0.4, 24.8, -24.7, 0.4, 5.9, 24.8, 0.4, -6.4, 24.8, 0.4, -12.4, 12.2, 0.4, -24.7, 5.9, 0.4, -24.7, -0.0999985, 0.4, -24.7, -6.4, 0.4, -24.7, -24.7, 0.4, -6.4, -24.7, 0.4, -0.0999985, -24.7, 0.4, -0.0999985, -24.7, 0.4, 5.9, -6.4, 0.4, 24.8 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 13, 12, 14 ), PoolIntArray( 14, 12, 15 ), PoolIntArray( 17, 16, 18 ), PoolIntArray( 18, 16, 19 ), PoolIntArray( 21, 20, 22 ), PoolIntArray( 22, 20, 23 ), PoolIntArray( 26, 25, 24 ), PoolIntArray( 28, 27, 29 ), PoolIntArray( 29, 27, 30 ), PoolIntArray( 30, 27, 31 ), PoolIntArray( 31, 27, 32 ), PoolIntArray( 34, 33, 35 ), PoolIntArray( 35, 33, 36 ), PoolIntArray( 38, 37, 39 ), PoolIntArray( 39, 37, 40 ), PoolIntArray( 42, 41, 43 ), PoolIntArray( 43, 41, 44 ), PoolIntArray( 46, 45, 47 ), PoolIntArray( 47, 45, 48 ), PoolIntArray( 50, 49, 51 ), PoolIntArray( 51, 49, 52 ), PoolIntArray( 54, 53, 55 ), PoolIntArray( 55, 53, 56 ), PoolIntArray( 58, 57, 59 ), PoolIntArray( 59, 57, 60 ), PoolIntArray( 63, 62, 61 ) ]
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 50, 50 )
+
+[sub_resource type="SpatialMaterial" id=3]
+emission_enabled = true
+emission = Color( 1, 1, 0, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25 )
+
+[node name="DefaultMap" type="Navigation"]
+script = ExtResource( 2 )
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="."]
+navmesh = SubResource( 1 )
+
+[node name="ClickableFloor" type="MeshInstance" parent="NavigationMeshInstance"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="NavigationMeshInstance/ClickableFloor" groups=[
+"ClickableFloor",
+]]
+
+[node name="CollisionShape" type="CollisionShape" parent="NavigationMeshInstance/ClickableFloor/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="Draw" type="ImmediateGeometry" parent="."]
