@@ -27,6 +27,10 @@ Reference to active Minion (controlled body) instance.
 var minion_instance = null
 
 
+""" SINGLETONS """
+onready var base_functions = get_node("/root/BaseFunctions")
+
+
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
 """ - - - - - - - - - REGISTER EVENTS - - - - - - - - - """
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
@@ -41,7 +45,8 @@ func _ready():
 	for obj in floors:
 		register(obj)
 		
-	move(owner.get_node("Player"))
+	_assert_instance()
+	base_functions.move(minion_instance, owner.get_node("Player"))
 
 """
 Register an input object which Controller script is going to listen for.
@@ -92,69 +97,22 @@ func _unregister_input_event(object: Object, method: String):
 When player clicks over a ClickableFloor, we move Minion
 to target position by passing click position (Vector3). 
 """
-func _on_Floor_input_event(_camera, event, click_position, _click_normal, _shape_idx):
+func _on_Floor_input_event(_camera, event, click_position, click_normal, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
-			move(click_position)
+			var basis = Basis(click_normal, 0)
+			var origin = click_position
+			base_functions.move(minion_instance, Transform(basis, origin))
 
 
 """
 When player clicks over a ClickableObject, we move Minion to target
 transform by passing reference to clicked object (Spatial).
 """
-func _on_Object_input_event(_camera, event, click_position, click_normal, _shape_idx, object):
+func _on_Object_input_event(_camera, event, _click_position, _click_normal, _shape_idx, object):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
-			move(click_position + click_normal)
-			# TODO move(object.get_aabb().end)
-
-
-""" - - - - - - - - - - - - - - - - - - - - - - - - - - - - """
-""" - - - - - - - - - BASE FUNCTION: MOVE - - - - - - - - - """
-""" - - - - - - - - - - - - - - - - - - - - - - - - - - - - """
-
-# TODO improve parameters typing based on project Wiki.
-func move(param):
-	# Make sure target Minion is instantiated.
-	_assert_instance()
-	
-	match typeof(param):
-		TYPE_REAL:
-			# TODO Move body forward by "param" meters.
-			_move_to(param)
-		
-		TYPE_QUAT:
-			# TODO rotate
-			pass
-		
-		TYPE_VECTOR3:
-			if param.is_normalized():
-				# Slide one meter in "param" direction
-				_move_by(param)
-			else:
-				# Move to target position.
-				_move_to(param)
-			
-		TYPE_OBJECT:
-			match param.get_class():
-				'Spatial':
-					# move to target position and orientation
-					_move_to(param.translation)
-					# Quat(param.global_transform.basis)
-
-
-"""
-Move Minion (controlled body) to target position.
-"""
-func _move_to(position: Vector3):
-	minion_instance.target_position = position
-
-
-"""
-Move Minion (controlled body) by delta position.
-"""
-func _move_by(deltaPosition: Vector3):
-	minion_instance.target_position += deltaPosition
+			base_functions.move(minion_instance, object)
 
 
 """ - - - - - - - - - - - - - - - - - - - - - - """

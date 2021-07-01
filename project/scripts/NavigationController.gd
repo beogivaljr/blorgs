@@ -17,7 +17,7 @@ func _ready():
 	set_process_input(true)
 	material.flags_unshaded = true
 	material.flags_use_point_size = true
-	material.albedo_color = Color.yellow	
+	material.albedo_color = Color.yellow
 
 
 func _physics_process(delta):
@@ -44,10 +44,12 @@ func _physics_process(delta):
 		# Move the player towards the path node, by how far we want to travel.
 		# Note: For a KinematicBody, we would instead use move_and_slide
 		# so collisions work properly.
-		player.translation += direction.normalized() * step_size
-		
+		var displacement = direction.normalized() * step_size
 		if player is KinematicBody:
-			print('KINEMATIC BODY')
+			player.move_and_collide(displacement)
+		else:
+			player.translation += displacement
+			
 
 		# Lastly let's make sure we're looking in the direction we're traveling.
 		# Clamp y to 0 so the player only looks left and right, not up/down.
@@ -68,7 +70,7 @@ func _unhandled_input(event):
 		var to = from + camera.project_ray_normal(event.position) * 1000
 		var target_point = get_closest_point_to_segment(from, to)
 
-		# Set the path between the robots current location and our target.
+		# Set the path between the player's current location and our target.
 		path = get_simple_path(player.translation, target_point, true)
 
 		if SHOW_PATH:

@@ -20,8 +20,6 @@ material/0 = SubResource( 2 )
 [node name="StaticBody" type="StaticBody" parent="." groups=[
 "ClickableObject",
 ]]
-collision_layer = 0
-collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 3 )

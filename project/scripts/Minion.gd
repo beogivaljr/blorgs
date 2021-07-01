@@ -14,7 +14,8 @@ export(float) var ROTATION_SPEED = 90 # constant rotation speed in deg/s.
 Runtime variables to control KinematicBody movement.
 """
 var velocity := Vector3()
-var target_position := Vector3() setget set_target_position
+#var target_position := Vector3() setget set_target_position
+var target_transform := Transform.IDENTITY setget set_target_transform
 var moving : bool = false
 
 """
@@ -24,10 +25,10 @@ onready var ROTATION_SPEED_RAD = deg2rad(ROTATION_SPEED)
 
 
 """
-Setting target position also start movement.
+Setting target transform also start movement.
 """
-func set_target_position(position):
-	target_position = position
+func set_target_transform(new_transform):
+	target_transform = new_transform
 	moving = true
 
 
@@ -52,7 +53,7 @@ Controls KinematicBody movement according to setted target position.
 """
 func _process_movement(delta):
 	# Vector pointing from current to target position.
-	var direction: Vector3 = target_position - translation
+	var direction: Vector3 = target_transform.origin - translation
 	var distance = direction.length()
 	direction = direction.normalized()
 	
@@ -84,5 +85,5 @@ func _process_movement(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 	# Update rotation by smoothly looking at target position.
-	var new_transform = transform.looking_at(target_position, Vector3.UP)
-	transform  = transform.interpolate_with(new_transform, ROTATION_SPEED_RAD * delta)
+	var new_transform = global_transform.looking_at(target_transform.origin, Vector3.UP)
+	global_transform  = global_transform.interpolate_with(new_transform, ROTATION_SPEED_RAD * delta)
