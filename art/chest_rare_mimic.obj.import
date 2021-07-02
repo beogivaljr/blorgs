@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/chest_rare_mimic.obj-a3087f0985a2cde8f1a64d0c7f886f23.mesh"
+
+[deps]
+
+files=[ "res://.import/chest_rare_mimic.obj-a3087f0985a2cde8f1a64d0c7f886f23.mesh" ]
+
+source_file="res://art/chest_rare_mimic.obj"
+dest_files=[ "res://.import/chest_rare_mimic.obj-a3087f0985a2cde8f1a64d0c7f886f23.mesh", "res://.import/chest_rare_mimic.obj-a3087f0985a2cde8f1a64d0c7f886f23.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

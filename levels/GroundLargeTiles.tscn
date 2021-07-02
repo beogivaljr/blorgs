@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://art/tileBrickB_large.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://art/tileBrickA_large.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://art/tileBrickB_largeCrackedA.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://art/tileBrickB_largeCrackedB.obj" type="ArrayMesh" id=4]
+
+[node name="GroundLargeTiles" type="Spatial"]
+
+[node name="tileBrickA_large" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+
+[node name="tileBrickB_large" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="tileBrickB_largeCrackedB" type="MeshInstance" parent="."]
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="tileBrickB_largeCrackedA" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+material/0 = null

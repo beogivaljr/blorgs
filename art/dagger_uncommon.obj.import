@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/dagger_uncommon.obj-6f02c04bded9c940d941490b3ab9c4aa.mesh"
+
+[deps]
+
+files=[ "res://.import/dagger_uncommon.obj-6f02c04bded9c940d941490b3ab9c4aa.mesh" ]
+
+source_file="res://art/dagger_uncommon.obj"
+dest_files=[ "res://.import/dagger_uncommon.obj-6f02c04bded9c940d941490b3ab9c4aa.mesh", "res://.import/dagger_uncommon.obj-6f02c04bded9c940d941490b3ab9c4aa.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
