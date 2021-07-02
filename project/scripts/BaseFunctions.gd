@@ -37,3 +37,10 @@ func move(instance, param):
 				print("An object parameter must inherit from Spatial.")
 
 	instance.target_transform = target
+
+
+""" - - - - - - - - - - - - - - - - - - - - - """
+""" - - - - - - - - - JUMP - - - - - - - - - """
+""" - - - - - - - - - - - - - - - - - - - - - """
+func jump(instance, param):
+	pass

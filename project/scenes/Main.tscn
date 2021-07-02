@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scripts/Controller.gd" type="Script" id=2]
+[ext_resource path="res://scripts/GameManager.gd" type="Script" id=2]
 [ext_resource path="res://scenes/ClickableObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Minion.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/DefaultMap.tscn" type="PackedScene" id=5]
@@ -16,7 +16,7 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 
 [node name="Main" type="Node"]
 
-[node name="Controller" type="Spatial" parent="."]
+[node name="GameManager" type="Spatial" parent="."]
 script = ExtResource( 2 )
 minion_scene = ExtResource( 4 )
 

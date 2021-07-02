@@ -1,10 +1,8 @@
 extends Spatial
 
 """
-This script controls every Minion in main scene.
-
-	NOTE: during early development stage we're working
-	with only one minion (controlled body) instance.
+This script controls and integrates many objects in order to
+make entire core game loop (of Sandbox mode) work.
 """
 
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - - - """
@@ -31,6 +29,10 @@ var minion_instance = null
 onready var base_functions = get_node("/root/BaseFunctions")
 
 
+""" CUSTOM OBJECTS """
+onready var bucket := Bucket.new()
+
+
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
 """ - - - - - - - - - REGISTER EVENTS - - - - - - - - - """
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
@@ -47,9 +49,15 @@ func _ready():
 		
 	_assert_instance()
 	base_functions.move(minion_instance, owner.get_node("Player"))
+	
+	bucket.load_from_file()
+	bucket.new_function('Test')
+	bucket.functions[1].name = 'Test 1'
+	print(bucket)
+
 
 """
-Register an input object which Controller script is going to listen for.
+Register an input object which GameManager script is going to listen for.
 """
 func register(object):	
 	if object.is_in_group("ClickableFloor"):
@@ -60,7 +68,7 @@ func register(object):
 
 
 """
-Unregister an input object which Controller script was listening.
+Unregister an input object which GameManager script was listening.
 """
 func unregister(object):
 	if object.is_in_group("ClickableFloor"):
@@ -86,7 +94,7 @@ func _unregister_input_event(object: Object, method: String):
 	if object.is_connected("input_event", self, method):
 		object.disconnect("input_event", self, method)
 	else:
-		print("Controller isn't connected to any input_event of %s." %[object.name])
+		print("GameManager isn't connected to any input_event of %s." %[object.name])
 
 
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - - """
