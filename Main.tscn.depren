@@ -27,15 +27,16 @@ far = 300.0
 [node name="CharReference" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0257056, 0.0317746, 0.235012 )
 
-[node name="GUI" type="Control" parent="."]
-visible = false
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FunctionSheet" type="Control" parent="GUI"]
+[node name="FunctionSheet" type="Control" parent="UI/GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -44,7 +45,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="NinePatchRect" parent="GUI/FunctionSheet"]
+[node name="Background" type="NinePatchRect" parent="UI/GUI/FunctionSheet"]
 margin_right = 400.0
 margin_bottom = 500.0
 texture = ExtResource( 4 )
@@ -52,7 +53,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/FunctionSheet/Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI/FunctionSheet/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
@@ -60,34 +61,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/FunctionSheet/Background/VBoxContainer"]
 margin_right = 400.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 0, 15 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GUI/FunctionSheet/Background/VBoxContainer"]
 margin_top = 15.0
 margin_right = 400.0
-margin_bottom = 485.0
+margin_bottom = 595.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_right = 12.0
-margin_bottom = 470.0
+margin_bottom = 580.0
 rect_min_size = Vector2( 12, 0 )
 
-[node name="Functions" type="VBoxContainer" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="Functions" type="VBoxContainer" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_left = 12.0
 margin_right = 122.0
-margin_bottom = 470.0
+margin_bottom = 580.0
 rect_min_size = Vector2( 110, 0 )
 custom_constants/separation = 20
 
-[node name="Function1" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Function1" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_right = 110.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
@@ -96,7 +97,7 @@ size_flags_horizontal = 5
 size_flags_vertical = 5
 expand = true
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function1"]
+[node name="Icon" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -106,7 +107,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Function2" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Function2" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_top = 120.0
 margin_right = 110.0
 margin_bottom = 220.0
@@ -119,7 +120,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function2"]
+[node name="Icon" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -129,7 +130,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Function3" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Function3" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_top = 240.0
 margin_right = 110.0
 margin_bottom = 340.0
@@ -142,7 +143,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function3"]
+[node name="Icon" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -152,7 +153,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Function4" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Function4" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_top = 360.0
 margin_right = 110.0
 margin_bottom = 460.0
@@ -165,7 +166,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function4"]
+[node name="Icon" type="TextureRect" parent="UI/GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -175,16 +176,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
-margin_top = 485.0
+[node name="MarginContainer2" type="MarginContainer" parent="UI/GUI/FunctionSheet/Background/VBoxContainer"]
+margin_top = 595.0
 margin_right = 400.0
-margin_bottom = 500.0
+margin_bottom = 610.0
 rect_min_size = Vector2( 0, 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MinionSheet" type="Control" parent="GUI"]
+[node name="MinionSheet" type="Control" parent="UI/GUI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 565.0
@@ -194,7 +195,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="NinePatchRect" parent="GUI/MinionSheet"]
+[node name="Background" type="NinePatchRect" parent="UI/GUI/MinionSheet"]
 margin_right = 400.0
 margin_bottom = 500.0
 texture = ExtResource( 4 )
@@ -202,7 +203,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MinionSheet/Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GUI/MinionSheet/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
@@ -210,12 +211,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer"]
 margin_right = 400.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 0, 15 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer"]
 margin_top = 15.0
 margin_right = 400.0
 margin_bottom = 485.0
@@ -225,37 +226,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_right = 12.0
 margin_bottom = 470.0
 rect_min_size = Vector2( 12, 0 )
 
-[node name="LeftEquip" type="VBoxContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="LeftEquip" type="VBoxContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_left = 12.0
 margin_right = 122.0
 margin_bottom = 470.0
 rect_min_size = Vector2( 110, 0 )
 custom_constants/separation = 20
 
-[node name="Middle" type="Control" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="Middle" type="Control" parent="UI/GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_left = 122.0
 margin_right = 278.0
 margin_bottom = 470.0
 size_flags_horizontal = 3
 
-[node name="RightEquip" type="VBoxContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="RightEquip" type="VBoxContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_left = 278.0
 margin_right = 388.0
 margin_bottom = 470.0
 rect_min_size = Vector2( 110, 0 )
 
-[node name="MarginContainer3" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
 margin_left = 388.0
 margin_right = 400.0
 margin_bottom = 470.0
 rect_min_size = Vector2( 12, 0 )
 
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/GUI/MinionSheet/Background/VBoxContainer"]
 margin_top = 485.0
 margin_right = 400.0
 margin_bottom = 500.0

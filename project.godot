@@ -14,6 +14,11 @@ config/name="Blorgs"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://Ui/Singletons/GameData.gd"
+PlayerData="*res://Ui/Singletons/PlayerData.gd"
+
 [display]
 
 window/size/width=960
