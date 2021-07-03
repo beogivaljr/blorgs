@@ -2,6 +2,7 @@ extends Object
 class_name BaseFunctions, "res://icon.png"
 
 const MOVE_SNAP = 5 # in meters.
+const DEFAULT_JUMP_SPEED = 15 # in meters per second
 
 """ - - - - - - - - - - - - - - - - - - - - - """
 """ - - - - - - - - - MOVE - - - - - - - - - """
@@ -56,4 +57,35 @@ static func move(instance: Spatial, param):
 """ - - - - - - - - - JUMP - - - - - - - - - """
 """ - - - - - - - - - - - - - - - - - - - - - """
 static func jump(instance, param):
-	pass
+	var jump_speed := Vector3()
+	
+	match typeof(param):
+		TYPE_REAL:
+			# Jump up.
+			jump_speed = param * instance.get_floor_normal()
+			
+		TYPE_VECTOR3:
+			if param.is_normalized():
+				# Jump toward specified direction.
+				jump_speed = param * DEFAULT_JUMP_SPEED
+			else:
+				# TODO: Jump directly to target point.
+				# HOWTO: consider gravity in a oblique trajectory.
+				# EASIEST SOLUTION: Tweening.
+				jump_speed = param - instance.transform.origin 
+				
+		TYPE_TRANSFORM:
+			# Jump directly to target_transform position.
+			pass
+			
+		TYPE_OBJECT:
+			if param is Spatial:
+				# Jump directly to target_transform position.
+				pass
+			else:
+				print("An object parameter must inherit from Spatial.")
+				
+		_:
+			push_error("Unexpected parameter type.")
+		
+	return jump_speed

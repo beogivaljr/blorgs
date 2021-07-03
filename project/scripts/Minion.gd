@@ -4,7 +4,7 @@ extends KinematicBody
 External parameters, they don't change during runtime.
 Should be set directly in Godot Engine.
 """
-export(float) var MAX_SPEED = 5	# max speed in m/s.
+export(float) var MAX_SPEED = 10 # max speed in m/s.
 export(float) var ACCEL = 12 # constant acceleration in m/s².
 export(float) var DEACCEL = 2 # constant decceleration in m/s².
 export(float) var DISTANCE_THRESHOLD = 0.1 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
@@ -68,10 +68,18 @@ func move_last():
 func _set_current_step(step_index: int):
 	current_step = step_index
 	var step = attached_function.steps[current_step]
-	target_transform = BaseFunctions.move(self, step.parameter.value)
-	moving = true
-	print("MOVING TO %s" % target_transform.origin)
-
+	
+	match step.method:
+		"Move":
+			target_transform = BaseFunctions.move(self, step.parameter.value)
+			moving = true
+			print("MOVING TO %s" % target_transform.origin)
+			
+		"Jump":
+			if is_on_floor():
+				velocity = BaseFunctions.jump(self, step.parameter.value)
+				print("JUMPING BY %s" % velocity)
+				
 
 """
 Default message from Node.
@@ -91,9 +99,9 @@ func _process_movement(delta):
 	direction = direction.normalized()
 	
 	# Stop moving if both target position and rotation were achieved.
-	if distance < DISTANCE_THRESHOLD and \
-		target_transform.basis.x.normalized().dot(global_transform.basis.x.normalized()) > 0.8:
-		print("STOP")
+	if distance < DISTANCE_THRESHOLD:
+		# TODO this check-up only considers position.
+		# It should also work for jump and rotation transitions...
 		moving = false
 		velocity = Vector3.ZERO
 		move_next()

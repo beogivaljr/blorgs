@@ -40,10 +40,11 @@ func _ready():
 	_assert_instance()
 	
 	__TEST_bucket() # TODO remove this line.
+	__TEST_jump() # TODO remove this line.
 #	__TEST_move_absolute() # TODO remove this line.
 #	__TEST_move_forward() # TODO remove this line.
 #	__TEST_move_relative() # TODO remove this line.
-	__TEST_move_rotate() # TODO remove this line.
+#	__TEST_move_rotate() # TODO remove this line.
 
 
 func __TEST_bucket():
@@ -70,6 +71,17 @@ func __TEST_bucket():
 	
 	# Save file (data persistence).
 	bucket.save_file()
+
+func __TEST_jump():
+	var steps = [
+		Step.new("Move", Vector3(10, 0, 10)),
+		Step.new("Jump", 10),
+#		Step.new("Jump", Vector3(0, 1, -1).normalized()),
+#		Step.new("Jump", Vector3(0, 4, 15)),
+	]
+	
+	var fn = Function.new("△ ( Real )", steps)
+	minion_instance.attach_function(fn)
 
 func __TEST_move_absolute():
 	var method = "Move"
