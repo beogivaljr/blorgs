@@ -38,15 +38,9 @@ onready var bucket := Bucket.new()
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - """
 
 func _ready():
-	var objects = get_tree().get_nodes_in_group("ClickableObject")
-	var floors = get_tree().get_nodes_in_group("ClickableFloor")
-
-	for obj in objects:
-		register(obj)
-		
-	for obj in floors:
-		register(obj)
-		
+#	_register_group("ClickableObject")
+#	_register_group("ClickableFloor")
+	
 	_assert_instance()
 	base_functions.move(minion_instance, owner.get_node("Player"))
 	
@@ -81,6 +75,12 @@ func __TEST_bucket():
 	
 	# Save file (data persistence).
 	bucket.save_file()
+
+
+func _register_group(group: String):
+	var objects = get_tree().get_nodes_in_group(group)
+	for object in objects:
+		register(object)
 
 
 """
