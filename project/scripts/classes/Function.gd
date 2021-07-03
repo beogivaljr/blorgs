@@ -15,8 +15,9 @@ var steps:= []
 """
 Create a new Function by setting its name.
 """
-func _init(name: String = DEFAULT_NAME) -> void:
+func _init(name: String = DEFAULT_NAME, steps = []) -> void:
 	self.name = name
+	self.steps = steps
 
 
 """
@@ -24,6 +25,13 @@ Append new Step to Function.
 """
 func append(new_step: Step) -> void:
 	steps.append(new_step)
+
+
+"""
+Get step count.
+"""
+func length():
+	return steps.size()
 
 
 """
@@ -47,8 +55,6 @@ func parse_json(json: String):
 	
 	if parser.error == OK:
 		var data = parser.result
-#		for i in data.keys():
-#			set(i, data[i])
 		name = data.name
 		steps.clear()
 		for step in data.steps:

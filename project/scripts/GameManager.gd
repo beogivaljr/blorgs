@@ -25,10 +25,6 @@ Reference to active Minion (controlled body) instance.
 var minion_instance = null
 
 
-""" SINGLETONS """
-onready var base_functions = get_node("/root/BaseFunctions")
-
-
 """ CUSTOM OBJECTS """
 onready var bucket := Bucket.new()
 
@@ -42,10 +38,12 @@ func _ready():
 #	_register_group("ClickableFloor")
 	
 	_assert_instance()
-	base_functions.move(minion_instance, owner.get_node("Player"))
 	
-	# TODO remove line:
-	__TEST_bucket()
+	__TEST_bucket() # TODO remove this line.
+#	__TEST_move_absolute() # TODO remove this line.
+#	__TEST_move_forward() # TODO remove this line.
+#	__TEST_move_relative() # TODO remove this line.
+	__TEST_move_rotate() # TODO remove this line.
 
 
 func __TEST_bucket():
@@ -55,26 +53,70 @@ func __TEST_bucket():
 	# Print bucket content.
 	print(bucket)
 	
+	# Delete all player data. (DANGER)
+	bucket.delete_file()
+	
 	# Create a new function with an specific name.
 	var fn := bucket.new_function("Example")
 	
 	# Set base function key name. (I am going to turn it into an enum soon)
 	var method = "Move"
-	
-	# Always serialize godot object to real numbers array.
-	var param = base_functions.serialize(global_transform)
-	
+		
 	# Append new step to function.
-	fn.append(Step.new(method, param))
-	
-	# Do whatever you want directly.
-	fn.steps[0].method = "Hold"
+	fn.append(Step.new(method, global_transform))
 	
 	# Print bucket content.
 	print(bucket)
 	
 	# Save file (data persistence).
 	bucket.save_file()
+
+func __TEST_move_absolute():
+	var method = "Move"
+	var steps = [
+		Step.new(method, Vector3(10, 0, 10)),
+		Step.new(method, Vector3(10, 0, -10)),
+		Step.new(method, Vector3(-10, 0, -10)),
+		Step.new(method, Vector3(-10, 0, 10)),
+	]
+	
+	var fn = Function.new("□ ( Vector3 )", steps)
+	minion_instance.attach_function(fn)
+
+func __TEST_move_relative():
+	var method = "Move"
+	var steps = [
+		Step.new(method, Transform(Basis.IDENTITY, Vector3(10, 0, 10))),
+		Step.new(method, Vector3.FORWARD),
+		Step.new(method, Vector3.RIGHT),
+		Step.new(method, Vector3.BACK),
+		Step.new(method, Vector3.LEFT),
+	]
+	
+	var fn = Function.new("□ ( Unit Vector3 )", steps)
+	minion_instance.attach_function(fn)
+
+func __TEST_move_forward():
+	var method = "Move"
+	var steps = [
+		Step.new(method, Transform(Basis.IDENTITY, Vector3(10, 0, 10))),
+		Step.new(method, -10),
+		Step.new(method, 10),
+	]
+	
+	var fn = Function.new("□ ( Real )", steps)
+	minion_instance.attach_function(fn)
+
+func __TEST_move_rotate():
+	var method = "Move"
+	var steps = [
+		Step.new(method, Vector3(10, 0, 10)),
+		Step.new(method, Basis(Vector3.UP, PI)),
+		Step.new(method, Basis(Vector3.UP, -PI)),
+	]
+	
+	var fn = Function.new("□ ( Quat/Basis )", steps)
+	minion_instance.attach_function(fn)
 
 
 func _register_group(group: String):
@@ -137,7 +179,7 @@ func _on_Floor_input_event(_camera, event, click_position, click_normal, _shape_
 		if event.pressed and event.button_index == BUTTON_LEFT:
 			var basis = Basis(click_normal, 0)
 			var origin = click_position
-			base_functions.move(minion_instance, Transform(basis, origin))
+			BaseFunctions.move(minion_instance, Transform(basis, origin))
 
 
 """
@@ -147,7 +189,7 @@ transform by passing reference to clicked object (Spatial).
 func _on_Object_input_event(_camera, event, _click_position, _click_normal, _shape_idx, object):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == BUTTON_LEFT:
-			base_functions.move(minion_instance, object)
+			BaseFunctions.move(minion_instance, object)
 
 
 """ - - - - - - - - - - - - - - - - - - - - - - """

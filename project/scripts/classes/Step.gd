@@ -12,19 +12,21 @@ Key name to pre-defined base function eg. Move, Jump, Hold etc.
 var method: String
 
 """
-This array stores every Step parameter as a real number.
 There might be parameters of type: Real, Vector3, Quat, Transform etc.
 """
-var parameter: PoolRealArray
+var parameter: Parameter
 
 
 """
 Both properties (method and parameter) are set
 when object is initialized.
 """
-func _init(method: String, parameter: PoolRealArray) -> void:
+func _init(method: String, parameter) -> void:
 	self.method = method
-	self.parameter = parameter
+	if parameter is Parameter:
+		self.parameter = parameter
+	else:
+		self.parameter = Parameter.new(parameter)
 
 
 """
@@ -33,5 +35,5 @@ Useful for JSON conversions.
 func dictionary() -> Dictionary:
 	return {
 		"method": method,
-		"parameter": parameter,
+		"parameter": parameter.serialize(),
 	}

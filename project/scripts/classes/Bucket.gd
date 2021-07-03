@@ -73,12 +73,14 @@ func load_file(reload_all:= true) -> bool:
 		return false
 
 
-func delete_file() -> bool:
+func delete_file(reload_all:= true) -> bool:
 	var dir = Directory.new()
 	var error = dir.remove(FILE_PATH)
 	var success = error == OK
 	
-	if not success:
+	if success:
+		if reload_all: _clear()
+	else:
 		push_error(error)
 	return success
 
