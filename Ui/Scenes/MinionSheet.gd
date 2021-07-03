@@ -2,7 +2,7 @@ extends Control
 
 var template_inv_slot = preload("res://Ui/Scenes/Templates/InventorySlot.tscn")
 
-onready var gridcontainer = get_node("Background/VBoxContainer/HBoxContainer/LeftEquip")
+onready var gridcontainer = get_node("Background/VBoxContainer/HBoxContainer/MinionFuncs")
 
 func _ready():
 	for i in PlayerData.inv_data.keys():

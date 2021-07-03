@@ -20,3 +20,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Fechar_button_down():
+	get_node("GUI").hide()
+
+
+
+func _on_GenerateMinion_button_down():
+	print ("gerou minion")
+	get_node("GUI").hide()
+	pass # Replace with function body.
