@@ -50,10 +50,37 @@ func _ready():
 	_assert_instance()
 	base_functions.move(minion_instance, owner.get_node("Player"))
 	
-	bucket.load_from_file()
-	bucket.new_function('Test')
-	bucket.functions[1].name = 'Test 1'
+	# TODO remove line:
+	__TEST_bucket()
+
+
+func __TEST_bucket():
+	# Load saved file (data persistence).
+	bucket.load_file()
+	
+	# Print bucket content.
 	print(bucket)
+	
+	# Create a new function with an specific name.
+	var fn := bucket.new_function("Example")
+	
+	# Set base function key name. (I am going to turn it into an enum soon)
+	var method = "Move"
+	
+	# Always serialize godot object to real numbers array.
+	var param = base_functions.serialize(global_transform)
+	
+	# Append new step to function.
+	fn.append(Step.new(method, param))
+	
+	# Do whatever you want directly.
+	fn.steps[0].method = "Hold"
+	
+	# Print bucket content.
+	print(bucket)
+	
+	# Save file (data persistence).
+	bucket.save_file()
 
 
 """
