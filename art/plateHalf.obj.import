@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/plateHalf.obj-d6448497d07e0b30cea34bd4b743b0be.mesh"
+
+[deps]
+
+files=[ "res://.import/plateHalf.obj-d6448497d07e0b30cea34bd4b743b0be.mesh" ]
+
+source_file="res://art/plateHalf.obj"
+dest_files=[ "res://.import/plateHalf.obj-d6448497d07e0b30cea34bd4b743b0be.mesh", "res://.import/plateHalf.obj-d6448497d07e0b30cea34bd4b743b0be.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

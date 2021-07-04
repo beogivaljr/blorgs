@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/potB.obj-0ca1ceeaaa81fd81c9450e15c7cbc835.mesh"
+
+[deps]
+
+files=[ "res://.import/potB.obj-0ca1ceeaaa81fd81c9450e15c7cbc835.mesh" ]
+
+source_file="res://art/potB.obj"
+dest_files=[ "res://.import/potB.obj-0ca1ceeaaa81fd81c9450e15c7cbc835.mesh", "res://.import/potB.obj-0ca1ceeaaa81fd81c9450e15c7cbc835.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

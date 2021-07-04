@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/coffinB_top.obj-0d9cd8819faa41a9a1190d1682198d5a.mesh"
+
+[deps]
+
+files=[ "res://.import/coffinB_top.obj-0d9cd8819faa41a9a1190d1682198d5a.mesh" ]
+
+source_file="res://art/coffinB_top.obj"
+dest_files=[ "res://.import/coffinB_top.obj-0d9cd8819faa41a9a1190d1682198d5a.mesh", "res://.import/coffinB_top.obj-0d9cd8819faa41a9a1190d1682198d5a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

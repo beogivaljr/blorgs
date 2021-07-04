@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/tileSpikes_shallow.obj-c89c2e32d99dc9b749fca803ee77784e.mesh"
+
+[deps]
+
+files=[ "res://.import/tileSpikes_shallow.obj-c89c2e32d99dc9b749fca803ee77784e.mesh" ]
+
+source_file="res://art/tileSpikes_shallow.obj"
+dest_files=[ "res://.import/tileSpikes_shallow.obj-c89c2e32d99dc9b749fca803ee77784e.mesh", "res://.import/tileSpikes_shallow.obj-c89c2e32d99dc9b749fca803ee77784e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
