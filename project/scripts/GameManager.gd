@@ -60,8 +60,8 @@ func __TEST_bucket():
 	# Create a new function with an specific name.
 	var fn := bucket.new_function("Example")
 	
-	# Set base function key name. (I am going to turn it into an enum soon)
-	var method = "Move"
+	# Set base function key name.
+	var method = Method.MOVE
 		
 	# Append new step to function.
 	fn.append(Step.new(method, global_transform))
@@ -74,8 +74,8 @@ func __TEST_bucket():
 
 func __TEST_jump():
 	var steps = [
-		Step.new("Move", Vector3(10, 0, 10)),
-		Step.new("Jump", 10),
+		Step.new(Method.MOVE, Vector3(10, 0, 10)),
+		Step.new(Method.JUMP, 10),
 #		Step.new("Jump", Vector3(0, 1, -1).normalized()),
 #		Step.new("Jump", Vector3(0, 4, 15)),
 	]
@@ -84,7 +84,7 @@ func __TEST_jump():
 	minion_instance.attach_function(fn)
 
 func __TEST_move_absolute():
-	var method = "Move"
+	var method = Method.MOVE
 	var steps = [
 		Step.new(method, Vector3(10, 0, 10)),
 		Step.new(method, Vector3(10, 0, -10)),
@@ -96,7 +96,7 @@ func __TEST_move_absolute():
 	minion_instance.attach_function(fn)
 
 func __TEST_move_relative():
-	var method = "Move"
+	var method = Method.MOVE
 	var steps = [
 		Step.new(method, Transform(Basis.IDENTITY, Vector3(10, 0, 10))),
 		Step.new(method, Vector3.FORWARD),
@@ -109,7 +109,7 @@ func __TEST_move_relative():
 	minion_instance.attach_function(fn)
 
 func __TEST_move_forward():
-	var method = "Move"
+	var method = Method.MOVE
 	var steps = [
 		Step.new(method, Transform(Basis.IDENTITY, Vector3(10, 0, 10))),
 		Step.new(method, -10),
@@ -120,7 +120,7 @@ func __TEST_move_forward():
 	minion_instance.attach_function(fn)
 
 func __TEST_move_rotate():
-	var method = "Move"
+	var method = Method.MOVE
 	var steps = [
 		Step.new(method, Vector3(10, 0, 10)),
 		Step.new(method, Basis(Vector3.UP, PI)),

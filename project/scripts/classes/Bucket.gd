@@ -46,7 +46,7 @@ func save_file() -> bool:
 		file.close()
 		return true
 	else:
-		push_error(error)
+		push_error("Error: %d" % error)
 		return false
 
 
@@ -69,7 +69,7 @@ func load_file(reload_all:= true) -> bool:
 		file.close()
 		return true
 	else:
-		push_error(error)
+		push_error("Error: %d" % error)
 		return false
 
 
@@ -81,7 +81,7 @@ func delete_file(reload_all:= true) -> bool:
 	if success:
 		if reload_all: _clear()
 	else:
-		push_error(error)
+		push_error("Error: %d" % error)
 	return success
 
 
