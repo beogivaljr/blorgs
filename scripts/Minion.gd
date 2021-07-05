@@ -4,10 +4,10 @@ extends KinematicBody
 External parameters, they don't change during runtime.
 Should be set directly in Godot Engine.
 """
-export(float) var MAX_SPEED = 10 # max speed in m/s.
-export(float) var ACCEL = 12 # constant acceleration in m/s².
+export(float) var MAX_SPEED = 8 # max speed in m/s.
+export(float) var ACCEL = 4 # constant acceleration in m/s².
 export(float) var DEACCEL = 2 # constant decceleration in m/s².
-export(float) var DISTANCE_THRESHOLD = 0.1 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
+export(float) var DISTANCE_THRESHOLD = 0.5 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
 export(float) var ROTATION_SPEED = 360 # constant rotation speed in deg/s.
 
 # TODO create component which freezes rotation axes, similar to Unity's Rigidbody flags.
@@ -77,6 +77,7 @@ func _set_current_step(step_index: int):
 	match step.method:
 		Method.MOVE:
 			target_transform = BaseFunctions.move(self, step.parameter.value)
+			target_transform.basis = global_transform.looking_at(target_transform.origin, Vector3.UP).basis
 			moving = true
 			print("MOVING TO %s" % target_transform.origin)
 			
@@ -135,12 +136,15 @@ func _process_movement(delta):
 	
 	if ORIENTATE:
 		# Update rotation by smoothly looking at target position.
-		var new_transform = global_transform.looking_at(target_transform.origin, Vector3.UP)
-		global_transform  = global_transform.interpolate_with(new_transform, ROTATION_SPEED_RAD * delta)
-	
+#		var new_transform = global_transform.looking_at(target_transform.origin, Vector3.UP)
+#		global_transform  = global_transform.interpolate_with(target_transform, ROTATION_SPEED_RAD * delta)
+		var from_quat := Quat(global_transform.basis)
+		var to_quat := Quat(target_transform.basis)
+		from_quat = from_quat.slerp(to_quat, ROTATION_SPEED_RAD * delta)
+		global_transform.basis = Basis(from_quat)
 	
 	# Update animation.
-	if velocity.length() > 0:
+	if moving:
 		anim_player.play("Running")
 	else:
 		anim_player.play("Idle")
