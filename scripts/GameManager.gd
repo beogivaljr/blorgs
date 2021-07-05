@@ -43,7 +43,7 @@ func _ready():
 #	__TEST_jump() # TODO remove this line.
 #	__TEST_move_absolute() # TODO remove this line.
 #	__TEST_move_forward() # TODO remove this line.
-	__TEST_move_relative() # TODO remove this line.
+	#__TEST_move_relative() # TODO remove this line.
 #	__TEST_move_rotate() # TODO remove this line.
 
 

@@ -55,6 +55,7 @@ func attach_function(function: Function):
 """
 Move throughout function steps.
 """
+		
 func move_next():
 	var next = (current_step + 1) % attached_function.length()
 	_set_current_step(next)
@@ -92,6 +93,8 @@ Default message from Node.
 Called during the physics processing step of the main loop.
 """
 func _physics_process(delta):
+	if not attached_function:
+		return
 	_process_movement(delta)
 
 
