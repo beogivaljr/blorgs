@@ -70,12 +70,12 @@ func _set_current_step(step_index: int):
 	var step = attached_function.steps[current_step]
 	
 	match step.method:
-		"Move":
+		Method.MOVE:
 			target_transform = BaseFunctions.move(self, step.parameter.value)
 			moving = true
 			print("MOVING TO %s" % target_transform.origin)
 			
-		"Jump":
+		Method.JUMP:
 			if is_on_floor():
 				velocity = BaseFunctions.jump(self, step.parameter.value)
 				print("JUMPING BY %s" % velocity)
