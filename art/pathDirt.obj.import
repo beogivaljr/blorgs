@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/pathDirt.obj-c4abf24f83ed2802f0497837077e9631.mesh"
+
+[deps]
+
+files=[ "res://.import/pathDirt.obj-c4abf24f83ed2802f0497837077e9631.mesh" ]
+
+source_file="res://art/pathDirt.obj"
+dest_files=[ "res://.import/pathDirt.obj-c4abf24f83ed2802f0497837077e9631.mesh", "res://.import/pathDirt.obj-c4abf24f83ed2802f0497837077e9631.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

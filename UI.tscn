@@ -1,0 +1,303 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Ui/Assets/item.png" type="Texture" id=2]
+[ext_resource path="res://Ui/Assets/menu.png" type="Texture" id=3]
+[ext_resource path="res://Ui/Scenes/FunctionSlot.gd" type="Script" id=4]
+[ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://Ui/Scenes/MinionSheet.gd" type="Script" id=6]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource( 5 )
+
+[node name="GUI" type="Control" parent="."]
+visible = false
+anchor_left = 0.0011692
+anchor_right = 1.00117
+anchor_bottom = 1.0
+margin_left = -1.68188
+margin_top = -2.24493
+margin_right = -1.68188
+margin_bottom = -2.24487
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FunctionSheet" type="Control" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 37.0
+margin_right = -1511.0
+margin_bottom = -2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="GUI/FunctionSheet"]
+margin_right = 400.0
+margin_bottom = 1000.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/FunctionSheet/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
+margin_top = 15.0
+margin_right = 400.0
+margin_bottom = 985.0
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 970.0
+rect_min_size = Vector2( 12, 0 )
+
+[node name="Functions" type="VBoxContainer" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer"]
+margin_left = 12.0
+margin_right = 362.0
+margin_bottom = 970.0
+rect_min_size = Vector2( 350, 0 )
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Function1" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 285.0
+margin_right = 350.0
+margin_bottom = 335.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -250.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Function2" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 355.0
+margin_right = 350.0
+margin_bottom = 405.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -250.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Function3" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 425.0
+margin_right = 350.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -250.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Function4" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 495.0
+margin_right = 350.0
+margin_bottom = 545.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -250.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Function5" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 565.0
+margin_right = 350.0
+margin_bottom = 615.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Function5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -250.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+margin_top = 635.0
+margin_right = 350.0
+margin_bottom = 685.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Sair"
+
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/FunctionSheet/Background/VBoxContainer"]
+margin_top = 985.0
+margin_right = 400.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MinionSheet" type="Control" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1500.0
+margin_top = 35.0
+margin_right = -20.0
+margin_bottom = -45.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="GUI/MinionSheet"]
+margin_right = 400.0
+margin_bottom = 1000.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MinionSheet/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 7.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+margin_right = 407.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+margin_top = 15.0
+margin_right = 407.0
+margin_bottom = 950.0
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 935.0
+rect_min_size = Vector2( 12, 0 )
+
+[node name="MinionFuncs" type="VBoxContainer" parent="GUI/MinionSheet/Background/VBoxContainer/HBoxContainer"]
+margin_left = 12.0
+margin_right = 362.0
+margin_bottom = 935.0
+rect_min_size = Vector2( 350, 0 )
+custom_constants/separation = 20
+
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/MinionSheet/Background/VBoxContainer"]
+margin_top = 950.0
+margin_right = 407.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GenerateMinion" type="Button" parent="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2"]
+margin_right = 407.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+rect_pivot_offset = Vector2( -309.722, 112.043 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
+text = "Gerar Minion"
+
+[connection signal="button_down" from="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Close" to="." method="_on_Fechar_button_down"]
+[connection signal="button_down" from="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2/GenerateMinion" to="." method="_on_Fechar_button_down"]
+[connection signal="button_down" from="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2/GenerateMinion" to="." method="_on_GenerateMinion_button_down"]

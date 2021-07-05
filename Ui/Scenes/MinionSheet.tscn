@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/menu.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/UI/MinionSheet.gd" type="Script" id=5]
+
+[node name="MinionSheet" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="."]
+margin_left = 1000.0
+margin_top = 150.0
+margin_right = 1580.0
+margin_bottom = 840.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer"]
+margin_right = 580.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+margin_top = 15.0
+margin_right = 580.0
+margin_bottom = 675.0
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 660.0
+rect_min_size = Vector2( 12, 0 )
+
+[node name="LeftEquip" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+margin_left = 12.0
+margin_right = 122.0
+margin_bottom = 660.0
+rect_min_size = Vector2( 110, 0 )
+custom_constants/separation = 20
+
+[node name="Middle" type="Control" parent="Background/VBoxContainer/HBoxContainer"]
+margin_left = 122.0
+margin_right = 458.0
+margin_bottom = 660.0
+size_flags_horizontal = 3
+
+[node name="RightEquip" type="VBoxContainer" parent="Background/VBoxContainer/HBoxContainer"]
+margin_left = 458.0
+margin_right = 568.0
+margin_bottom = 660.0
+rect_min_size = Vector2( 110, 0 )
+
+[node name="MarginContainer3" type="MarginContainer" parent="Background/VBoxContainer/HBoxContainer"]
+margin_left = 568.0
+margin_right = 580.0
+margin_bottom = 660.0
+rect_min_size = Vector2( 12, 0 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="Background/VBoxContainer"]
+margin_top = 675.0
+margin_right = 580.0
+margin_bottom = 690.0
+rect_min_size = Vector2( 0, 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
