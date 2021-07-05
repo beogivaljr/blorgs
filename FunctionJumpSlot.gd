@@ -1,18 +1,13 @@
-extends TextureRect
+extends Label
 
 func get_drag_data(position):
 	var data = {}
-	data["origin_node"] = self
-	data["origin_panel"] = "FunctionSlot"
-	data["origin_texture"] = texture
-	data["origin_function"] = get_parent().get_name()
-
+	data["origin_texture"] = "texture"
 
 	
 	var drag_texture = TextureRect.new()
 	drag_texture.expand = true
-	drag_texture.texture = texture
-	drag_texture.rect_size = Vector2(400, 100)
+	drag_texture.rect_size = Vector2(100, 100)
 	
 	var control = Control.new()
 	control.add_child(drag_texture)
@@ -22,8 +17,12 @@ func get_drag_data(position):
 	return data
 	
 func can_drop_data(position, data):
-	
+
 	return true
+
+	return false
+
+
 	
 func drop_data(position, data):
 	pass
