@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://levels/SandboxLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/SandboxLevel2.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node"]
 
 [node name="SandboxLevel" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="SandboxLevel2" parent="." instance=ExtResource( 2 )]

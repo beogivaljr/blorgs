@@ -1,0 +1,140 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://interactive_items/Stairs.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameCamera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/HUD2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art/characters/Skeleton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://environment/TorchWall.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/floors.meshlib" type="MeshLibrary" id=6]
+[ext_resource path="res://levels/walls.meshlib" type="MeshLibrary" id=7]
+[ext_resource path="res://levels/SandboxLevel2.gd" type="Script" id=8]
+[ext_resource path="res://art/barrelDark.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://art/banner.obj" type="ArrayMesh" id=10]
+[ext_resource path="res://art/sound/Ice Cave.ogg" type="AudioStream" id=11]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float anim_speed;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+//	ALPHA = albedo.a * albedo_tex.a;
+	ALPHA = albedo.a * (sin(TIME * anim_speed) + 1.3) / 2.3;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/albedo = Color( 0.478431, 1, 0, 0.176471 )
+shader_param/anim_speed = 4.0
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="PlaneMesh" id=3]
+material = SubResource( 2 )
+size = Vector2( 28, 16 )
+
+[node name="SandboxLevel" type="Spatial"]
+script = ExtResource( 8 )
+
+[node name="HUD2" parent="." instance=ExtResource( 3 )]
+
+[node name="FloorGridMap" type="GridMap" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+mesh_library = ExtResource( 6 )
+cell_size = Vector3( 2, 1, 2 )
+data = {
+"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65534, 0, 3, 65535, 0, 3, 65536, 0, 0, 131067, 0, 1179658, 131069, 0, 1441792, 131070, 0, 655360, 131071, 0, 1048576, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65531, 1, 3, 65532, 1, 3, 65533, 1, 3, 65534, 1, 3, 65535, 1, 3, 65536, 1, 1179658, 131068, 1, 1179658, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 655363, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 65536, 2, 1179658, 131068, 2, 1179658, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 655363, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 1, 65533, 3, 2, 65533, 3, 3, 65533, 3, 5, 65533, 2, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 1, 65534, 3, 2, 65534, 3, 3, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 1, 65535, 3, 2, 65535, 3, 3, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65532, 65535, 1, 65534, 65535, 3, 65535, 65535, 3 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 1, 0 )
+}
+
+[node name="WallsGridMap" type="GridMap" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+mesh_library = ExtResource( 7 )
+cell_size = Vector3( 1, 4, 1 )
+data = {
+"cells": PoolIntArray( 14, 0, 1048578, 65521, 0, 1048581, 65525, 0, 0, 65527, 0, 8, 14, 3, 1048590, 65521, 4, 1441793, 0, 8, 655360, 4, 8, 0, 9, 8, 655374, 14, 8, 1441793, 65521, 8, 655360, 65526, 8, 655374, 65531, 8, 655360, 65533, 8, 655362, 1, 65527, 5, 4, 65527, 0, 6, 65527, 1441801, 9, 65527, 655374, 14, 65527, 1, 65521, 65527, 1048577, 65526, 65527, 655374, 65531, 65527, 0, 65533, 65527, 655362, 1, 65531, 1441792, 14, 65532, 1048590, 65521, 65532, 1048590, 1, 65533, 1441800 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="Stairs" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.5, 0, 6.5 )
+
+[node name="TorchWall" parent="." instance=ExtResource( 5 )]
+
+[node name="TorchWall2" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.3, 2, 0.5 )
+
+[node name="TorchWall3" parent="." instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.6, 2, 7.3 )
+
+[node name="GameCamera" parent="." instance=ExtResource( 2 )]
+
+[node name="Skeleton" parent="." instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -6.28631e-06, 0, 1, 0, 6.28631e-06, 0, -1, 10.59, -0.14, -4.69 )
+
+[node name="banner" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89, 3.17, -7.94 )
+mesh = ExtResource( 10 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.37, -6.76 )
+mesh = ExtResource( 9 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="GroundHighlight" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
+
+[connection signal="on_hold_selected" from="HUD2" to="." method="_on_HUD2_on_hold_selected"]
+[connection signal="on_jump_selected" from="HUD2" to="." method="_on_HUD2_on_jump_selected"]
+[connection signal="on_move_selected" from="HUD2" to="." method="_on_HUD2_on_move_selected"]
+[connection signal="on_character_done_moving" from="Skeleton" to="." method="_on_Skeleton_on_character_done_moving"]
+[connection signal="on_character_moving" from="Skeleton" to="." method="_on_Skeleton_on_character_moving"]

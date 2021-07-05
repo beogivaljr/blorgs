@@ -9,6 +9,18 @@ func _ready():
 	$MenuButton.get_popup().add_item("blorgs()") # Hold
 	$MenuButton.get_popup().add_item("foo(baz)") # Move
 	$MenuButton.get_popup().add_item("shureuns(bar)") # Jump
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
+	$MenuButton.get_popup().add_item("") # Margin
 	
 	$MenuButton.get_popup().connect("id_pressed", self, "_on_item_pressed")
 

@@ -14,6 +14,10 @@ default_font = SubResource( 1 )
 [node name="HUD1" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 2.11893
+margin_top = -1.05945
+margin_right = 2.1189
+margin_bottom = -1.05945
 mouse_filter = 2
 theme = SubResource( 2 )
 script = ExtResource( 2 )
@@ -24,12 +28,31 @@ __meta__ = {
 [node name="MenuButton" type="MenuButton" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -256.357
-margin_top = 6.35678
-margin_right = -6.35669
-margin_bottom = 45.3568
-text = "Feitiços"
+margin_left = -40.0
+margin_top = 100.0
+margin_right = 260.0
+margin_bottom = 148.0
+rect_rotation = 90.0
+text = "Encantamentos ancestrais"
 flat = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Polygon2D" type="Polygon2D" parent="MenuButton"]
+position = Vector2( 0.0627198, 0 )
+scale = Vector2( 0.8345, 1 )
+color = Color( 0.223529, 0.211765, 0.25098, 1 )
+polygon = PoolVector2Array( 0.378971, 47.4409, -40.9401, -5.53223, -40.4104, -42.6134, 0.378975, 1.35425 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="MenuButton"]
+position = Vector2( -0.354505, 0.980122 )
+scale = Vector2( 0.68758, 0.711355 )
+color = Color( 0.619608, 0.619608, 0.619608, 1 )
+polygon = PoolVector2Array( -1.13821, 51.1642, -47.6244, -14.3676, -46.9604, -50.8568, -0.474129, 5.73877 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="MenuButton"]
+position = Vector2( 7.34836, 3.8147e-06 )
+scale = Vector2( 0.974983, 1 )
+color = Color( 0.223529, 0.211765, 0.25098, 1 )
+polygon = PoolVector2Array( -40.562, -39.3405, 268.291, -39.7977, 300.207, -0.234924, -8.4501, -0.109131 )
