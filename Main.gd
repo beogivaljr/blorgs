@@ -21,13 +21,21 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
 func _on_Fechar_button_down():
 	get_node("GUI").hide()
 
-
-
 func _on_GenerateMinion_button_down():
 	print (PlayerData.func_data)
+	# laço juntar funcoes
+	for function in PlayerData.func_data:
+		if PlayerData.func_data[function].Item == "Jump":
+			owner.get_node("GameManager").__TEST_move_relative()
+		if PlayerData.func_data[function].Item == "Move":
+			owner.get_node("GameManager").__TEST_move_forward()
+
+
 	get_node("GUI").hide()
 	pass # Replace with function body.
+
+
+		

@@ -1,4 +1,5 @@
 extends TextureRect
+signal hideGUI
 
 func get_drag_data(position):
 	var minion_slot = get_parent().get_name()
@@ -21,16 +22,18 @@ func get_drag_data(position):
 		return data
 	
 func can_drop_data(position, data):
-	var target_function_slot = str(get_parent().get_name())
-	#print(target_function_slot)
-	#print(PlayerData.func_data[target_function_slot])
-
-	if PlayerData.func_data[target_function_slot]["Item"] == null:
+	if data.origin_function == "Jump" or data.origin_function == "Move":
 		return true
-	else:
-		return false
+
 func drop_data(position, data):
 	texture = data["origin_texture"]
-	PlayerData.func_data.Inv1 = data
+	var target_function_slot = str(get_parent().get_name())
 	
-	#print(PlayerData.func_data)
+	if data.origin_function == "Jump" or data.origin_function == "Move":
+		PlayerData.func_data[target_function_slot]["Item"] = data["origin_function"]
+		PlayerData.func_data[target_function_slot]["Params"] = data["origin_params"]
+		print(PlayerData.func_data)
+	#emit_signal("hideGUI")
+
+
+	
