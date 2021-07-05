@@ -3,6 +3,7 @@ extends TextureRect
 func get_drag_data(position):
 	var data = {}
 	data["origin_texture"] = texture
+
 	
 	var drag_texture = TextureRect.new()
 	drag_texture.expand = true

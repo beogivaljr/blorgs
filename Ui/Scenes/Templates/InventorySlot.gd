@@ -22,3 +22,5 @@ func can_drop_data(position, data):
 	
 func drop_data(position, data):
 	texture = data["origin_texture"]
+	PlayerData.inv_data.Inv1 = texture
+	print(PlayerData.inv_data)

@@ -8,6 +8,40 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Object",
+"class": "BaseFunctions",
+"language": "GDScript",
+"path": "res://scripts/BaseFunctions.gd"
+}, {
+"base": "Object",
+"class": "Bucket",
+"language": "GDScript",
+"path": "res://scripts/classes/Bucket.gd"
+}, {
+"base": "Object",
+"class": "Function",
+"language": "GDScript",
+"path": "res://scripts/classes/Function.gd"
+}, {
+"base": "Object",
+"class": "Parameter",
+"language": "GDScript",
+"path": "res://scripts/classes/Parameter.gd"
+}, {
+"base": "Object",
+"class": "Step",
+"language": "GDScript",
+"path": "res://scripts/classes/Step.gd"
+} ]
+_global_script_class_icons={
+"BaseFunctions": "res://icon.png",
+"Bucket": "res://icon.png",
+"Function": "res://icon.png",
+"Parameter": "res://icon.png",
+"Step": "res://icon.png"
+}
+
 [application]
 
 config/name="Blorgs"
@@ -21,8 +55,8 @@ PlayerData="*res://Ui/Singletons/PlayerData.gd"
 
 [display]
 
-window/size/width=960
-window/size/height=540
+window/size/width=1920
+window/size/height=1080
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
