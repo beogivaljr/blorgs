@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Assets/menu.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/UI/MinionSheet.gd" type="Script" id=5]
+[ext_resource path="res://Ui/Assets/menu.png" type="Texture" id=2]
+[ext_resource path="res://Ui/Scenes/MinionSheet.gd" type="Script" id=5]
 
 [node name="MinionSheet" type="Control"]
 anchor_right = 1.0

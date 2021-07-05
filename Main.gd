@@ -28,6 +28,6 @@ func _on_Fechar_button_down():
 
 
 func _on_GenerateMinion_button_down():
-	print (PlayerData.inv_data)
+	print (PlayerData.func_data)
 	get_node("GUI").hide()
 	pass # Replace with function body.

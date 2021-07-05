@@ -2,12 +2,8 @@ extends TextureRect
 
 func get_drag_data(position):
 	var data = {}
-	data["origin_node"] = self
-	data["origin_panel"] = "FunctionSlot"
 	data["origin_texture"] = texture
-	data["origin_function"] = get_parent().get_name()
-
-
+	data["function"] = get_parent().get_name()
 	
 	var drag_texture = TextureRect.new()
 	drag_texture.expand = true
@@ -22,8 +18,12 @@ func get_drag_data(position):
 	return data
 	
 func can_drop_data(position, data):
-	
+
 	return true
+
+	return false
+
+
 	
 func drop_data(position, data):
 	pass

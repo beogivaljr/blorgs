@@ -11,7 +11,6 @@
 script = ExtResource( 5 )
 
 [node name="GUI" type="Control" parent="."]
-visible = false
 anchor_left = 0.0011692
 anchor_right = 1.00117
 anchor_bottom = 1.0
@@ -299,5 +298,5 @@ size_flags_vertical = 5
 text = "Gerar Minion"
 
 [connection signal="button_down" from="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Close" to="." method="_on_Fechar_button_down"]
-[connection signal="button_down" from="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2/GenerateMinion" to="." method="_on_Fechar_button_down"]
 [connection signal="button_down" from="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2/GenerateMinion" to="." method="_on_GenerateMinion_button_down"]
+[connection signal="button_down" from="GUI/MinionSheet/Background/VBoxContainer/MarginContainer2/GenerateMinion" to="." method="_on_Fechar_button_down"]

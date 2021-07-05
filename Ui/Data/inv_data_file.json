@@ -1,32 +1,32 @@
 {
-	"Inv1": {
+	"Inventory": {
+		"Item": null	
+	},
+	"Inventory2": {
 		"Item": null
 	},
-	"Inv2": {
-		"Item": 10009
+	"Inventory3": {
+		"Item": null
 	},
-	"Inv3": {
-		"Item": 10010
+	"Inventory4": {
+		"Item": null
 	},
-	"Inv4": {
-		"Item": 10004
+	"Inventory5": {
+		"Item": null
 	},
-	"Inv5": {
-		"Item": 10004
+	"Inventory6": {
+		"Item": null
 	},
-	"Inv6": {
-		"Item": 10004
+	"Inventory7": {
+		"Item": null
 	},
-	"Inv7": {
-		"Item": 10004
+	"Inventory8": {
+		"Item": null
 	},
-	"Inv8": {
-		"Item": 10004
+	"Inventory9": {
+		"Item": null
 	},
-	"Inv9": {
-		"Item": 10004
-	},
-	"Inv10": {
-		"Item": 10004
+	"Inventory10": {
+		"Item": null
 	}
 }
