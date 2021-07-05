@@ -16,4 +16,5 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 1.19209e-07 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 0.819152, -0.573576, 0, 0.573576, 0.819152, 0, -1.7, -0.9 )
 shape = SubResource( 1 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://art/characters/originals/Skeleton.material" type="Material" id=1]
 [ext_resource path="res://art/characters/originals/Skeleton_Death.anim" type="Animation" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://art/characters/originals/Skeleton_Idle.anim" type="Animation" id=4]
 [ext_resource path="res://art/characters/originals/Skeleton_Running.anim" type="Animation" id=5]
 [ext_resource path="res://art/characters/originals/Skeleton_Spawn.anim" type="Animation" id=6]
+[ext_resource path="res://art/characters/Skeleton.gd" type="Script" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder001"
@@ -62,21 +63,21 @@ bind/11/name = "R.DownLeg.001"
 bind/11/bone = -1
 bind/11/pose = Transform( 0.224321, 1.98559, 0.0546878, 1.98615, -0.223436, -0.0344202, -0.0280771, 0.0581995, -1.99793, -3.20559, -1.18338, -0.0627936 )
 
-[sub_resource type="SphereShape" id=3]
-radius = 0.7
-
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.3
 
 [sub_resource type="CapsuleShape" id=5]
 radius = 0.2
 
-[node name="Skeleton" type="Spatial"]
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.3
+height = 1.8
 
-[node name="SkeletonArmature" type="Spatial" parent="."]
-transform = Transform( 0.500257, 0, 0, 0, 0.500257, 0, 0, 0, 0.500257, 0.0135427, 0.603036, 0.00185889 )
+[node name="Skeleton" type="KinematicBody"]
+script = ExtResource( 7 )
 
-[node name="Skeleton" type="Skeleton" parent="SkeletonArmature"]
+[node name="Skeleton" type="Skeleton" parent="."]
+transform = Transform( -0.500257, 0, -4.37339e-08, 0, 0.500257, 0, 4.37339e-08, 0, -0.500257, 0.0135427, 0.603036, 0.00185889 )
 bones/0/name = "Hips"
 bones/0/parent = -1
 bones/0/rest = Transform( 1.78814e-07, 0, -1, 0, 1, 0, 1, 0, 1.78814e-07, 0, 0.455936, 0 )
@@ -96,7 +97,7 @@ bones/3/name = "Head"
 bones/3/parent = 2
 bones/3/rest = Transform( 0.987687, -0.156442, -1.06809e-07, 0.156442, 0.987687, 5.15321e-10, 1.05413e-07, -1.72184e-08, 1, 2.98023e-08, 0.284331, 1.9984e-15 )
 bones/3/enabled = true
-bones/3/bound_children = [ NodePath("HeadCollisionBone") ]
+bones/3/bound_children = [  ]
 bones/4/name = "L.UpperLeg"
 bones/4/parent = 0
 bones/4/rest = Transform( 1, 1.02696e-15, -7.34883e-09, -5.23585e-10, -0.997459, -0.0712469, -7.33019e-09, 0.0712472, -0.997454, -1.78242e-15, -0.355286, 0.512166 )
@@ -121,7 +122,7 @@ bones/8/name = "L.UpperLeg.001"
 bones/8/parent = 0
 bones/8/rest = Transform( 1, -1.89925e-08, 3.12041e-07, 9.9786e-08, -0.926547, -0.37618, 2.96265e-07, 0.37618, -0.926547, 0.000845076, 1.41497, 0.70224 )
 bones/8/enabled = true
-bones/8/bound_children = [ NodePath("LArmCollisionBone") ]
+bones/8/bound_children = [  ]
 bones/9/name = "L.DownLeg.001"
 bones/9/parent = 8
 bones/9/rest = Transform( -0.023689, -0.0163081, -0.999586, -0.128649, 0.991603, -0.013129, 0.991407, 0.128284, -0.0255882, -1.80356e-09, 0.791015, -1.43592e-08 )
@@ -131,53 +132,43 @@ bones/10/name = "R.UpperLeg.001"
 bones/10/parent = 0
 bones/10/rest = Transform( 1, 3.34895e-08, 6.50935e-08, 3.13191e-09, -0.907975, 0.419024, 7.31361e-08, -0.419023, -0.907975, 0.000845082, 1.44493, -0.72866 )
 bones/10/enabled = true
-bones/10/bound_children = [ NodePath("RArmCollisionBone") ]
+bones/10/bound_children = [  ]
 bones/11/name = "R.DownLeg.001"
 bones/11/parent = 10
 bones/11/rest = Transform( 0.0273579, -0.0172191, -0.999478, 0.124599, 0.992113, -0.0136817, 0.99183, -0.124159, 0.0292876, -9.93226e-10, 0.779465, -2.00172e-08 )
 bones/11/enabled = true
 bones/11/bound_children = [  ]
 
-[node name="Cylinder001" type="MeshInstance" parent="SkeletonArmature/Skeleton"]
+[node name="Cylinder001" type="MeshInstance" parent="Skeleton"]
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = null
 
-[node name="HeadCollisionBone" type="BoneAttachment" parent="SkeletonArmature/Skeleton"]
-transform = Transform( 1.81965e-07, -7.14679e-09, -1, 0.0399682, 0.999201, 1.31663e-10, 0.999201, -0.0399682, 1.82106e-07, 5.94048e-09, 2.54837, 0.0332215 )
-bone_name = "Head"
-
-[node name="RigidBody" type="RigidBody" parent="SkeletonArmature/Skeleton/HeadCollisionBone"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mode = 3
-
-[node name="CollisionShape" type="CollisionShape" parent="SkeletonArmature/Skeleton/HeadCollisionBone/RigidBody"]
-transform = Transform( 1.00004, 1.11759e-08, -8.52651e-14, -3.72529e-09, 1.00004, 0, 1.42109e-14, -4.44089e-16, 1.00003, 0.0239685, 0.599211, 1.00583e-07 )
-shape = SubResource( 3 )
-
-[node name="LArmCollisionBone" type="BoneAttachment" parent="SkeletonArmature/Skeleton"]
-transform = Transform( -1.17451e-07, -0.37618, 0.926547, 9.9786e-08, -0.926547, -0.37618, 1, 4.82737e-08, 1.46361e-07, -0.70224, 1.87091, 0.000845201 )
+[node name="LArmCollisionBone" type="BoneAttachment" parent="Skeleton"]
+transform = Transform( -1.17451e-07, -0.37618, 0.926547, 9.9786e-08, -0.926547, -0.37618, 1, 4.82737e-08, 1.46361e-07, -0.70224, 1.87091, 0.000845202 )
 bone_name = "L.UpperLeg.001"
 
-[node name="RigidBody" type="RigidBody" parent="SkeletonArmature/Skeleton/LArmCollisionBone"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mode = 3
+[node name="RigidBody" type="RigidBody" parent="Skeleton/LArmCollisionBone"]
+mode = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="SkeletonArmature/Skeleton/LArmCollisionBone/RigidBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Skeleton/LArmCollisionBone/RigidBody"]
 transform = Transform( 1.00004, -7.14105e-08, 2.09777e-07, 2.02108e-07, -0.0871592, -0.996226, 9.68445e-08, 0.996234, -0.0871584, 0.0239685, 0.780923, 0.083305 )
 shape = SubResource( 4 )
 
-[node name="RArmCollisionBone" type="BoneAttachment" parent="SkeletonArmature/Skeleton"]
-transform = Transform( 1.05678e-07, 0.419023, 0.907975, 3.13192e-09, -0.907975, 0.419024, 1, -4.14377e-08, -9.72651e-08, 0.72866, 1.90087, 0.000844952 )
+[node name="RArmCollisionBone" type="BoneAttachment" parent="Skeleton"]
+transform = Transform( 1.05678e-07, 0.419023, 0.907975, 3.13191e-09, -0.907975, 0.419024, 1, -4.14377e-08, -9.72651e-08, 0.72866, 1.90087, 0.000844952 )
 bone_name = "R.UpperLeg.001"
 
-[node name="RigidBody" type="RigidBody" parent="SkeletonArmature/Skeleton/RArmCollisionBone"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mode = 3
+[node name="RigidBody" type="RigidBody" parent="Skeleton/RArmCollisionBone"]
+mode = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="SkeletonArmature/Skeleton/RArmCollisionBone/RigidBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Skeleton/RArmCollisionBone/RigidBody"]
 transform = Transform( 1.00004, 7.41371e-08, -1.43029e-07, -1.43031e-07, 9.23872e-07, -1.00003, -6.66868e-08, 1.00004, -9.53674e-07, 0.0239685, 0.783517, -0.0773971 )
 shape = SubResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.3, 0 )
+shape = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Skeleton_Idle"
