@@ -8,10 +8,11 @@ export(float) var MAX_SPEED = 10 # max speed in m/s.
 export(float) var ACCEL = 12 # constant acceleration in m/s².
 export(float) var DEACCEL = 2 # constant decceleration in m/s².
 export(float) var DISTANCE_THRESHOLD = 0.1 # snap distance when moving  body to target position. Prevent undesired vibrations and unnecessary computations.
-export(float) var ROTATION_SPEED = 30 # constant rotation speed in deg/s.
+export(float) var ROTATION_SPEED = 360 # constant rotation speed in deg/s.
 
 # TODO create component which freezes rotation axes, similar to Unity's Rigidbody flags.
 export(bool) var ORIENTATE = true # whether to rotate to follow path orientation or not.
+
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - - - """
 """ - - - - - - - - - AUXILIAR VARIABLES - - - - - - - - - """
 """ - - - - - - - - - - - - - - - - - - - - - - - - - - - - """
@@ -30,6 +31,10 @@ Runtime parameter calculated from external one.
 """
 onready var ROTATION_SPEED_RAD = deg2rad(ROTATION_SPEED)
 
+"""
+Reference to child object.
+"""
+onready var anim_player: = $AnimationPlayer
 
 """
 Retrieve default gravity (m/s²) from project settings.
@@ -132,7 +137,13 @@ func _process_movement(delta):
 		# Update rotation by smoothly looking at target position.
 		var new_transform = global_transform.looking_at(target_transform.origin, Vector3.UP)
 		global_transform  = global_transform.interpolate_with(new_transform, ROTATION_SPEED_RAD * delta)
-
+	
+	
+	# Update animation.
+	if velocity.length() > 0:
+		anim_player.play("Running")
+	else:
+		anim_player.play("Idle")
 
 """ - - - - - - - - - - - - - - - - - - - - - - """
 """ - - - - - - - - - HELPERS - - - - - - - - - """

@@ -40,10 +40,10 @@ func _ready():
 	_assert_instance()
 	
 	__TEST_bucket() # TODO remove this line.
-	__TEST_jump() # TODO remove this line.
+#	__TEST_jump() # TODO remove this line.
 #	__TEST_move_absolute() # TODO remove this line.
 #	__TEST_move_forward() # TODO remove this line.
-#	__TEST_move_relative() # TODO remove this line.
+	__TEST_move_relative() # TODO remove this line.
 #	__TEST_move_rotate() # TODO remove this line.
 
 
@@ -98,7 +98,7 @@ func __TEST_move_absolute():
 func __TEST_move_relative():
 	var method = Method.MOVE
 	var steps = [
-		Step.new(method, Transform(Basis.IDENTITY, Vector3(10, 0, 10))),
+		Step.new(method, Vector3(0, 0, 0)),
 		Step.new(method, Vector3.FORWARD),
 		Step.new(method, Vector3.RIGHT),
 		Step.new(method, Vector3.BACK),

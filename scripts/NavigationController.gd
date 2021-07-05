@@ -7,10 +7,9 @@ var material = SpatialMaterial.new()
 
 var path = []
 
+# Player is a KinematicBody named as "Player".
 onready var player: KinematicBody = owner.get_node("Player")
-onready var camera: Camera = owner.get_node("InterpolatedCamera")
-onready var camera_position: Position3D = player.get_node("CameraPosition")
-onready var initial_camrot = camera_position.rotation
+onready var camera: Camera = get_viewport().get_camera()
 
 
 func _ready():
@@ -68,22 +67,17 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
 		var from = camera.project_ray_origin(event.position)
 		var to = from + camera.project_ray_normal(event.position) * 1000
+		
+		from = to_local(from)
+		to = to_local(to)
+		
 		var target_point = get_closest_point_to_segment(from, to)
-
+		
 		# Set the path between the player's current location and our target.
 		path = get_simple_path(player.translation, target_point, true)
 
 		if SHOW_PATH:
 			draw_path(path)
-
-	if event is InputEventMouseMotion \
-	and event.button_mask & (BUTTON_MASK_MIDDLE + BUTTON_MASK_RIGHT):
-		var camrot = camera_position.rotation
-		camrot.y -= event.relative.x * 0.005
-		camrot.x -= event.relative.y * 0.005
-		camera_position.set_rotation(camrot)
-	else:
-		camera_position.set_rotation(initial_camrot)
 
 
 func draw_path(path_array):
