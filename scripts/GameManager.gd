@@ -38,7 +38,7 @@ func _ready():
 #	_register_group("ClickableFloor")
 	
 	_assert_instance()
-	
+	#movement(direction)
 	__TEST_bucket() # TODO remove this line.
 #	__TEST_jump() # TODO remove this line.
 #	__TEST_move_absolute() # TODO remove this line.
@@ -71,11 +71,14 @@ func __TEST_bucket():
 	
 	# Save file (data persistence).
 	bucket.save_file()
+	
+
+		
 
 func __TEST_jump():
 	var steps = [
-		Step.new(Method.MOVE, Vector3(10, 0, 10)),
-		Step.new(Method.JUMP, 10),
+		#Step.new(Method.MOVE, Vector3(0.02, 0, 0.010)),
+		Step.new(Method.JUMP, 1),
 #		Step.new("Jump", Vector3(0, 1, -1).normalized()),
 #		Step.new("Jump", Vector3(0, 4, 15)),
 	]
@@ -86,15 +89,30 @@ func __TEST_jump():
 func __TEST_move_absolute():
 	var method = Method.MOVE
 	var steps = [
-		Step.new(method, Vector3(10, 0, 10)),
-		Step.new(method, Vector3(10, 0, -10)),
-		Step.new(method, Vector3(-10, 0, -10)),
-		Step.new(method, Vector3(-10, 0, 10)),
+		Step.new(method, Vector3(2, 0, 2)),
+		Step.new(method, Vector3(2, 0, -2)),
+		Step.new(method, Vector3(-2, 0, -2)),
+		Step.new(method, Vector3(-2, 0, 2)),
 	]
 	
 	var fn = Function.new("□ ( Vector3 )", steps)
 	minion_instance.attach_function(fn)
 
+func movement(direction):
+	var method = Method.MOVE
+	var steps
+	if direction == "back":
+		steps = [Step.new(method, Vector3.BACK)]
+	if direction == "right":
+		steps = [Step.new(method, Vector3.RIGHT)]
+	if direction == "left":
+		steps = [Step.new(method, Vector3.LEFT)]
+	else:
+		steps = [Step.new(method, Vector3.FORWARD)]
+		
+	var fn = Function.new("□ ( Real )", steps)
+	minion_instance.attach_function(fn)
+	
 func __TEST_move_relative():
 	var method = Method.MOVE
 	var steps = [

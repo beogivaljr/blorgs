@@ -58,7 +58,6 @@ func _physics_process(delta):
 			# Direction is relative, so apply it to the player's location to
 			# get a point we can actually look at.
 			var look_at_point = player.translation + direction.normalized()
-			
 			# Make the player look at the point.
 			player.look_at(look_at_point, Vector3.UP)
 

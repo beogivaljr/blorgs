@@ -5,7 +5,7 @@
 
 [node name="Inventory" type="TextureRect"]
 margin_right = 110.0
-margin_bottom = 40.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 rect_pivot_offset = Vector2( -309.722, 112.043 )
 size_flags_horizontal = 5
@@ -19,7 +19,8 @@ __meta__ = {
 [node name="Icon" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 0, 50 )
+margin_right = 10.0
+rect_min_size = Vector2( 100, 50 )
 expand = true
 script = ExtResource( 2 )
 __meta__ = {
