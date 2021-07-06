@@ -78,7 +78,7 @@ rect_min_size = Vector2( 350, 0 )
 custom_constants/separation = 20
 alignment = 1
 
-[node name="Jump" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Move" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_top = 106.0
 margin_right = 350.0
 margin_bottom = 156.0
@@ -89,12 +89,13 @@ size_flags_vertical = 5
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Jump"]
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Move"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.18921
-margin_right = -250.0
-margin_bottom = -1.18921
+margin_left = 0.793701
+margin_top = -0.395508
+margin_right = -249.206
+margin_bottom = -0.395508
 rect_min_size = Vector2( 100, 0 )
 texture = ExtResource( 1 )
 expand = true
@@ -103,15 +104,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Jump/Icon"]
-margin_left = 99.0
-margin_right = 350.0
-margin_bottom = 50.0
+[node name="TextEdit" type="TextEdit" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Move/Icon"]
+margin_left = 97.3989
+margin_top = 0.310272
+margin_right = 348.399
+margin_bottom = 50.3103
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Move" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
+[node name="Jump" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions"]
 margin_top = 176.0
 margin_right = 350.0
 margin_bottom = 226.0
@@ -125,7 +127,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Move"]
+[node name="Icon" type="TextureRect" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Jump"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -250.0
@@ -137,10 +139,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Move/Icon"]
-margin_left = 100.0
-margin_right = 350.0
-margin_bottom = 49.0
+[node name="TextEdit" type="TextEdit" parent="GUI/FunctionSheet/Background/VBoxContainer/HBoxContainer/Functions/Jump/Icon"]
+margin_left = 99.3536
+margin_right = 349.354
+margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
