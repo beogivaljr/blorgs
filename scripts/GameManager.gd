@@ -78,7 +78,7 @@ func __TEST_bucket():
 func __TEST_jump():
 	var steps = [
 		#Step.new(Method.MOVE, Vector3(0.02, 0, 0.010)),
-		Step.new(Method.JUMP, 1),
+		Step.new(Method.JUMP, 10),
 #		Step.new("Jump", Vector3(0, 1, -1).normalized()),
 #		Step.new("Jump", Vector3(0, 4, 15)),
 	]
@@ -93,6 +93,7 @@ func __TEST_move_absolute():
 		Step.new(method, Vector3(2, 0, -2)),
 		Step.new(method, Vector3(-2, 0, -2)),
 		Step.new(method, Vector3(-2, 0, 2)),
+		Step.new(Method.JUMP, 10),
 	]
 	
 	var fn = Function.new("□ ( Vector3 )", steps)
@@ -102,14 +103,21 @@ func movement(direction):
 	var method = Method.MOVE
 	var steps
 	if direction == "back":
-		steps = [Step.new(method, Vector3.BACK)]
+		steps = [Step.new(method, Vector3(0,0,-5))]
 	if direction == "right":
-		steps = [Step.new(method, Vector3.RIGHT)]
+		steps = [Step.new(method, Vector3(5,0,0))]
 	if direction == "left":
 		steps = [Step.new(method, Vector3.LEFT)]
-	else:
+	if direction == "forward":
 		steps = [Step.new(method, Vector3.FORWARD)]
-		
+	if direction == "square":
+		steps = [
+			Step.new(method, Vector3(0, 0, 0)),
+			Step.new(method, Vector3.FORWARD),
+			Step.new(method, Vector3.RIGHT),
+			Step.new(method, Vector3.BACK),
+			Step.new(method, Vector3.LEFT),
+		]
 	var fn = Function.new("□ ( Real )", steps)
 	minion_instance.attach_function(fn)
 	

@@ -40,12 +40,12 @@ _global_script_classes=[ {
 "path": "res://scripts/classes/Step.gd"
 } ]
 _global_script_class_icons={
-"BaseFunctions": "res://icon.png",
-"Bucket": "res://icon.png",
-"Function": "res://icon.png",
-"Method": "res://icon.png",
-"Parameter": "res://icon.png",
-"Step": "res://icon.png"
+"BaseFunctions": "",
+"Bucket": "",
+"Function": "",
+"Method": "",
+"Parameter": "",
+"Step": ""
 }
 
 [application]
