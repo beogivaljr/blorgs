@@ -131,6 +131,7 @@ material/0 = null
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
+volume_db = -16.073
 autoplay = true
 
 [connection signal="on_hold_selected" from="HUD2" to="." method="_on_HUD2_on_hold_selected"]
