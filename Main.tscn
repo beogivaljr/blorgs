@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="Node" type="Node"]
+
+[node name="MainMenu" type="Control" parent="."]
+margin_left = -3.0
+margin_top = -1.0
+margin_right = 957.0
+margin_bottom = 539.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
