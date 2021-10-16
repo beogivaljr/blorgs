@@ -13,6 +13,10 @@ func create_new_game():
 	var gameCode = generate_word(characters, 6)
 	$GameCode.text = gameCode
 
+func destroy_new_game():
+	$GameCode.text = ""
+	print("New Game destroyed")
+
 func generate_word(chars, length):
 	var word: String = ""
 	var n_char = len(chars)
@@ -27,4 +31,5 @@ func generate_word(chars, length):
 
 
 func _on_Cancel_pressed():
+	destroy_new_game()
 	emit_signal("on_cancel")
