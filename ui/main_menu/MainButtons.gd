@@ -4,8 +4,8 @@ extends VBoxContainer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-signal _new_game
-signal _connect_to_game
+signal new_game
+signal connect_to_game
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,8 +19,8 @@ func _ready():
 
 
 func _on_NewGame_pressed():
-	emit_signal("_new_game")
+	emit_signal("new_game")
 
 
 func _on_ConnectToGame_pressed():
-	emit_signal("_connect_to_game")
+	emit_signal("connect_to_game")

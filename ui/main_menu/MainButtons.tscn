@@ -5,17 +5,13 @@
 [node name="MainButtons" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 300.0
-margin_top = 144.0
-margin_right = -300.0
-margin_bottom = -48.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NewGame" type="Button" parent="."]
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 20.0
 text = "Novo jogo"
 __meta__ = {
@@ -24,7 +20,7 @@ __meta__ = {
 
 [node name="ConnectToGame" type="Button" parent="."]
 margin_top = 24.0
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 44.0
 text = "Conectar-se a um jogo"
 __meta__ = {

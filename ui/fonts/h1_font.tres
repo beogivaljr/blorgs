@@ -3,5 +3,5 @@
 [ext_resource path="res://ui/fonts/Arima_Madurai/ArimaMadurai-Bold.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 48
+size = 64
 font_data = ExtResource( 1 )

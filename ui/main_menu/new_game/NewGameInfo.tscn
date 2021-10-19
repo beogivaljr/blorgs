@@ -5,35 +5,31 @@
 [node name="NewGameInfo" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 300.0
-margin_top = 144.0
-margin_right = -300.0
-margin_bottom = -48.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GameCodeMessage" type="Label" parent="."]
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 14.0
 text = "O código para o seu jogo é:"
 
 [node name="GameCode" type="Label" parent="."]
 margin_top = 18.0
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 32.0
 text = "GAMECODE"
 
 [node name="WaitingMessage" type="Label" parent="."]
 margin_top = 36.0
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 50.0
 text = "Aguardando a conexão de um amigo..."
 
 [node name="Cancel" type="Button" parent="."]
 margin_top = 54.0
-margin_right = 360.0
+margin_right = 960.0
 margin_bottom = 74.0
 text = "Cancelar"
 

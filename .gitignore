@@ -1,6 +1,9 @@
 # MacOs files
 .DS_Store
 
+# Build files
+build
+
 # Godot-specific ignores
 .import/
 export.cfg

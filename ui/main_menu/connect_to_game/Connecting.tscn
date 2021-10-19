@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/fonts/h2_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/main_menu/connect_to_game/Connecting.gd" type="Script" id=2]
+
+[node name="Connecting" type="VBoxContainer"]
+margin_left = 280.0
+margin_right = 680.0
+margin_bottom = 200.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConnectingMessage" type="Label" parent="."]
+margin_right = 400.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 1 )
+text = "Conectando..."
+align = 1
+
+[node name="Button" type="Button" parent="."]
+margin_top = 83.0
+margin_right = 400.0
+margin_bottom = 103.0
+text = "Cancelar"
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

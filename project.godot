@@ -14,6 +14,10 @@ config/name="Blorgs"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalConstants="*res://constants/GlobalConstants.gd"
+
 [display]
 
 window/size/width=960

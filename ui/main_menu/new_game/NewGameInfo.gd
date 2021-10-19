@@ -3,19 +3,20 @@ extends VBoxContainer
 
 signal on_cancel
 
-var characters = 'ABCDEFGHIJKLMNOPQRSTUVXYZ0123456789'
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 func create_new_game():
-	var gameCode = generate_word(characters, 6)
+	var gameCode = generate_word(
+	GlobalConstants.CHARACTERS, 
+	GlobalConstants.CONNECTION_CODE_LENGTH)
 	$GameCode.text = gameCode
 
 func destroy_new_game():
 	$GameCode.text = ""
-	print("New Game destroyed")
+	print("TODO: Destroy game server")
 
 func generate_word(chars, length):
 	var word: String = ""

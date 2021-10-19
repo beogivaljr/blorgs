@@ -1,9 +1,12 @@
 extends Control
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+enum {
+	MAIN_BUTTONS,
+	NEW_GAME_INFO,
+	CONNECT_TO_GAME_INFO,
+	CONNECTING
+}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,16 +19,48 @@ func _ready():
 #	pass
 
 
-func _on_MainButtons__connect_to_game():
-	print("TODO: Connect to a game")
+func _on_MainButtons_connect_to_game():
+	setScreen(CONNECT_TO_GAME_INFO)
 
 
-func _on_MainButtons__new_game():
-	$MainButtons.visible = false
-	$NewGameInfo.create_new_game()
-	$NewGameInfo.visible = true
+func _on_MainButtons_new_game():
+	$ScreensContainer/NewGameInfo.create_new_game()
+	setScreen(NEW_GAME_INFO)
 
 
 func _on_NewGameInfo_on_cancel():
-	$MainButtons.visible = true
-	$NewGameInfo.visible = false
+	setScreen(MAIN_BUTTONS)
+
+
+func _on_ConnectToGameInfo_play(code, playerName) -> void:
+	print("TODO: Connect to game with code: " + code + "\nAnd player name: " + playerName)
+	setScreen(CONNECTING)
+
+
+func setScreen(screen):
+	match screen:
+		MAIN_BUTTONS:
+			$ScreensContainer/MainButtons.visible = true
+			$ScreensContainer/NewGameInfo.visible = false
+			$ScreensContainer/ConnectToGameInfo.visible = false
+			$ScreensContainer/Connecting.visible = false
+		NEW_GAME_INFO:
+			$ScreensContainer/MainButtons.visible = false
+			$ScreensContainer/NewGameInfo.visible = true
+			$ScreensContainer/ConnectToGameInfo.visible = false
+			$ScreensContainer/Connecting.visible = false
+		CONNECT_TO_GAME_INFO:
+			$ScreensContainer/MainButtons.visible = false
+			$ScreensContainer/NewGameInfo.visible = false
+			$ScreensContainer/ConnectToGameInfo.visible = true
+			$ScreensContainer/Connecting.visible = false
+		CONNECTING:
+			$ScreensContainer/MainButtons.visible = false
+			$ScreensContainer/NewGameInfo.visible = false
+			$ScreensContainer/ConnectToGameInfo.visible = false
+			$ScreensContainer/Connecting.visible = true
+
+
+func _on_Connecting_cancel() -> void:
+	print("TODO: Cancel game connection")
+	setScreen(MAIN_BUTTONS)
