@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon_blorgs-60@2x.png-fd93e5e1d6d78543381506cd1cfd143d.stex"
+path="res://.import/icon_blorgs-40@1x.png-363a62b66072823494e57ee322ea997d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://iOS_icons/icon_blorgs-60@2x.png"
-dest_files=[ "res://.import/icon_blorgs-60@2x.png-fd93e5e1d6d78543381506cd1cfd143d.stex" ]
+source_file="res://ios/icons/icon_blorgs-40@1x.png"
+dest_files=[ "res://.import/icon_blorgs-40@1x.png-363a62b66072823494e57ee322ea997d.stex" ]
 
 [params]
 
