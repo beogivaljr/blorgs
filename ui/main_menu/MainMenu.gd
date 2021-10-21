@@ -14,33 +14,29 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 func _on_MainButtons_connect_to_game():
-	setScreen(CONNECT_TO_GAME_INFO)
+	_set_screen(CONNECT_TO_GAME_INFO)
 
 
 func _on_MainButtons_new_game():
-#	$ScreensContainer/NewGameInfo.create_new_game()
-#	setScreen(NEW_GAME_INFO)
+	## TODO: Move server/client game conection and creation out of the ScreenContainer
+	$ScreensContainer/NewGameInfo.create_new_game()
+	_set_screen(NEW_GAME_INFO)
 	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://levels/LevelManager.tscn")
+#	get_tree().change_scene("res://levels/LevelManager.tscn")
 	
 
 
-func _on_NewGameInfo_on_cancel():
-	setScreen(MAIN_BUTTONS)
+func _on_NewGameInfo_on_canceled():
+	_set_screen(MAIN_BUTTONS)
 
 
-func _on_ConnectToGameInfo_play(code, playerName) -> void:
+func _on_ConnectToGameInfo_play_pressed(code, playerName) -> void:
 	print("TODO: Connect to game with code: " + code + "\nAnd player name: " + playerName)
-	setScreen(CONNECTING)
+	_set_screen(CONNECTING)
 
 
-func setScreen(screen):
+func _set_screen(screen):
 	match screen:
 		MAIN_BUTTONS:
 			$ScreensContainer/MainButtons.visible = true
@@ -64,6 +60,6 @@ func setScreen(screen):
 			$ScreensContainer/Connecting.visible = true
 
 
-func _on_Connecting_cancel() -> void:
+func _on_Connecting_canceled() -> void:
 	print("TODO: Cancel game connection")
-	setScreen(MAIN_BUTTONS)
+	_set_screen(MAIN_BUTTONS)
