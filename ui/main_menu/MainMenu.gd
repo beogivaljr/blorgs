@@ -26,6 +26,7 @@ func _on_MainButtons_connect_to_game():
 func _on_MainButtons_new_game():
 #	$ScreensContainer/NewGameInfo.create_new_game()
 #	setScreen(NEW_GAME_INFO)
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://levels/LevelManager.tscn")
 	
 
