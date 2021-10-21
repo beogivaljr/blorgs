@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/environment/torch/TorchWall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/decor/barrelDark.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://levels/decor/banner.obj" type="ArrayMesh" id=5]
 
 [node name="Sandbox" instance=ExtResource( 1 )]
 
@@ -39,3 +41,52 @@ spot_angle = 19.8381
 transform = Transform( 1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 8.4, 0 )
 light_color = Color( 1, 0.9335, 0.81, 1 )
 light_energy = 2.0
+
+[node name="banner" type="MeshInstance" parent="." index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -7.8 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="banner2" type="MeshInstance" parent="." index="10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, -7.8 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark" type="MeshInstance" parent="." index="11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 0.4, -7.3 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark2" type="MeshInstance" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3, 0.4, -7.3 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark3" type="MeshInstance" parent="." index="13"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3, 0.4, -7.3 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark4" type="MeshInstance" parent="." index="14"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8, 1.4, -7.3 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+
+[node name="barrelDark5" type="MeshInstance" parent="." index="15"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8, 1.4, -7.3 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null

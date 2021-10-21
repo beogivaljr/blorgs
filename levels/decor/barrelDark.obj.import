@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/barrelDark.obj-06d48b0647cc66dd341e43318a374b70.mesh"
+
+[deps]
+
+files=[ "res://.import/barrelDark.obj-06d48b0647cc66dd341e43318a374b70.mesh" ]
+
+source_file="res://levels/decor/barrelDark.obj"
+dest_files=[ "res://.import/barrelDark.obj-06d48b0647cc66dd341e43318a374b70.mesh", "res://.import/barrelDark.obj-06d48b0647cc66dd341e43318a374b70.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

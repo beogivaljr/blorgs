@@ -18,6 +18,7 @@ func _ready() -> void:
 
 
 func _bind_level_signals(level: BaseLevel):
+	# warning-ignore:return_value_discarded
 	level.connect("on_level_finished", self, "_changeLevel")
 
 
@@ -32,6 +33,7 @@ func _changeLevel():
 		_current_level_index = 0
 		next_level = LEVEL[_current_level_index].instance()
 	else:
+		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Main.tscn")
 		return
 	
