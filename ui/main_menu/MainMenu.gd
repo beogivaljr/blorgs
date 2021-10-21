@@ -26,7 +26,7 @@ func _on_MainButtons_connect_to_game():
 func _on_MainButtons_new_game():
 	$ScreensContainer/NewGameInfo.create_new_game()
 	setScreen(NEW_GAME_INFO)
-	yield(get_tree().create_timer(3.0), "timeout")
+	yield(get_tree().create_timer(2.0), "timeout")
 	get_tree().change_scene("res://levels/LevelManager.tscn")
 
 

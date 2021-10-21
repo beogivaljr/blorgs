@@ -1,12 +1,41 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
-
-[sub_resource type="CubeMesh" id=1]
+[ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/environment/torch/TorchWall.tscn" type="PackedScene" id=3]
 
 [node name="Sandbox" instance=ExtResource( 1 )]
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 0, 0 )
-mesh = SubResource( 1 )
-material/0 = null
+[node name="FloorGrid" parent="." index="1"]
+data = {
+"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65531, 1, 3, 65532, 1, 3, 65534, 1, 2, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65531, 65535, 3, 65532, 65535, 3, 65533, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
+}
+
+[node name="WallsGrid" parent="." index="2"]
+data = {
+"cells": PoolIntArray( 65521, 1, 1441792, 14, 3, 1441806, 65521, 4, 1441793, 0, 8, 2, 4, 8, 0, 9, 8, 14, 14, 8, 1441793, 65521, 8, 655360, 65526, 8, 655374, 65531, 8, 0, 65533, 8, 8, 0, 65527, 655362, 4, 65527, 655360, 9, 65527, 655374, 14, 65527, 1, 65521, 65527, 1048577, 65526, 65527, 655374, 65531, 65527, 655360, 65534, 65527, 655368, 14, 65532, 1441806, 65521, 65532, 1048590, 14, 65535, 1048578 )
+}
+
+[node name="Stairs" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.5101, 0, 6.56487 )
+
+[node name="TorchWall" parent="." index="4" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2, -7.3 )
+
+[node name="TorchWall2" parent="." index="5" instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.3, 2, -0.5 )
+
+[node name="TorchWall3" parent="." index="6" instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 2, 7.3 )
+
+[node name="SpotLight" type="SpotLight" parent="." index="7"]
+transform = Transform( -4.2222e-08, 0.258819, -0.965926, 1.13133e-08, 0.965926, 0.258819, 1, 0, -4.37114e-08, -18.3124, 2.6, -3.4 )
+light_color = Color( 1, 0.776471, 0.34902, 1 )
+light_energy = 5.0
+spot_range = 26.9
+spot_angle = 19.8381
+
+[node name="DirectionalLight" type="DirectionalLight" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 8.4, 0 )
+light_color = Color( 1, 0.9335, 0.81, 1 )
+light_energy = 2.0

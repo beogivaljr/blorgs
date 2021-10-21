@@ -1,7 +1,5 @@
+class_name BaseLevel
 extends Spatial
 
-signal on_nextLevel
-
-
-func _on_Button_pressed() -> void:
-	emit_signal("on_nextLevel")
+## Emit this signal when the level is done
+signal on_level_finished

@@ -1,37 +1,41 @@
 extends Node
 
-onready var currentLevel = $Sandbox
-var currentLevelIndex = 0
-var currentMazaIndex = 0
 
-
-const levels = {
+const LEVEL = {
 	0: preload("res://levels/sandbox/Sandbox.tscn"),
 	1: preload("res://levels/maze/Maze_01.tscn"),
 	2: preload("res://levels/maze/Maze_02.tscn"),
 	3: preload("res://levels/maze/Maze_03.tscn")
 }
 
+var _current_level_index = 0
+var _current_maza_index = 0
+onready var _current_level = $Sandbox
+
 
 func _ready() -> void:
-	currentLevel.connect("on_nextLevel", self, "_changeLevel")
+	_bind_level_signals(_current_level)
+
+
+func _bind_level_signals(level: BaseLevel):
+	level.connect("on_level_finished", self, "_changeLevel")
 
 
 func _changeLevel():
-	var nextLevel
-	var notLastMaze = currentMazaIndex < levels.size() - 1
-	if currentLevelIndex == 0 and notLastMaze:
-		currentMazaIndex += 1
-		nextLevel = levels[currentMazaIndex].instance()
-		currentLevelIndex = currentMazaIndex
-	elif currentLevelIndex and notLastMaze:
-		currentLevelIndex = 0
-		nextLevel = levels[currentLevelIndex].instance()
+	var not_last_maze = _current_maza_index < LEVEL.size() - 1
+	var next_level
+	if _current_level_index == 0 and not_last_maze:
+		_current_maza_index += 1
+		next_level = LEVEL[_current_maza_index].instance()
+		_current_level_index = _current_maza_index
+	elif _current_level_index and not_last_maze:
+		_current_level_index = 0
+		next_level = LEVEL[_current_level_index].instance()
 	else:
 		get_tree().change_scene("res://Main.tscn")
 		return
 	
-	add_child(nextLevel)
-	nextLevel.connect("on_nextLevel", self, "_changeLevel")
-	currentLevel.queue_free()
-	currentLevel = nextLevel
+	add_child(next_level)
+	_bind_level_signals(next_level)
+	_current_level.queue_free()
+	_current_level = next_level
