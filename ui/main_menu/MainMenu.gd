@@ -9,11 +9,6 @@ enum {
 }
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 func _on_MainButtons_connect_to_game():
 	_set_screen(CONNECT_TO_GAME_INFO)
 
@@ -27,7 +22,7 @@ func _on_MainButtons_new_game():
 	
 
 
-func _on_NewGameInfo_on_canceled():
+func _on_NewGameInfo_on_cancelled() -> void:
 	_set_screen(MAIN_BUTTONS)
 
 
@@ -63,3 +58,4 @@ func _set_screen(screen):
 func _on_Connecting_canceled() -> void:
 	print("TODO: Cancel game connection")
 	_set_screen(MAIN_BUTTONS)
+

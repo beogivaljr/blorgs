@@ -1,12 +1,7 @@
 extends VBoxContainer
 
 
-signal on_canceled
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+signal on_cancelled
 
 
 ## TODO: Move server/client game conection and creation out of the ScreenContainer
@@ -33,4 +28,4 @@ func _generate_word(chars, length):
 
 func _on_Cancel_pressed():
 	destroy_new_game()
-	emit_signal("on_canceled")
+	emit_signal("on_cancelled")

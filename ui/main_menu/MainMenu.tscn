@@ -86,6 +86,6 @@ alignment = 1
 
 [connection signal="connect_to_game" from="ScreensContainer/MainButtons" to="." method="_on_MainButtons_connect_to_game"]
 [connection signal="new_game" from="ScreensContainer/MainButtons" to="." method="_on_MainButtons_new_game"]
-[connection signal="on_canceled" from="ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_on_canceled"]
+[connection signal="on_cancelled" from="ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_on_cancelled"]
 [connection signal="play_pressed" from="ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_play_pressed"]
 [connection signal="canceled" from="ScreensContainer/Connecting" to="." method="_on_Connecting_canceled"]
