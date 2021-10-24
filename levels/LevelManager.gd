@@ -23,13 +23,13 @@ func _bind_level_signals(level: BaseLevel):
 
 
 func _changeLevel():
-	var not_last_maze = _current_maza_index < LEVEL.size() - 1
+	var is_last_maze = _current_maza_index >= LEVEL.size() - 1
 	var next_level
-	if _current_level_index == 0 and not_last_maze:
+	if _current_level_index == 0 and not is_last_maze:
 		_current_maza_index += 1
 		next_level = LEVEL[_current_maza_index].instance()
 		_current_level_index = _current_maza_index
-	elif _current_level_index and not_last_maze:
+	elif _current_level_index and not is_last_maze:
 		_current_level_index = 0
 		next_level = LEVEL[_current_level_index].instance()
 	else:
