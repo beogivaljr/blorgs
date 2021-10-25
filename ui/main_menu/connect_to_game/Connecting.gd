@@ -1,8 +1,7 @@
 extends VBoxContainer
 
-signal cancel
-
+signal canceled
 
 
 func _on_Button_pressed() -> void:
-	emit_signal("cancel")
+	emit_signal("canceled")

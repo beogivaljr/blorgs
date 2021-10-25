@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "BaseLevel",
+"language": "GDScript",
+"path": "res://levels/BaseLevel.gd"
+} ]
+_global_script_class_icons={
+"BaseLevel": ""
+}
+
 [application]
 
 config/name="Blorgs"
