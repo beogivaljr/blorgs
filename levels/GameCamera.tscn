@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 28, 2, 16 )
+
+[node name="GameCamera" type="Spatial"]
+
+[node name="CameraBoundsRef" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CameraBoom" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraBoom"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40 )
+current = true
+fov = 30.0
+size = 15.0
+far = 300.0
