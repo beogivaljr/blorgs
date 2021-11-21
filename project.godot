@@ -33,6 +33,14 @@ GlobalConstants="*res://constants/GlobalConstants.gd"
 window/size/width=960
 window/size/height=540
 
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
+[gdnative]
+
+singletons=[  ]
+
 [physics]
 
 common/enable_pause_aware_picking=true

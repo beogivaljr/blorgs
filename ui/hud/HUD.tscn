@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/hud/HamburgerPanel.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/SpellsList.gd" type="Script" id=2]
 [ext_resource path="res://ui/hud/SelectedSpell.gd" type="Script" id=3]
 [ext_resource path="res://ui/hud/QuitButton.gd" type="Script" id=4]
+[ext_resource path="res://ui/hud/HamburgerButton.gd" type="Script" id=5]
+[ext_resource path="res://ui/hud/PanelContainer.gd" type="Script" id=6]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -19,32 +21,42 @@ __meta__ = {
 [node name="MainHContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -0.8909
-margin_bottom = -0.890869
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HamburgerContainer" type="HBoxContainer" parent="MainHContainer"]
-margin_right = 218.0
-margin_bottom = 540.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MainHContainer"]
+margin_right = 217.0
+margin_bottom = 534.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HamburgerContainer" type="HBoxContainer" parent="MainHContainer/VBoxContainer"]
+margin_right = 147.0
+margin_bottom = 534.0
+size_flags_horizontal = 0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HamburgerPanel" type="Panel" parent="MainHContainer/HamburgerContainer"]
-visible = false
-margin_right = 196.0
-margin_bottom = 540.0
+[node name="HamburgerPanel" type="PanelContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer"]
+margin_right = 109.0
+margin_bottom = 534.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
-[node name="HamburgerList" type="VBoxContainer" parent="MainHContainer/HamburgerContainer/HamburgerPanel"]
-anchor_right = 1.0
+[node name="HamburgerList" type="VBoxContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 102.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 alignment = 1
@@ -52,9 +64,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitButton" type="Button" parent="MainHContainer/HamburgerContainer/HamburgerPanel/HamburgerList"]
-margin_left = 50.0
-margin_right = 145.0
+[node name="QuitButton" type="Button" parent="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList"]
+margin_right = 95.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
 size_flags_vertical = 2
@@ -64,27 +75,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HamburgerButton" type="Button" parent="MainHContainer/HamburgerContainer"]
-margin_right = 18.0
-margin_bottom = 20.0
+[node name="PanelContainer" type="PanelContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer"]
+margin_left = 113.0
+margin_right = 147.0
+margin_bottom = 34.0
+size_flags_vertical = 0
+
+[node name="HamburgerButton" type="Button" parent="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 27.0
+margin_bottom = 27.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
-toggle_mode = true
-text = "_"
+text = ">"
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer" type="Control" parent="MainHContainer"]
-margin_left = 222.0
-margin_right = 222.0
+margin_left = 221.0
+margin_right = 438.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MainHContainer"]
+margin_left = 442.0
+margin_right = 517.0
+margin_bottom = 34.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
+script = ExtResource( 6 )
 
-[node name="SelectedSpell" type="Button" parent="MainHContainer"]
-margin_left = 445.0
-margin_right = 506.0
-margin_bottom = 20.0
+[node name="SelectedSpell" type="Button" parent="MainHContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 68.0
+margin_bottom = 27.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 text = "Magia 0"
@@ -95,22 +123,22 @@ __meta__ = {
 }
 
 [node name="Spacer2" type="Control" parent="MainHContainer"]
-margin_left = 667.0
-margin_right = 667.0
-size_flags_horizontal = 2
-size_flags_vertical = 0
+margin_left = 663.0
+margin_right = 880.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
 
 [node name="SpellPanel" type="PanelContainer" parent="MainHContainer"]
-margin_left = 890.0
-margin_right = 960.0
-margin_bottom = 540.0
+margin_left = 884.0
+margin_right = 954.0
+margin_bottom = 534.0
 size_flags_vertical = 3
 
 [node name="SpellContainer" type="HBoxContainer" parent="MainHContainer/SpellPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 63.0
-margin_bottom = 533.0
+margin_bottom = 527.0
 
 [node name="SpellsList" type="VBoxContainer" parent="MainHContainer/SpellPanel/SpellContainer"]
 visible = false
@@ -156,9 +184,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="MainHContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="MainHContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
-[connection signal="toggled" from="MainHContainer/HamburgerContainer/HamburgerButton" to="MainHContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
-[connection signal="pressed" from="MainHContainer/SelectedSpell" to="MainHContainer/SelectedSpell" method="_on_SelectedSpell_pressed"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell1" to="MainHContainer/SelectedSpell" method="_on_Button1_pressed"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell2" to="MainHContainer/SelectedSpell" method="_on_Button2_pressed"]
+[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]
+[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
+[connection signal="toggled" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
+[connection signal="toggled" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
+[connection signal="pressed" from="MainHContainer/PanelContainer/SelectedSpell" to="MainHContainer/PanelContainer" method="_on_SelectedSpell_pressed"]
+[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell1" to="MainHContainer/PanelContainer/SelectedSpell" method="_on_Button1_pressed"]
+[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell1" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_spell_selected"]
+[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell2" to="MainHContainer/PanelContainer/SelectedSpell" method="_on_Button2_pressed"]
+[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell2" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_spell_selected"]
 [connection signal="toggled" from="MainHContainer/SpellPanel/SpellContainer/SpellButton" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_Button_toggled"]
