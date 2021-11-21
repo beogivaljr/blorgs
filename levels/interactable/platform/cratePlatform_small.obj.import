@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cratePlatform_small.obj-17e26cbcf9660f148225f9363d1d0c2d.mesh"
+
+[deps]
+
+files=[ "res://.import/cratePlatform_small.obj-17e26cbcf9660f148225f9363d1d0c2d.mesh" ]
+
+source_file="res://levels/interactable/platform/cratePlatform_small.obj"
+dest_files=[ "res://.import/cratePlatform_small.obj-17e26cbcf9660f148225f9363d1d0c2d.mesh", "res://.import/cratePlatform_small.obj-17e26cbcf9660f148225f9363d1d0c2d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

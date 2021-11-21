@@ -1,0 +1,304 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://levels/interactable/gate/fence.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://levels/interactable/gate/tileBrickA_small.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://levels/interactable/gate/tileBrickB_small.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://levels/interactable/gate/Gate.gd" type="Script" id=4]
+[ext_resource path="res://levels/interactable/gate/axeDouble_common.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://levels/interactable/gate/chestTop_common.obj" type="ArrayMesh" id=6]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 3, 2, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Lower"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:translation:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -3, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("LeverCollisionShape:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 3.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("LeverCollisionShape2:translation:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 3.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("LeverTarget:translation:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("LeverTarget2:translation:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 2 )
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "LowerLever"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("../leverPivot:rotation_degrees:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 20, -0.25, 0, 0.25, 0, -20, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("../leverPivot2:rotation_degrees:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -20, -0.25, 0, 0.25, 0, 20, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("../leverPivot2:rotation_degrees:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( -20, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("../leverPivot:rotation_degrees:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 20, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("LeverCollisionShape2:translation:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("LeverCollisionShape:translation:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("LeverTarget2:translation:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("LeverTarget:translation:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.5, 1, 1.4 )
+
+[node name="Pivot" type="Spatial"]
+
+[node name="Gate" type="KinematicBody" parent="."]
+script = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 2 )
+
+[node name="tileBrickB_small" type="MeshInstance" parent="Gate"]
+transform = Transform( -4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, -3, 1, -1.31134e-07 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="tileBrickB_small2" type="MeshInstance" parent="Gate"]
+transform = Transform( -4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 3, 1, 1.31134e-07 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="tileBrickB_small3" type="MeshInstance" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1, 1.31134e-07 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="tileBrickB_small4" type="MeshInstance" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1.31134e-07 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="tileBrickB_small5" type="MeshInstance" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, 1.31134e-07 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="fence" type="MeshInstance" parent="Gate"]
+transform = Transform( -2, 0, 1.74846e-07, 0, 2, 0, -1.74846e-07, 0, -2, 0, 0, 0 )
+mesh = ExtResource( 1 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="tileBrickA_small" type="MeshInstance" parent="Gate"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2, 2, -8.74228e-08 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+material/0 = null
+material/1 = null
+
+[node name="tileBrickA_small2" type="MeshInstance" parent="Gate"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2, 0 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+material/0 = null
+material/1 = null
+
+[node name="tileBrickA_small3" type="MeshInstance" parent="Gate"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 2, 8.74228e-08 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+material/0 = null
+material/1 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Gate"]
+anims/Lower = SubResource( 3 )
+anims/LowerLever = SubResource( 5 )
+anims/RESET = SubResource( 4 )
+
+[node name="LeverCollisionShape" type="CollisionShape" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.7, -2, 0.5, 2 )
+shape = SubResource( 6 )
+
+[node name="LeverCollisionShape2" type="CollisionShape" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.7, 2, 0.5, -2 )
+shape = SubResource( 6 )
+
+[node name="LeverTarget" type="Spatial" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2 )
+
+[node name="LeverTarget2" type="Spatial" parent="Gate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2 )
+
+[node name="leverPivot" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, 0.34202, 0.939693, 0, 0.939693, -0.34202, -1, -1.49502e-08, -4.10753e-08, -2, -0.1, 2 )
+
+[node name="lever" type="MeshInstance" parent="leverPivot"]
+transform = Transform( -3, 2.62268e-07, 0, -2.62268e-07, -3, 0, 0, 0, 3, 0, 1.4, 0 )
+mesh = ExtResource( 5 )
+skeleton = NodePath("../..")
+material/0 = null
+material/1 = null
+
+[node name="chestTop_common" type="MeshInstance" parent="."]
+transform = Transform( -5.50763e-08, 0, 1, 0, 1.32, 0, -1.386, 0, -4.80825e-08, -2.5, -0.4, 2 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../leverPivot")
+material/0 = null
+material/1 = null
+
+[node name="leverPivot2" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, -0.34202, 0.939693, 0, 0.939693, 0.34202, -1, 1.49502e-08, -4.10753e-08, 2, -0.1, -2 )
+
+[node name="lever" type="MeshInstance" parent="leverPivot2"]
+transform = Transform( -3, 2.62268e-07, 0, -2.62268e-07, -3, 0, 0, 0, 3, 0, 1.4, 0 )
+mesh = ExtResource( 5 )
+skeleton = NodePath("../..")
+material/0 = null
+material/1 = null
+
+[node name="chestTop_common2" type="MeshInstance" parent="."]
+transform = Transform( -5.50763e-08, 0, 1, 0, 1.32, 0, -1.386, 0, -4.80825e-08, 1.5, -0.4, -2 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../leverPivot")
+material/0 = null
+material/1 = null
