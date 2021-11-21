@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/hud/LineEdit.gd" type="Script" id=1]
+[ext_resource path="res://SpellButton.gd" type="Script" id=2]
+
+[node name="Spell1" type="HBoxContainer"]
+margin_right = 101.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditButton" type="Button" parent="."]
+margin_right = 36.0
+margin_bottom = 20.0
+text = "Edit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectButton" type="Button" parent="."]
+margin_left = 40.0
+margin_right = 101.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+toggle_mode = true
+text = "Blorgs"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="SelectButton"]
+visible = false
+margin_top = -2.0
+margin_right = 62.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Blorgs"
+max_length = 48
+editable = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="EditButton" to="SelectButton/LineEdit" method="_on_EditButton_pressed"]
+[connection signal="pressed" from="SelectButton" to="." method="_on_SelectButton_pressed"]
+[connection signal="text_entered" from="SelectButton/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_entered" from="SelectButton/LineEdit" to="SelectButton/LineEdit" method="_on_LineEdit_text_entered"]
