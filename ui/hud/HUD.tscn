@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/hud/HamburgerPanel.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/SpellsList.gd" type="Script" id=2]
-[ext_resource path="res://ui/hud/SelectedSpell.gd" type="Script" id=3]
 [ext_resource path="res://ui/hud/QuitButton.gd" type="Script" id=4]
 [ext_resource path="res://ui/hud/HamburgerButton.gd" type="Script" id=5]
 [ext_resource path="res://ui/hud/PanelContainer.gd" type="Script" id=6]
@@ -18,41 +17,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainHContainer" type="HBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 217.0
+margin_bottom = 541.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainHContainer"]
-margin_right = 217.0
-margin_bottom = 534.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HamburgerContainer" type="HBoxContainer" parent="MainHContainer/VBoxContainer"]
+[node name="HamburgerContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_right = 147.0
-margin_bottom = 534.0
+margin_bottom = 541.0
 size_flags_horizontal = 0
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HamburgerPanel" type="PanelContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer"]
+[node name="HamburgerPanel" type="PanelContainer" parent="VBoxContainer/HamburgerContainer"]
 margin_right = 109.0
-margin_bottom = 534.0
+margin_bottom = 541.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
-[node name="HamburgerList" type="VBoxContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel"]
+[node name="HamburgerList" type="VBoxContainer" parent="VBoxContainer/HamburgerContainer/HamburgerPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 102.0
@@ -64,7 +54,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="QuitButton" type="Button" parent="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList"]
+[node name="QuitButton" type="Button" parent="VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList"]
 margin_right = 95.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
@@ -75,13 +65,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="MainHContainer/VBoxContainer/HamburgerContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HamburgerContainer"]
 margin_left = 113.0
 margin_right = 147.0
 margin_bottom = 34.0
 size_flags_vertical = 0
 
-[node name="HamburgerButton" type="Button" parent="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer"]
+[node name="HamburgerButton" type="Button" parent="VBoxContainer/HamburgerContainer/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 27.0
@@ -94,21 +84,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="MainHContainer"]
-margin_left = 221.0
-margin_right = 438.0
-margin_bottom = 534.0
-size_flags_horizontal = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="MainHContainer"]
-margin_left = 442.0
-margin_right = 517.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.5
+margin_right = 37.5
 margin_bottom = 34.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="SelectedSpell" type="Button" parent="MainHContainer/PanelContainer"]
+[node name="SelectedSpell" type="Button" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 68.0
@@ -116,34 +105,23 @@ margin_bottom = 27.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 text = "Magia 0"
-script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
 
-[node name="Spacer2" type="Control" parent="MainHContainer"]
-margin_left = 663.0
-margin_right = 880.0
-margin_bottom = 534.0
-size_flags_horizontal = 3
-
-[node name="SpellPanel" type="PanelContainer" parent="MainHContainer"]
-margin_left = 884.0
-margin_right = 954.0
-margin_bottom = 534.0
+[node name="SpellPanel" type="PanelContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -75.0
+margin_bottom = 541.0
 size_flags_vertical = 3
 
-[node name="SpellContainer" type="HBoxContainer" parent="MainHContainer/SpellPanel"]
+[node name="SpellsList" type="VBoxContainer" parent="SpellPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 63.0
-margin_bottom = 527.0
-
-[node name="SpellsList" type="VBoxContainer" parent="MainHContainer/SpellPanel/SpellContainer"]
-visible = false
-margin_right = 61.0
-margin_bottom = 44.0
+margin_right = 68.0
+margin_bottom = 51.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 alignment = 1
@@ -152,46 +130,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spell1" type="Button" parent="MainHContainer/SpellPanel/SpellContainer/SpellsList"]
+[node name="Spell1" type="Button" parent="SpellPanel/SpellsList"]
 margin_right = 61.0
 margin_bottom = 20.0
 size_flags_horizontal = 4
 size_flags_vertical = 2
+toggle_mode = true
 text = "Magia 1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spell2" type="Button" parent="MainHContainer/SpellPanel/SpellContainer/SpellsList"]
+[node name="Spell2" type="Button" parent="SpellPanel/SpellsList"]
 margin_top = 24.0
 margin_right = 61.0
 margin_bottom = 44.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
+toggle_mode = true
 text = "Magia 2"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpellButton" type="Button" parent="MainHContainer/SpellPanel/SpellContainer"]
-margin_right = 56.0
-margin_bottom = 20.0
-size_flags_horizontal = 10
-size_flags_vertical = 0
-toggle_mode = true
-text = "Magias"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
-[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]
-[connection signal="pressed" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
-[connection signal="toggled" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
-[connection signal="toggled" from="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="MainHContainer/VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
-[connection signal="pressed" from="MainHContainer/PanelContainer/SelectedSpell" to="MainHContainer/PanelContainer" method="_on_SelectedSpell_pressed"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell1" to="MainHContainer/PanelContainer/SelectedSpell" method="_on_Button1_pressed"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell1" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_spell_selected"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell2" to="MainHContainer/PanelContainer/SelectedSpell" method="_on_Button2_pressed"]
-[connection signal="pressed" from="MainHContainer/SpellPanel/SpellContainer/SpellsList/Spell2" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_spell_selected"]
-[connection signal="toggled" from="MainHContainer/SpellPanel/SpellContainer/SpellButton" to="MainHContainer/SpellPanel/SpellContainer/SpellsList" method="_on_Button_toggled"]
+[connection signal="pressed" from="VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="VBoxContainer/HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
+[connection signal="toggled" from="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="VBoxContainer/HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
+[connection signal="toggled" from="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" to="VBoxContainer/HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
+[connection signal="pressed" from="PanelContainer/SelectedSpell" to="PanelContainer" method="_on_SelectedSpell_pressed"]
