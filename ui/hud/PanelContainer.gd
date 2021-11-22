@@ -11,6 +11,6 @@ func _on_spell_unselected():
 	call_deferred("hide")
 
 
-func _on_spell_selected(spell_name):
-	$SelectedSpell.text = spell_name
+func _on_spell_selected(new_spell):
+	$SelectedSpell.set_text("Selecione " + new_spell.spell_name[1])
 	show()

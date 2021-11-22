@@ -1,14 +1,21 @@
 extends LineEdit
 
 
+func _ready():
+	set_text(get_parent().button_name)
+
+
 func _on_EditButton_pressed():
-	$"..".focus_mode = Control.FOCUS_NONE
+	$"..".set_focus_mode(Control.FOCUS_NONE)
+	grab_focus()
+	select_all()
 	show()
-	editable = true
 
 
 func _on_LineEdit_text_entered(new_text):
-	$"..".text = new_text
-	$"..".focus_mode = Control.FOCUS_ALL
-	editable = false
+	$"..".set_focus_mode(Control.FOCUS_ALL)
 	hide()
+
+
+func _on_RenameButton_minimum_size_changed():
+	set_size(get_parent_area_size())
