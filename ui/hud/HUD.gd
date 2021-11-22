@@ -8,7 +8,15 @@ signal spell_started
 signal spell_done
 
 
-var spell_id_list = [GlobalConstants.SpellIds.MOVE_TO, GlobalConstants.SpellIds.USE_ELEVATOR]
+var spell_id_list = [
+	GlobalConstants.SpellIds.MOVE_TO,
+	GlobalConstants.SpellIds.USE_ELEVATOR,
+	GlobalConstants.SpellIds.PRESS_ROUND_BUTTON,
+	GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON,
+	GlobalConstants.SpellIds.TOGGLE_GATE,
+	GlobalConstants.SpellIds.DESTROY_SUMMON,
+	GlobalConstants.SpellIds.SUMMON_ASCENDING_PORTAL,
+]
 
 
 func _ready():
@@ -18,9 +26,9 @@ func _ready():
 	for spell_id in spell_id_list:
 		var spell = spellContainer.instance()
 		spell.spell_id = spell_id
-		$SpellPanel/SpellsList.add_child(spell)
-		spell.connect("spell_selected", $SpellPanel/SpellsList, "_on_spell_selected")
-		spell.connect("spell_container_button_pressed", $SpellPanel/SpellsList, "_on_spell_container_button_pressed")
+		$SpellPanel/ScrollContainer/SpellsList.add_child(spell)
+		spell.connect("spell_selected", $SpellPanel/ScrollContainer/SpellsList, "_on_spell_selected")
+		spell.connect("spell_container_button_pressed", $SpellPanel/ScrollContainer/SpellsList, "_on_spell_container_button_pressed")
 		spell.connect("spell_selected", self, "_on_spell_selected")
 
 

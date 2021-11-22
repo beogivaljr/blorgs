@@ -114,19 +114,26 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpellsList" type="VBoxContainer" parent="SpellPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 7.0
-margin_bottom = 7.0
+margin_bottom = 533.0
+grow_horizontal = 0
 size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="SpellsList" type="VBoxContainer" parent="SpellPanel/ScrollContainer"]
+grow_horizontal = 0
+size_flags_horizontal = 3
 alignment = 1
 script = ExtResource( 2 )
 __meta__ = {
@@ -138,6 +145,6 @@ __meta__ = {
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
-[connection signal="spell_renamed" from="SpellPanel/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_selected" from="SpellPanel/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_unselected" from="SpellPanel/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
+[connection signal="spell_renamed" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
+[connection signal="spell_selected" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
+[connection signal="spell_unselected" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
