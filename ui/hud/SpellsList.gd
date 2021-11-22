@@ -20,18 +20,19 @@ func _on_spell_selected(new_spell):
 	else:
 		selected_spell = new_spell
 	
-	for spell in get_children():
-		if not new_spell == spell:
-			spell.deselect()
-	
 	emit_signal("spell_selected", new_spell)
 
 
-func _on_function_started():
-	for spell in get_children():
-		spell.disable_buttons()
+func _on_spell_started():
+	for spell_container in get_children():
+		spell_container.disable_buttons()
 
 
-func _on_function_done():
+func _on_spell_done():
 	for spell_container in get_children():
 		spell_container.enable_buttons()
+
+
+func _on_spell_container_button_pressed(button):
+	for spell in get_children():
+			spell._on_any_button_pressed(button)

@@ -22,6 +22,5 @@ func update_name(function_name, parameter_name):
 	self.function_name = function_name
 	self.parameter_name = parameter_name
 	$"../..".spell_name = spell_name
-	$"../..".emit_signal("spell_renamed", self)
 	
 	set_text(spell_name[0] + "(" + spell_name[1] + ")")
