@@ -15,9 +15,25 @@ __meta__ = {
 }
 button_name = "Button Name"
 
-[node name="LineEdit" type="LineEdit" parent="."]
-visible = false
-margin_right = 58.0
+[node name="Popup" type="Popup" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="LineEdit" type="LineEdit" parent="Popup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -12.0
+margin_right = 60.0
+margin_bottom = 12.0
 rect_min_size = Vector2( 120, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -30,8 +46,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="minimum_size_changed" from="." to="LineEdit" method="_on_RenameButton_minimum_size_changed"]
-[connection signal="pressed" from="." to="LineEdit" method="_on_EditButton_pressed"]
-[connection signal="focus_exited" from="LineEdit" to="." method="_on_LineEdit_text_entered"]
-[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]
-[connection signal="text_entered" from="LineEdit" to="LineEdit" method="_on_LineEdit_text_entered"]
+[connection signal="minimum_size_changed" from="." to="Popup/LineEdit" method="_on_RenameButton_minimum_size_changed"]
+[connection signal="pressed" from="." to="Popup/LineEdit" method="_on_EditButton_pressed"]
+[connection signal="focus_exited" from="Popup/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_entered" from="Popup/LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="text_entered" from="Popup/LineEdit" to="Popup/LineEdit" method="_on_LineEdit_text_entered"]

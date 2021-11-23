@@ -7,7 +7,10 @@ signal function_done
 
 export var function_name = "Blorgs"
 export var parameter_name = "pindos"
-var spell_name = [function_name, parameter_name]
+var spell_name = {
+	function_name = function_name,
+	parameter_name = parameter_name,
+}
 
 export(GlobalConstants.SpellIds) var spell_id = GlobalConstants.SpellIds.MOVE_TO
 
