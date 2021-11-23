@@ -6,8 +6,11 @@ func _on_spell_unselected():
 
 
 func _on_spell_selected(new_spell):
-	$SelectedSpell.set_text("Selecione parâmetro " + new_spell.spell_name.parameter_name)
-	show()
+	if not new_spell:
+		call_deferred("hide")
+	else:
+		$SelectedSpell.set_text("Selecione " + new_spell.spell_name.parameter_name)
+		show()
 
 
 func _on_rename_function_selected(new_spell):

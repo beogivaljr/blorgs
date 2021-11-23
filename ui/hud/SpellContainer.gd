@@ -51,7 +51,11 @@ func enable_buttons():
 
 
 func _on_SelectButton_pressed():
-	emit_signal("spell_selected", self)
+	var button = $VBoxContainer/HBoxContainer/SelectButton
+	if button.pressed:
+		emit_signal("spell_selected", self)
+	else:
+		emit_signal("spell_selected", null)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/SelectButton)
 
 

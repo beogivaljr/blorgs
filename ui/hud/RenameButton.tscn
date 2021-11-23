@@ -17,6 +17,7 @@ __meta__ = {
 button_name = "Button Name"
 
 [node name="Popup" type="Popup" parent="."]
+visible = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -20.0
@@ -36,11 +37,13 @@ margin_left = -60.0
 margin_top = -12.0
 margin_right = 60.0
 margin_bottom = 12.0
-rect_min_size = Vector2( 120, 0 )
+grow_horizontal = 2
+rect_min_size = Vector2( 420, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Function name"
-max_length = 48
+max_length = 16
+expand_to_text_length = true
 caret_blink = true
 caret_blink_speed = 0.5
 script = ExtResource( 1 )
@@ -48,7 +51,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="minimum_size_changed" from="." to="Popup/LineEdit" method="_on_RenameButton_minimum_size_changed"]
 [connection signal="pressed" from="." to="Popup/LineEdit" method="_on_EditButton_pressed"]
 [connection signal="toggled" from="." to="Popup/LineEdit" method="_on_RenameButton_toggled"]
 [connection signal="focus_exited" from="Popup/LineEdit" to="." method="_on_LineEdit_text_entered"]

@@ -4,11 +4,8 @@ var spellContainer = preload("res://ui/hud/SpellContainer.tscn")
 
 signal spell_selected(function_id)
 
-signal spell_started
-signal spell_done
 
-
-var spell_id_list = [
+var spell_ids_list = [
 	GlobalConstants.SpellIds.MOVE_TO,
 	GlobalConstants.SpellIds.USE_ELEVATOR,
 	GlobalConstants.SpellIds.PRESS_ROUND_BUTTON,
@@ -27,7 +24,7 @@ func _ready():
 	connect("spell_started", self, "_on_spell_started")
 	connect("spell_done", self, "_on_spell_done")
 	var spells = []
-	for spell_id in spell_id_list:
+	for spell_id in spell_ids_list:
 		var spell = spellContainer.instance()
 		spell.spell_id = spell_id
 		$SpellPanel/ScrollContainer/SpellsList.add_child(spell)
@@ -42,14 +39,17 @@ func _ready():
 		spell.connect("spell_selected", self, "_on_spell_selected")
 
 
-func _on_spell_started():
-	$SpellPanel/SpellsList._on_spell_started()
+func on_spell_started():
+	$SpellPanel/ScrollContainer/SpellsList._on_spell_started()
 	$PanelContainer._on_spell_started()
 
 
-func _on_spell_done():
-	$SpellPanel/SpellsList._on_spell_done()
+func on_spell_done():
+	$SpellPanel/ScrollContainer/SpellsList._on_spell_done()
 
 
 func _on_spell_selected(spell):
-	emit_signal("spell_selected", spell.spell_id)
+	if spell:
+		emit_signal("spell_selected", spell.spell_id)
+	else:
+		emit_signal("spell_selected", null)

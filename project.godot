@@ -14,20 +14,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://levels/BaseLevel.gd"
 }, {
+"base": "StaticBody",
+"class": "Elevator",
+"language": "GDScript",
+"path": "res://levels/interactable/elevator/Elevator.gd"
+}, {
 "base": "KinematicBody",
 "class": "Gate",
 "language": "GDScript",
 "path": "res://levels/interactable/gate/Gate.gd"
-}, {
-"base": "KinematicBody",
-"class": "Platform",
-"language": "GDScript",
-"path": "res://levels/interactable/platform/Platform.gd"
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
-"Gate": "",
-"Platform": ""
+"Elevator": "",
+"Gate": ""
 }
 
 [application]

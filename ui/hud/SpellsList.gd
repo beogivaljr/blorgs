@@ -25,7 +25,7 @@ func _on_spell_selected(new_spell):
 
 func _on_spell_started():
 	for spell_container in get_children():
-		spell_container.disable_buttons()
+		spell_container.disable_other_buttons(null)
 
 
 func _on_spell_done():

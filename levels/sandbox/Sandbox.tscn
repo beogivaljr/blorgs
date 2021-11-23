@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -8,22 +8,26 @@
 [ext_resource path="res://levels/sandbox/Sandbox.gd" type="Script" id=6]
 [ext_resource path="res://players/BasePlayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/interactable/gate/Gate.tscn" type="PackedScene" id=8]
-[ext_resource path="res://levels/interactable/platform/Platform.tscn" type="PackedScene" id=9]
+[ext_resource path="res://levels/interactable/elevator/Elevator.tscn" type="PackedScene" id=10]
 
 [sub_resource type="NavigationMesh" id=6]
-vertices = PoolVector3Array( -6.72, 0.4, -7.1, -13.02, 0.4, -7.1, -13.02, 0.4, -0.2, 13.08, 0.4, -0.2, 13.08, 0.4, -7.1, 6.48, 0.4, -7.1, -13.02, 0.4, -0.2, -13.02, 0.4, 7, -6.72, 0.4, 7, 6.48, 0.4, 7, 13.08, 0.4, 7, 13.08, 0.4, -0.2, 6.48, 0.4, 7, 13.08, 0.4, -0.2, 6.48, 0.4, -7.1, -0.119999, 0.4, -7.1, -0.119999, 0.4, 7, -6.72, 0.4, -7.1, -13.02, 0.4, -0.2, -6.72, 0.4, 7, -0.119999, 0.4, 7, -0.119999, 0.4, -7.1, -3.72, 3.4, -0.2, -5.52, 3.4, 0.1, -5.52, 3.4, 3.7, -2.22, 3.4, 3.7, -2.22, 3.4, -5.6, -3.72, 3.4, -5.6, -3.72, 3.4, -0.2, -2.22, 3.4, 3.7 )
-polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 4, 3, 5 ), PoolIntArray( 6, 8, 7 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 14, 13, 15 ), PoolIntArray( 15, 13, 12 ), PoolIntArray( 15, 12, 16 ), PoolIntArray( 17, 21, 18 ), PoolIntArray( 18, 21, 19 ), PoolIntArray( 19, 21, 20 ), PoolIntArray( 23, 22, 24 ), PoolIntArray( 24, 22, 25 ), PoolIntArray( 27, 26, 28 ), PoolIntArray( 28, 26, 29 ) ]
+vertices = PoolVector3Array( 12.1803, 0.4, -0.660436, 12.7803, 0.4, -0.960435, 12.7803, 0.4, -6.96044, 6.18034, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -13.0197, 0.4, 2.63956, -13.0197, 0.4, 6.53956, -7.01966, 0.4, 6.83956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, 6.83956, 12.1803, 0.4, -0.660436, -6.41966, 0.4, -6.96044, -7.31966, 0.4, -0.960435, -7.01966, 0.4, 2.33956, -0.119658, 0.4, -6.96044, -12.7197, 0.4, -6.96044, -12.7197, 0.4, -0.960435, -7.31966, 0.4, -0.960435, -6.41966, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, -0.660436, 6.18034, 0.4, -6.96044, -0.119658, 0.4, -6.96044 )
+polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 5, 4, 6 ), PoolIntArray( 6, 4, 7 ), PoolIntArray( 7, 4, 8 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 13, 12, 14 ), PoolIntArray( 14, 12, 15 ), PoolIntArray( 17, 16, 18 ), PoolIntArray( 18, 16, 19 ), PoolIntArray( 21, 20, 22 ), PoolIntArray( 22, 20, 25 ), PoolIntArray( 22, 25, 24 ), PoolIntArray( 22, 24, 23 ) ]
 sample_partition_type/sample_partition_type = 1
-agent/radius = 0.22
 
 [sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="NavigationMesh" id=8]
+vertices = PoolVector3Array( -13.4518, 3.33, 0.377397, -13.4518, 3.33, 1.5774, -8.65182, 3.33, 1.5774, -8.65182, 3.33, 0.377397 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
 
 [node name="Sandbox" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
 
 [node name="FloorGrid" parent="." index="2"]
 data = {
-"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65531, 1, 3, 65532, 1, 3, 65534, 1, 2, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65531, 65535, 3, 65532, 65535, 3, 65533, 65535, 3, 65535, 65535, 3 )
+"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65532, 0, 2, 65534, 0, 3, 65535, 0, 3, 131065, 0, 3, 131066, 0, 3, 131067, 0, 3, 196601, 0, 3, 196602, 0, 3, 196603, 0, 3, 262137, 0, 0, 262138, 0, 0, 262139, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65534, 1, 3, 65535, 1, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
 }
 
 [node name="WallsGrid" parent="." index="3"]
@@ -32,27 +36,39 @@ data = {
 }
 
 [node name="Gate" parent="." index="4" instance=ExtResource( 8 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, -3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1 )
 
 [node name="Navigation" type="Navigation" parent="." index="5"]
-visible = false
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation" index="0"]
 navmesh = SubResource( 6 )
 
 [node name="FloorMesh" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="0"]
-transform = Transform( 13.32, 0, 0, 0, 1, 0, 0, 0, 7.4, 0, -1, 0 )
+transform = Transform( 13.1602, 0, 0, 0, 1, 0, 0, 0, 3.56044, 0.1, -1, -4 )
+visible = false
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="FloorMesh2" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="1"]
-transform = Transform( -2.17884e-07, 0, 0.923076, 0, 0.07, 0, -2.87712, 0, -2.32894e-08, -3, 3, -3 )
+[node name="FloorMesh5" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="1"]
+transform = Transform( 10.0173, 0, 0, 0, 1, 0, 0, 0, 7.28999, 2.6, -1, -3.27826e-07 )
+visible = false
 mesh = SubResource( 7 )
 material/0 = null
 
-[node name="FloorMesh3" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="2"]
-transform = Transform( -4.26305e-07, 0, 1.80606, 0, 0.07, 0, -1.93342, 0, -1.56505e-08, -4, 3, 2 )
+[node name="FloorMesh6" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="2"]
+transform = Transform( 13.1197, 0, 0, 0, 1, 0, 0, 0, 2.3328, -0.5, -1, 4.6 )
+visible = false
 mesh = SubResource( 7 )
+material/0 = null
+
+[node name="NavigationMeshInstance2" type="NavigationMeshInstance" parent="Navigation" index="1"]
+navmesh = SubResource( 8 )
+
+[node name="FloorMesh3" type="MeshInstance" parent="Navigation/NavigationMeshInstance2" index="0"]
+transform = Transform( -1.99187e-07, 0, 3.05182, 0, 0.07, 0, -1.2226, 0, -4.97204e-07, -11, 3, 1 )
+visible = false
+mesh = SubResource( 7 )
+skeleton = NodePath("../../NavigationMeshInstance")
 material/0 = null
 
 [node name="Stairs" parent="." index="6" instance=ExtResource( 2 )]
@@ -131,5 +147,5 @@ material/2 = null
 [node name="PlayerA" parent="." index="19" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -9, 0, -3 )
 
-[node name="Platform" parent="." index="20" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 2 )
+[node name="Elevator" parent="." index="20" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
