@@ -19,6 +19,10 @@ var spell_id_list = [
 ]
 
 
+func setup(spell_ids_list):
+	self.spell_ids_list = spell_ids_list
+
+
 func _ready():
 	connect("spell_started", self, "_on_spell_started")
 	connect("spell_done", self, "_on_spell_done")
