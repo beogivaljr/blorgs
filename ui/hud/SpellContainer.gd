@@ -6,14 +6,28 @@ signal spell_container_rename_parameter_pressed(new_spell)
 signal spell_container_button_pressed(button)
 signal spell_renamed
 
-export var function_name = "Blorgs"
-export var parameter_name = "pindos"
+
+export(GlobalConstants.SpellIds) var spell_id = GlobalConstants.SpellIds.MOVE_TO
+export var function_name = GlobalConstants.RANDOM_NAMES[0]
+export var parameter_name = GlobalConstants.RANDOM_NAMES[1]
 var spell_name = {
 	function_name = function_name,
 	parameter_name = parameter_name,
 }
 
-export(GlobalConstants.SpellIds) var spell_id = GlobalConstants.SpellIds.MOVE_TO
+
+func _enter_tree():
+	randomize()
+	function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	$VBoxContainer/HBoxContainer/RenameFnButton.button_name = function_name
+	if spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
+		$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
+		parameter_name = ""
+	else:
+		parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+		$VBoxContainer/HBoxContainer/RenameParamButton.button_name = parameter_name
+	
+	$VBoxContainer/Name.update_name(function_name, parameter_name)
 
 
 func _on_any_button_pressed(button):
@@ -44,7 +58,6 @@ func _on_SelectButton_pressed():
 func _on_RenameFnButton_pressed():
 	emit_signal("spell_container_rename_function_pressed", self)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/RenameFnButton)
-	
 
 
 func _on_RenameParamButton_pressed():
