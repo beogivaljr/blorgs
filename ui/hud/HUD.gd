@@ -27,8 +27,14 @@ func _ready():
 		var spell = spellContainer.instance()
 		spell.spell_id = spell_id
 		$SpellPanel/ScrollContainer/SpellsList.add_child(spell)
+		
 		spell.connect("spell_selected", $SpellPanel/ScrollContainer/SpellsList, "_on_spell_selected")
 		spell.connect("spell_container_button_pressed", $SpellPanel/ScrollContainer/SpellsList, "_on_spell_container_button_pressed")
+		
+		spell.connect("spell_container_button_pressed", $PanelContainer, "_on_spell_container_button_pressed")
+		spell.connect("spell_container_rename_function_pressed", $PanelContainer, "_on_rename_function_selected")
+		spell.connect("spell_container_rename_parameter_pressed", $PanelContainer, "_on_rename_parameter_selected")
+		
 		spell.connect("spell_selected", self, "_on_spell_selected")
 
 

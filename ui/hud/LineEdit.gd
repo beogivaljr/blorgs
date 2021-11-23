@@ -14,8 +14,18 @@ func _on_EditButton_pressed():
 
 func _on_LineEdit_text_entered(new_text):
 	$"../..".set_focus_mode(Control.FOCUS_ALL)
-	$"..".hide()
+	$"..".call_deferred("hide")
 
 
 func _on_RenameButton_minimum_size_changed():
 	set_size(get_parent_area_size())
+
+
+func _on_RenameButton_toggled(button_pressed):
+	if button_pressed:
+		$"../..".set_focus_mode(Control.FOCUS_NONE)
+		grab_focus()
+		select_all()
+		$"..".show()
+	else:
+		emit_signal("text_entered", text)

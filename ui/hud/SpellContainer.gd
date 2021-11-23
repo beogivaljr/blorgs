@@ -1,9 +1,10 @@
 extends PanelContainer
 
 signal spell_selected(new_spell)
+signal spell_container_rename_function_pressed(new_spell)
+signal spell_container_rename_parameter_pressed(new_spell)
 signal spell_container_button_pressed(button)
 signal spell_renamed
-signal function_done
 
 export var function_name = "Blorgs"
 export var parameter_name = "pindos"
@@ -41,8 +42,11 @@ func _on_SelectButton_pressed():
 
 
 func _on_RenameFnButton_pressed():
+	emit_signal("spell_container_rename_function_pressed", self)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/RenameFnButton)
+	
 
 
 func _on_RenameParamButton_pressed():
+	emit_signal("spell_container_rename_parameter_pressed", self)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/RenameParamButton)

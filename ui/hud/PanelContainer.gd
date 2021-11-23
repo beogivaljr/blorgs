@@ -6,13 +6,24 @@ func _on_spell_unselected():
 
 
 func _on_spell_selected(new_spell):
-	$SelectedSpell.set_text("Selecione " + new_spell.spell_name.parameter_name)
+	$SelectedSpell.set_text("Selecione parâmetro " + new_spell.spell_name.parameter_name)
 	show()
 
 
-func _on_rename_funcion_selected(new_spell):
-	$SelectedSpell.set_text("Renomeie " + new_spell.spell_name.funcion_name)
+func _on_rename_function_selected(new_spell):
+	$SelectedSpell.set_text("Renomeie a função " + new_spell.spell_name.function_name)
 	show()
+
+
+func _on_rename_parameter_selected(new_spell):
+	print(new_spell.spell_name.parameter_name)
+	$SelectedSpell.set_text("Renomeie o parâmetro " + new_spell.spell_name.parameter_name)
+	show()
+
+
+func _on_spell_container_button_pressed(button):
+	if not button.pressed:
+		hide()
 
 
 func _on_spell_started():
