@@ -3,7 +3,7 @@ extends Control
 
 var spellContainer = preload("res://ui/hud/SpellContainer.tscn")
 signal spell_selected(function_id)
-signal player_ready(ready)
+signal player_ready(spells)
 
 
 var _spell_ids_list = [
@@ -31,9 +31,9 @@ func _ready():
 		spell.connect("spell_selected", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_selected")
 		spell.connect("spell_container_button_pressed", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_container_button_pressed")
 		
-		spell.connect("spell_container_button_pressed", $PanelContainer, "_on_spell_container_button_pressed")
-		spell.connect("spell_container_rename_function_pressed", $PanelContainer, "_on_rename_function_selected")
-		spell.connect("spell_container_rename_parameter_pressed", $PanelContainer, "_on_rename_parameter_selected")
+		spell.connect("spell_container_button_pressed", $SelectedSpellPanelContainer, "_on_spell_container_button_pressed")
+		spell.connect("spell_container_rename_function_pressed", $SelectedSpellPanelContainer, "_on_rename_function_selected")
+		spell.connect("spell_container_rename_parameter_pressed", $SelectedSpellPanelContainer, "_on_rename_parameter_selected")
 		
 		spell.connect("spell_selected", self, "_on_spell_selected")
 		
@@ -42,13 +42,13 @@ func _ready():
 
 func on_spell_started():
 	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.disable_buttons()
-	$PanelContainer.hide()
+	$SelectedSpellPanelContainer.hide()
 
 
 func on_spell_done(succeded = true):
 	if not succeded:
 		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
-		$PanelContainer.display_failed_spell_message(spell_name)
+		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
 	
 	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.enable_buttons()
 
@@ -61,10 +61,10 @@ func _on_spell_selected(spell: SpellContainer):
 		emit_signal("spell_selected", null)
 
 
-func _on_ReadyButton_toggled(button_pressed):
+func _on_ReadyButton_toggled(button_pressed: bool):
 	if button_pressed:
 		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.disable_buttons()
+		emit_signal("player_ready", _spells)
 	else:
 		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.enable_buttons()
-	
-	emit_signal("player_ready", button_pressed)
+		emit_signal("player_ready", null)

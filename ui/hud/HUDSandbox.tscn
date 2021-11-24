@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/hud/QuitButton.gd" type="Script" id=1]
-[ext_resource path="res://ui/hud/PanelContainer.gd" type="Script" id=2]
+[ext_resource path="res://ui/hud/SelectedSpellPanelContainer.gd" type="Script" id=2]
 [ext_resource path="res://ui/hud/HUDSandbox.gd" type="Script" id=3]
 [ext_resource path="res://ui/ui_theme.tres" type="Theme" id=4]
 [ext_resource path="res://ui/hud/SpellsList.gd" type="Script" id=5]
@@ -80,7 +80,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="SelectedSpellPanelContainer" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -152.5
@@ -94,7 +94,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectedSpell" type="Label" parent="PanelContainer"]
+[node name="SelectedSpell" type="Label" parent="SelectedSpellPanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 298.0
@@ -163,7 +163,7 @@ text = "Pronto ▶"
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
-[connection signal="spell_renamed" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_selected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_unselected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
+[connection signal="spell_renamed" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]
+[connection signal="spell_selected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]
+[connection signal="spell_unselected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_unselected"]
 [connection signal="toggled" from="SpellPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_toggled"]
