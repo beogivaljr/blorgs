@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://players/BasePlayer.gd" type="Script" id=1]
+[ext_resource path="res://players/KinematicMovement.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.5
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.545098, 0.180392, 0.843137, 1 )
+
+[sub_resource type="CapsuleMesh" id=2]
+material = SubResource( 3 )
+radius = 0.5
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 0.5, 1, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.301961, 0.619608, 0.988235, 1 )
+
+[node name="BasePlayer" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
+transform = Transform( -1, 8.74228e-08, 3.82137e-15, -8.74228e-08, -1, -8.74228e-08, -3.82137e-15, -8.74228e-08, 1, 0, -0.5, 0.5 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="KinematicMovement" parent="." instance=ExtResource( 2 )]
