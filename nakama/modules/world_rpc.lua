@@ -1,6 +1,6 @@
 local nakama = require("nakama")
 
-local matches
+local matches = {}
 
 local function get_world_id(_context, payload)
 	local match_id = matches[payload]
@@ -13,7 +13,7 @@ end
 
 local function create_world(_context, _payload)	
 	local match_id = nakama.match_create("world_control", {})
-	local hash_code = match_id:sub(8)
+	local hash_code = string.sub(match_id, 1, 8)
 	matches[hash_code] = match_id
 	
 	return hash_code

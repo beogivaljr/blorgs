@@ -7,12 +7,12 @@ var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
 var _socket : NakamaSocket
 var _world_id := ""
 var _presences := {}
-var deviceid = OS.get_unique_id()
 
-func authenticate_async(email: String, password: String) -> int:
+func authenticate_async(username: String) -> int:
+	var deviceid = OS.get_unique_id()
 	var result := OK
 	
-	var new_session: NakamaSession = yield(_client.authenticate_email_async(email, password, null, true), "completed")
+	var new_session: NakamaSession = yield(_client.authenticate_device_async(deviceid, username, true), "completed")
 	if not new_session.is_exception():
 		_session = new_session
 	else:
@@ -31,11 +31,10 @@ func connect_to_server_async() -> int:
 func on_NakamaSocket_closed() -> void:
 	_socket = null
 	
-func join_world_async() -> Dictionary:
-	var world: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "get_world_id", ""), "completed")
+func join_world_async(world_code : String) -> Dictionary:
+	var world: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "get_world_id", world_code), "completed")
 	if not world.is_exception():
 		_world_id = world.payload
-		print_debug("World id : %s" %_world_id)
 		
 	# Request to join the match through the NakamaSocket API.
 	var match_join_result: NakamaRTAPI.Match = yield(
@@ -49,4 +48,11 @@ func join_world_async() -> Dictionary:
 	for presence in match_join_result.presences:
 		_presences[presence.user_id] = presence	
 	return _presences
-
+	
+func create_world_async() -> String:
+	var response: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "create_world"), "completed")
+	if not response.is_exception():
+		var hash_code : String = response.payload
+		return hash_code
+	else:
+		return "Error"
