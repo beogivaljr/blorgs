@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Blorgs"
-run/main_scene="res://levels/LevelManager.tscn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
