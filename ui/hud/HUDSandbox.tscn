@@ -81,13 +81,12 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -37.5
-margin_right = 37.5
-margin_bottom = 34.0
-grow_horizontal = 0
+margin_left = -152.5
+margin_right = 152.5
+margin_bottom = 67.0
+grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 script = ExtResource( 2 )
@@ -98,12 +97,12 @@ __meta__ = {
 [node name="SelectedSpell" type="Label" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 122.0
+margin_right = 298.0
 margin_bottom = 60.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Magia 0"
+text = "Renomeie os feitiços"
 align = 1
 valign = 1
 __meta__ = {
@@ -135,7 +134,7 @@ text = "Feitiços disponíveis"
 [node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel/VBoxContainer"]
 margin_top = 57.0
 margin_right = 274.0
-margin_bottom = 796.0
+margin_bottom = 733.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -152,6 +151,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ReadyButton" type="Button" parent="SpellPanel/VBoxContainer"]
+margin_top = 737.0
+margin_right = 274.0
+margin_bottom = 796.0
+toggle_mode = true
+text = "Pronto ▶"
+
 [connection signal="pressed" from="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
@@ -160,3 +166,4 @@ __meta__ = {
 [connection signal="spell_renamed" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
 [connection signal="spell_selected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
 [connection signal="spell_unselected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
+[connection signal="toggled" from="SpellPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_toggled"]

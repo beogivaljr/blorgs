@@ -29,7 +29,7 @@ func _bind_interactables():
 	## Finad all direct children of interactable class
 	var direct_children = self.get_children()
 	var player_a_movement = $PlayerA/KinematicMovement
-	player_a_movement.connect("on_failed_movement", _hud, "on_spell_done")
+	player_a_movement.connect("on_failed_movement", _hud, "on_spell_done",  [false])
 	player_a_movement.connect("on_succeded_movement", _hud, "on_spell_done")
 	for child in direct_children:
 		if child is Gate:
@@ -43,6 +43,7 @@ func _bind_interactables():
 func _get_spell_ids_list():
 	var spells_bucket = GlobalConstants.SpellIds
 	var spells =  [spells_bucket.MOVE_TO, spells_bucket.USE_ELEVATOR, spells_bucket.TOGGLE_GATE]
+
 	randomize()
 	spells.shuffle()
 	return spells
