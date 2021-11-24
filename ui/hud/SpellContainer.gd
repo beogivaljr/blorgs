@@ -17,7 +17,6 @@ var spell_name = {
 }
 
 
-
 func _enter_tree():
 	randomize()
 	_function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
@@ -40,7 +39,7 @@ func toggle_enable_other_buttons(button):
 		enable_buttons()
 
 
-func disable_other_buttons(selected_button):
+func disable_other_buttons(selected_button: Button):
 	for button in $VBoxContainer/HBoxContainer.get_children():
 		if not button == selected_button and button is Button:
 			button.pressed = false
