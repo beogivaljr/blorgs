@@ -15,10 +15,10 @@ func _on_MainButtons_connect_to_game():
 
 func _on_MainButtons_new_game():
 	## TODO: Move server/client game conection and creation out of the ScreenContainer
-#	$ScreensContainer/NewGameInfo.create_new_game()
-#	_set_screen(NEW_GAME_INFO)
+	$ScreensContainer/NewGameInfo.create_new_game()
+	_set_screen(NEW_GAME_INFO)
 	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://levels/LevelManager.tscn")
+#	get_tree().change_scene("res://levels/LevelManager.tscn")
 	
 
 

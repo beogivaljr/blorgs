@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -6,146 +6,89 @@
 [ext_resource path="res://levels/decor/barrelDark.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://levels/decor/banner.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://levels/sandbox/Sandbox.gd" type="Script" id=6]
-[ext_resource path="res://players/BasePlayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://levels/interactable/gate/Gate.tscn" type="PackedScene" id=8]
-[ext_resource path="res://levels/interactable/elevator/Elevator.tscn" type="PackedScene" id=10]
-
-[sub_resource type="NavigationMesh" id=6]
-vertices = PoolVector3Array( 12.1803, 0.4, -0.660436, 12.7803, 0.4, -0.960435, 12.7803, 0.4, -6.96044, 6.18034, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -13.0197, 0.4, 2.63956, -13.0197, 0.4, 6.53956, -7.01966, 0.4, 6.83956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, 6.83956, 12.1803, 0.4, -0.660436, -6.41966, 0.4, -6.96044, -7.31966, 0.4, -0.960435, -7.01966, 0.4, 2.33956, -0.119658, 0.4, -6.96044, -12.7197, 0.4, -6.96044, -12.7197, 0.4, -0.960435, -7.31966, 0.4, -0.960435, -6.41966, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, -0.660436, 6.18034, 0.4, -6.96044, -0.119658, 0.4, -6.96044 )
-polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 5, 4, 6 ), PoolIntArray( 6, 4, 7 ), PoolIntArray( 7, 4, 8 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 13, 12, 14 ), PoolIntArray( 14, 12, 15 ), PoolIntArray( 17, 16, 18 ), PoolIntArray( 18, 16, 19 ), PoolIntArray( 21, 20, 22 ), PoolIntArray( 22, 20, 25 ), PoolIntArray( 22, 25, 24 ), PoolIntArray( 22, 24, 23 ) ]
-sample_partition_type/sample_partition_type = 1
-
-[sub_resource type="CubeMesh" id=7]
-
-[sub_resource type="NavigationMesh" id=8]
-vertices = PoolVector3Array( -13.4518, 3.33, 0.377397, -13.4518, 3.33, 1.5774, -8.65182, 3.33, 1.5774, -8.65182, 3.33, 0.377397 )
-polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
-sample_partition_type/sample_partition_type = 1
 
 [node name="Sandbox" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
 
-[node name="FloorGrid" parent="." index="2"]
+[node name="FloorGrid" parent="." index="1"]
 data = {
-"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65532, 0, 2, 65534, 0, 3, 65535, 0, 3, 131065, 0, 3, 131066, 0, 3, 131067, 0, 3, 196601, 0, 3, 196602, 0, 3, 196603, 0, 3, 262137, 0, 0, 262138, 0, 0, 262139, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65534, 1, 3, 65535, 1, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
+"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 2, 0, 3, 3, 0, 3, 4, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65531, 1, 3, 65532, 1, 3, 65534, 1, 2, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65531, 65535, 3, 65532, 65535, 3, 65533, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
 }
 
-[node name="WallsGrid" parent="." index="3"]
+[node name="WallsGrid" parent="." index="2"]
 data = {
 "cells": PoolIntArray( 65521, 1, 1441792, 14, 3, 1441806, 65521, 4, 1441793, 0, 8, 2, 4, 8, 0, 9, 8, 14, 14, 8, 1441793, 65521, 8, 655360, 65526, 8, 655374, 65531, 8, 0, 65533, 8, 8, 0, 65527, 655362, 4, 65527, 655360, 9, 65527, 655374, 14, 65527, 1, 65521, 65527, 1048577, 65526, 65527, 655374, 65531, 65527, 655360, 65534, 65527, 655368, 14, 65532, 1441806, 65521, 65532, 1048590, 14, 65535, 1048578 )
 }
 
-[node name="Gate" parent="." index="4" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1 )
-
-[node name="Navigation" type="Navigation" parent="." index="5"]
-
-[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation" index="0"]
-navmesh = SubResource( 6 )
-
-[node name="FloorMesh" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="0"]
-transform = Transform( 13.1602, 0, 0, 0, 1, 0, 0, 0, 3.56044, 0.1, -1, -4 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="FloorMesh5" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="1"]
-transform = Transform( 10.0173, 0, 0, 0, 1, 0, 0, 0, 7.28999, 2.6, -1, -3.27826e-07 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="FloorMesh6" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="2"]
-transform = Transform( 13.1197, 0, 0, 0, 1, 0, 0, 0, 2.3328, -0.5, -1, 4.6 )
-visible = false
-mesh = SubResource( 7 )
-material/0 = null
-
-[node name="NavigationMeshInstance2" type="NavigationMeshInstance" parent="Navigation" index="1"]
-navmesh = SubResource( 8 )
-
-[node name="FloorMesh3" type="MeshInstance" parent="Navigation/NavigationMeshInstance2" index="0"]
-transform = Transform( -1.99187e-07, 0, 3.05182, 0, 0.07, 0, -1.2226, 0, -4.97204e-07, -11, 3, 1 )
-visible = false
-mesh = SubResource( 7 )
-skeleton = NodePath("../../NavigationMeshInstance")
-material/0 = null
-
-[node name="Stairs" parent="." index="6" instance=ExtResource( 2 )]
+[node name="Stairs" parent="." index="3" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.5101, 0, 6.56487 )
 
-[node name="TorchWall" parent="." index="7" instance=ExtResource( 3 )]
+[node name="TorchWall" parent="." index="4" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 2, -7.3 )
 
-[node name="TorchWall2" parent="." index="8" instance=ExtResource( 3 )]
+[node name="TorchWall2" parent="." index="5" instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.3, 2, -0.5 )
 
-[node name="TorchWall3" parent="." index="9" instance=ExtResource( 3 )]
+[node name="TorchWall3" parent="." index="6" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 2, 7.3 )
 
-[node name="SpotLight" type="SpotLight" parent="." index="10"]
+[node name="SpotLight" type="SpotLight" parent="." index="7"]
 transform = Transform( -4.2222e-08, 0.258819, -0.965926, 1.13133e-08, 0.965926, 0.258819, 1, 0, -4.37114e-08, -18.3124, 2.6, -3.4 )
 light_color = Color( 1, 0.776471, 0.34902, 1 )
 light_energy = 5.0
 spot_range = 26.9
 spot_angle = 19.8381
 
-[node name="DirectionalLight" type="DirectionalLight" parent="." index="11"]
+[node name="DirectionalLight" type="DirectionalLight" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 8.4, 0 )
 light_color = Color( 1, 0.9335, 0.81, 1 )
 light_energy = 2.0
 
-[node name="banner" type="MeshInstance" parent="." index="12"]
+[node name="banner" type="MeshInstance" parent="." index="9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, -7.8 )
 mesh = ExtResource( 5 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="banner2" type="MeshInstance" parent="." index="13"]
+[node name="banner2" type="MeshInstance" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, -7.8 )
 mesh = ExtResource( 5 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="barrelDark" type="MeshInstance" parent="." index="14"]
+[node name="barrelDark" type="MeshInstance" parent="." index="11"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3, 0.4, -7.3 )
 mesh = ExtResource( 4 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="barrelDark2" type="MeshInstance" parent="." index="15"]
+[node name="barrelDark2" type="MeshInstance" parent="." index="12"]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -12.3, 0.4, -7.3 )
 mesh = ExtResource( 4 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="barrelDark3" type="MeshInstance" parent="." index="16"]
+[node name="barrelDark3" type="MeshInstance" parent="." index="13"]
 transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -11.3, 0.4, -7.3 )
 mesh = ExtResource( 4 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="barrelDark4" type="MeshInstance" parent="." index="17"]
+[node name="barrelDark4" type="MeshInstance" parent="." index="14"]
 transform = Transform( 0.0871558, 0, 0.996195, 0, 1, 0, -0.996195, 0, 0.0871558, -12.8, 1.4, -7.3 )
 mesh = ExtResource( 4 )
 material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="barrelDark5" type="MeshInstance" parent="." index="18"]
+[node name="barrelDark5" type="MeshInstance" parent="." index="15"]
 transform = Transform( -0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -11.8, 1.4, -7.3 )
 mesh = ExtResource( 4 )
 material/0 = null
 material/1 = null
 material/2 = null
-
-[node name="PlayerA" parent="." index="19" instance=ExtResource( 7 )]
-transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -9, 0, -3 )
-
-[node name="Elevator" parent="." index="20" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
