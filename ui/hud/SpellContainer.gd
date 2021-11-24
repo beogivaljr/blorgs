@@ -30,7 +30,7 @@ func _enter_tree():
 	$VBoxContainer/Name.update_name(function_name, parameter_name)
 
 
-func _on_any_button_pressed(button):
+func toggle_enable_other_buttons(button):
 	if button.pressed:
 		disable_other_buttons(button)
 	else:

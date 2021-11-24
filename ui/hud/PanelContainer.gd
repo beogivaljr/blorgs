@@ -19,7 +19,6 @@ func _on_rename_function_selected(new_spell):
 
 
 func _on_rename_parameter_selected(new_spell):
-	print(new_spell.spell_name.parameter_name)
 	$SelectedSpell.set_text("Renomeie o parâmetro " + new_spell.spell_name.parameter_name)
 	show()
 
@@ -27,7 +26,3 @@ func _on_rename_parameter_selected(new_spell):
 func _on_spell_container_button_pressed(button):
 	if not button.pressed:
 		hide()
-
-
-func _on_spell_started():
-	hide()

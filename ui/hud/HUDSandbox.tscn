@@ -121,18 +121,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SpellPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 7.0
+margin_right = 281.0
 margin_bottom = 803.0
+
+[node name="Label" type="Label" parent="SpellPanel/VBoxContainer"]
+margin_right = 274.0
+margin_bottom = 53.0
+text = "Feitiços disponíveis"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel/VBoxContainer"]
+margin_top = 57.0
+margin_right = 274.0
+margin_bottom = 796.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
-[node name="SpellsList" type="VBoxContainer" parent="SpellPanel/ScrollContainer"]
+[node name="SpellsList" type="VBoxContainer" parent="SpellPanel/VBoxContainer/ScrollContainer"]
+margin_right = 274.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 alignment = 1
@@ -146,6 +157,6 @@ __meta__ = {
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_pressed"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_toggled"]
 [connection signal="toggled" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/PanelContainer/HamburgerButton" method="_on_HamburgerButton_toggled"]
-[connection signal="spell_renamed" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_selected" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
-[connection signal="spell_unselected" from="SpellPanel/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
+[connection signal="spell_renamed" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
+[connection signal="spell_selected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_selected"]
+[connection signal="spell_unselected" from="SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="PanelContainer" method="_on_spell_unselected"]
