@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Spatial",
+"base": "Node",
 "class": "BaseLevel",
 "language": "GDScript",
 "path": "res://levels/BaseLevel.gd"
+}, {
+"base": "Spatial",
+"class": "BaseWorld",
+"language": "GDScript",
+"path": "res://levels/BaseWorld.gd"
 }, {
 "base": "StaticBody",
 "class": "Elevator",
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
+"BaseWorld": "",
 "Elevator": "",
 "Gate": "",
 "SpellContainer": ""
@@ -45,6 +51,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalConstants="*res://constants/GlobalConstants.gd"
+GameState="*res://GameState.gd"
 
 [display]
 
