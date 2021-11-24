@@ -1,7 +1,7 @@
 extends Control
 
 
-var spellContainer = preload("res://ui/hud/SpellContainer.tscn")
+var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
 

@@ -5,7 +5,7 @@ extends BaseLevel
 ## This will be very handy because the Level Manager won't have to know
 ## exactly which level it is managing.
 
-var _hud = preload("res://ui/hud/HUDSandbox.tscn").instance()
+var _hud = preload("res://ui/hud/sandbox/HUDSandbox.tscn").instance()
 var _active_spell = null
 
 

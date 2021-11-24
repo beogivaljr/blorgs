@@ -5,7 +5,6 @@ signal spell_selected(new_spell)
 signal spell_container_rename_function_pressed(new_spell)
 signal spell_container_rename_parameter_pressed(new_spell)
 signal spell_container_button_pressed(button)
-signal spell_renamed
 
 
 export(GlobalConstants.SpellIds) var spell_id = GlobalConstants.SpellIds.MOVE_TO

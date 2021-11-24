@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "PanelContainer",
 "class": "SpellContainer",
 "language": "GDScript",
-"path": "res://ui/hud/SpellContainer.gd"
+"path": "res://ui/hud/sandbox/SpellContainer.gd"
 } ]
 _global_script_class_icons={
 "BaseLevel": "",

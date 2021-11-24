@@ -1,6 +1,7 @@
 extends Node
 
 signal on_succeded_movement
+# warning-ignore:unused_signal
 signal on_failed_movement
 signal on_reached_gate
 signal on_reached_elevator(body, up)
