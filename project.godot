@@ -34,6 +34,7 @@ window/size/width=1440
 window/size/height=810
 window/size/resizable=false
 
+
 [physics]
 
 common/enable_pause_aware_picking=true
