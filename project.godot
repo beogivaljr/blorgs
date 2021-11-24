@@ -30,8 +30,10 @@ GlobalConstants="*res://constants/GlobalConstants.gd"
 
 [display]
 
-window/size/width=960
-window/size/height=540
+window/size/width=1440
+window/size/height=810
+window/size/resizable=false
+
 
 [physics]
 
