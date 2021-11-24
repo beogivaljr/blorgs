@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://ui/hud/LineEdit.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/RenameButton.gd" type="Script" id=2]
 
 [node name="RenameButton" type="Button"]
@@ -46,13 +45,10 @@ max_length = 16
 expand_to_text_length = true
 caret_blink = true
 caret_blink_speed = 0.5
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="." to="Popup/LineEdit" method="_on_EditButton_pressed"]
-[connection signal="toggled" from="." to="Popup/LineEdit" method="_on_RenameButton_toggled"]
+[connection signal="toggled" from="." to="." method="_on_RenameButton_toggled"]
 [connection signal="focus_exited" from="Popup/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="text_entered" from="Popup/LineEdit" to="." method="_on_LineEdit_text_entered"]
-[connection signal="text_entered" from="Popup/LineEdit" to="Popup/LineEdit" method="_on_LineEdit_text_entered"]

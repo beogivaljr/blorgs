@@ -29,7 +29,7 @@ func _bind_interactables():
 	## Finad all direct children of interactable class
 	var direct_children = self.get_children()
 	var player_a_movement = $PlayerA/KinematicMovement
-	player_a_movement.connect("on_failed_movement", _hud, "on_spell_done")
+	player_a_movement.connect("on_failed_movement", _hud, "on_spell_done",  [false])
 	player_a_movement.connect("on_succeded_movement", _hud, "on_spell_done")
 	for child in direct_children:
 		if child is Gate:

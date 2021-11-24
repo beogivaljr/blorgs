@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Gate",
 "language": "GDScript",
 "path": "res://levels/interactable/gate/Gate.gd"
+}, {
+"base": "PanelContainer",
+"class": "SpellContainer",
+"language": "GDScript",
+"path": "res://ui/hud/SpellContainer.gd"
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
 "Elevator": "",
-"Gate": ""
+"Gate": "",
+"SpellContainer": ""
 }
 
 [application]
