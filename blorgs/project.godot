@@ -99,10 +99,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
 }, {
+"base": "Node",
+"class": "SpellCallDTO",
+"language": "GDScript",
+"path": "res://data_objects/SpellCall.gd"
+}, {
 "base": "PanelContainer",
 "class": "SpellContainer",
 "language": "GDScript",
 "path": "res://ui/hud/sandbox/SpellContainer.gd"
+}, {
+"base": "Node",
+"class": "SpellDTO",
+"language": "GDScript",
+"path": "res://data_objects/Spell.gd"
+}, {
+"base": "Node",
+"class": "SpellNameDTO",
+"language": "GDScript",
+"path": "res://data_objects/SpellName.gd"
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
@@ -123,7 +138,10 @@ _global_script_class_icons={
 "NakamaSocketAdapter": "",
 "NakamaStorageObjectId": "",
 "NakamaWriteStorageObject": "",
-"SpellContainer": ""
+"SpellCallDTO": "",
+"SpellContainer": "",
+"SpellDTO": "",
+"SpellNameDTO": ""
 }
 
 [application]
