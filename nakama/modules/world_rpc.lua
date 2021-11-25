@@ -4,7 +4,7 @@ local match_ids = {}
 
 local function get_world_id(_context, payload)
     local match_id = match_ids[payload]
-    return match_id and match_id or -1
+    return match_id or -1
 end
 
 local function create_world(_context, json_payload)
