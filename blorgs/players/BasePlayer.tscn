@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://players/BasePlayer.gd" type="Script" id=1]
 [ext_resource path="res://players/KinematicMovement.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
+
+[sub_resource type="CapsuleShape" id=7]
+radius = 0.7
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.545098, 0.180392, 0.843137, 1 )
@@ -26,6 +29,13 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
 shape = SubResource( 6 )
 
+[node name="Area" type="Area" parent="."]
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 7 )
+
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 mesh = SubResource( 2 )
@@ -38,6 +48,8 @@ material/0 = SubResource( 5 )
 
 [node name="KinematicMovement" parent="." instance=ExtResource( 2 )]
 
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
 [connection signal="failed_movement" from="KinematicMovement" to="." method="_on_KinematicMovement_failed_movement"]
 [connection signal="reached_target" from="KinematicMovement" to="." method="_on_KinematicMovement_reached_target"]
 [connection signal="succeded_movement" from="KinematicMovement" to="." method="_on_KinematicMovement_succeded_movement"]

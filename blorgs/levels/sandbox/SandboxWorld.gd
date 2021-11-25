@@ -19,6 +19,7 @@ func _get_interactables():
 		if (
 			child is Gate
 			or child is Elevator
+			or child is MagicButton
 			):
 			interactables.append(child)
 	return interactables
