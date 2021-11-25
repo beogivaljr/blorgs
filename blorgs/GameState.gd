@@ -23,7 +23,6 @@ func _get_new_spell(spell_id: int) -> SpellNameDTO:
 		randi()
 		% GlobalConstants.RANDOM_NAMES.size()
 	)]
-	spell.spell_name.function_name = "lololo"
 	spell.spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[(
 		randi()
 		% GlobalConstants.RANDOM_NAMES.size()
