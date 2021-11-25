@@ -144,8 +144,11 @@ material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="PlayerA" parent="." index="19" instance=ExtResource( 7 )]
+[node name="Player" parent="." index="19" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -9, 0, -3 )
 
 [node name="Elevator" parent="." index="20" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
+
+[connection signal="spell_done" from="Player" to="." method="_on_spell_done"]
+[connection signal="spell_started" from="Player" to="." method="_on_spell_started"]

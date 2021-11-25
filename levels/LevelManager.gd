@@ -3,27 +3,26 @@ extends Node
 
 var _levels = {
 	GameState.LevelIds.SANDBOX: preload("res://levels/sandbox/SandboxLevel.tscn"),
-	GameState.LevelIds.MAZE1: preload("res://levels/maze/Maze_01.tscn"),
-	GameState.LevelIds.MAZE2: preload("res://levels/maze/Maze_02.tscn"),
-	GameState.LevelIds.MAZE3: preload("res://levels/maze/Maze_03.tscn")
+	GameState.LevelIds.MAZE1: preload("res://levels/sandbox/SandboxLevel.tscn"),
+	GameState.LevelIds.MAZE2: preload("res://levels/sandbox/SandboxLevel.tscn"),
+	GameState.LevelIds.MAZE3: preload("res://levels/sandbox/SandboxLevel.tscn"),
+	GameState.LevelIds.MAZE4: preload("res://levels/sandbox/SandboxLevel.tscn"),
 }
 
-var _current_level: BaseLevel setget _set_current_level, _get_current_level
+var _current_level: BaseLevel
 
 
 func _ready() -> void:
-	_current_level = _levels[GameState.current_level_id].instance()
+	_set_new_level(_levels[GameState.current_level_id].instance())
 
 
-func _set_current_level(level: BaseLevel):
-	_current_level.queue_free()
+func _set_new_level(level: BaseLevel):
+	if _current_level:
+		_current_level.queue_free()
 	if level:
 		_bind_level_signals(level)
 		add_child(level)
-
-
-func _get_current_level():
-	return _current_level
+	_current_level = level
 
 
 func _bind_level_signals(level: BaseLevel):
@@ -43,7 +42,8 @@ func _changeLevel():
 		GameState.LevelIds.MAZE4:# Last maze
 			# warning-ignore:return_value_discarded
 			get_tree().change_scene("res://Main.tscn")
+			return
 		_:
 			GameState.current_level_id = GameState.LevelIds.SANDBOX
 	
-	_current_level = _levels[GameState.current_level_id].instance()
+	_set_new_level(_levels[GameState.current_level_id].instance())

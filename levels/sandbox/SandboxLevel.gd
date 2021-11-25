@@ -15,3 +15,7 @@ func _get_spell_ids_list():
 	randomize()
 	spells.shuffle()
 	return spells
+
+
+func _on_HUDSandbox_player_ready(_spells):
+	emit_signal("level_finished")

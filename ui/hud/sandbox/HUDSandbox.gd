@@ -20,9 +20,6 @@ var _active_spell: SpellContainer = null
 
 func setup(spell_ids_list: PoolIntArray):
 	self._spell_ids_list = spell_ids_list
-
-
-func _ready():
 	for spell_id in _spell_ids_list:
 		var spell: SpellContainer = spellContainer.instance()
 		spell.spell_id = spell_id
@@ -40,7 +37,7 @@ func _ready():
 		_spells.append(spell)
 
 
-func on_spell_started():
+func on_spell_started(_spell_id):
 	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.disable_buttons()
 	$SelectedSpellPanelContainer.hide()
 

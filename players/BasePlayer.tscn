@@ -37,3 +37,7 @@ mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
 [node name="KinematicMovement" parent="." instance=ExtResource( 2 )]
+
+[connection signal="failed_movement" from="KinematicMovement" to="." method="_on_KinematicMovement_failed_movement"]
+[connection signal="reached_target" from="KinematicMovement" to="." method="_on_KinematicMovement_reached_target"]
+[connection signal="succeded_movement" from="KinematicMovement" to="." method="_on_KinematicMovement_succeded_movement"]

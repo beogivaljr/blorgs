@@ -1,7 +1,7 @@
 class_name Gate
 extends KinematicBody
 
-signal on_interaction_done
+signal spell_done(succeded, interactable)
 
 var lever_target_a_position = Vector3.ZERO
 var lever_target_b_position = Vector3.ZERO
@@ -17,21 +17,26 @@ func _ready():
 	lever_target_b_position = $LeverTarget2.global_transform.origin
 
 
-func _on_interaction_done_raised():
-	if _is_raised:
-		emit_signal("on_interaction_done")
-
-func _on_interaction_done_lowered():
-	if not _is_raised:
-		emit_signal("on_interaction_done")
-
-
 func toggle_raise_lower():
 	_is_raised = not _is_raised
 	if _is_raised:
 		animation_player.play_backwards("LowerLever")
 	else:
 		animation_player.play("LowerLever")
+
+
+func _on_interaction_done_raised():
+	if _is_raised:
+		_on_spell_done()
+
+
+func _on_interaction_done_lowered():
+	if not _is_raised:
+		_on_spell_done()
+
+
+func _on_spell_done():
+	emit_signal("spell_done", true, self)
 
 
 func _move_gate(finished_animation):
