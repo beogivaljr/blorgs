@@ -10,19 +10,21 @@ local commands = {}
 
 commands[OpCodes.do_spawn] = function(data, state)
     local user_id = data.sender.user_id
-    state.names[user_id] = data.sender.username
+    state.usernames[user_id] = data.sender.username
 
-    if not data.spells then
-        error("Nenhum feitico a ser nomeado?", 3)
+    if not data.spells or not next(data.spells) then
+        error("Envie ao menos um feitico", 3)
+        return
     end
 
-    for spell_id, spell_name in pairs(data.spells) do
-        if state.spells[user_id][spell_id] then
-            state.spells[spell_id] = spell_name
+    for _index, spell in ipairs(data.spells) do
+        if state.spells[user_id][spell.spell_id] then
+            state.spells[spell.spell_id] = spell.spell_name
         else
             -- user sent a name for a spell that does not belong to them
             -- throw a nice error
             error("Esse feitico nao deve ser nomeado por voce!", 3)
+            return
         end
     end
 end
@@ -31,8 +33,13 @@ function world_control.match_init(context, params)
     params = params or {}
     local state = {
         presences = {},
-        spells = params.spells or {},
-        names = {}
+        usernames = {},
+        available_spells = params.available_spells or
+            {{spell_id = 0, spell_name = {function_name = "Blorgs", parameter_name = "Pindos"}}},
+        user_spells = {},
+        spell_queue = {},
+        ready_vote = {},
+        sandbox_vote = {}
     }
     local tick_rate = params.tick_rate or 10
     local label = params.label or "Game world"
@@ -51,8 +58,10 @@ function world_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences[user_id] = presence
-        state.spells[user_id] = {state.spells[1]}
-        state.names[user_id] = "Jogador"
+        state.user_spells[user_id] = {state.available_spells[1]}
+        state.usernames[user_id] = presence.username
+        state.ready_vote[user_id] = false
+        state.sandbox_vote[user_id] = false
     end
     return state
 end
@@ -76,6 +85,21 @@ function world_control.match_loop(context, dispatcher, tick, state, messages)
         local data = message.data
         if command and data and string.len(data) > 0 then
             command(nakama.json_decode(data), state)
+
+            if op_code == OpCodes.do_spawn then
+                dispatcher.broadcast_message(
+                    OpCodes.do_spawn,
+                    nakama.json_encode(
+                        {
+                            usernames = state.usernames,
+                            ready_vote = state.ready_vote,
+                            sandbox_vote = state.sandbox_vote,
+                            available_spells = state.available_spells,
+                            spell_queue = state.spell_queue
+                        }
+                    )
+                )
+            end
         end
     end
     return state
