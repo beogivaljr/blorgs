@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/fonts/h2_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/main_menu/connect_to_game/ConnectToGameInfo.gd" type="Script" id=2]
+
+[node name="ConnectToGameInfo" type="VBoxContainer"]
+margin_left = 280.0
+margin_right = 680.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameCodeMessage" type="Label" parent="."]
+margin_right = 400.0
+margin_bottom = 14.0
+text = "Código do jogo"
+
+[node name="GameCodeLineEdit" type="LineEdit" parent="."]
+margin_top = 18.0
+margin_right = 400.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 1 )
+placeholder_text = "XXXXXX"
+
+[node name="PlayerNameMessage" type="Label" parent="."]
+margin_top = 111.0
+margin_right = 400.0
+margin_bottom = 125.0
+text = "Nome"
+
+[node name="PlayerName" type="LineEdit" parent="."]
+margin_top = 129.0
+margin_right = 400.0
+margin_bottom = 218.0
+custom_fonts/font = ExtResource( 1 )
+max_length = 12
+placeholder_text = "Digite seu Nome..."
+
+[node name="PlayButton" type="Button" parent="."]
+margin_top = 222.0
+margin_right = 400.0
+margin_bottom = 242.0
+text = "Jogar"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]

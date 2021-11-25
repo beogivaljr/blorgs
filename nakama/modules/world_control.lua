@@ -1,0 +1,144 @@
+local nakama = require("nakama")
+
+local world_control = {}
+
+local OpCodes = {
+    do_spawn = 1,
+    player_joined = 2
+}
+
+local commands = {}
+
+local function find_spell(table, spell)
+    local index
+    local spell_id = spell.spell_id
+
+    for i, spell in ipairs(table) do
+        if spell.spell_id == spell_id then
+            index = i
+            break
+        end
+    end
+
+    return index
+end
+
+commands[OpCodes.do_spawn] = function(data, state)
+    local user_id = data.user_id
+
+    if not data.spells or not next(data.spells) then
+        error("Envie ao menos um feitico", 3)
+        return
+    end
+
+    for _i, spell in ipairs(data.spells) do
+        local available_spell_index = find_spell(state.available_spells, spell)
+        if not available_spell_index then
+            -- user sent a name for a spell that does not exist
+            -- throw a nice error
+            error("Esse feitico nao existe!", 3)
+        end
+
+        --[[ TODO: Move user_spells assignment to match creation
+        local user_spell_index = find_spell(state.user_spells[user_id], spell)
+        if not user_spell_index then
+            -- user sent a name for a spell that does not belong to them
+            -- throw a nice error
+            error("Esse feitico nao deve ser nomeado por voce!", 3)
+        end
+
+        state.user_spells[user_id][user_spell_index].spell_name = spell.spell_name
+        --]]
+        state.available_spells[available_spell_index].spell_name = spell.spell_name
+    end
+
+    state.user_spells[user_id] = data.spells
+end
+
+function world_control.match_init(context, params)
+    params = params or {}
+    local state = {
+        presences = {count = 0},
+        usernames = {},
+        available_spells = params.available_spells or
+            {{spell_id = 0, spell_name = {function_name = "Blorgs", parameter_name = "Pindos"}}},
+        user_spells = {},
+        spell_queue = {},
+        ready_vote = {},
+        sandbox_vote = {}
+    }
+    local tick_rate = params.tick_rate or 10
+    local label = params.label or "Game world"
+
+    return state, tick_rate, label
+end
+
+function world_control.match_join_attempt(context, dispatcher, tick, state, presence, metadata)
+    if state.presences[presence.user_id] ~= nil then
+        return state, false, "User already logged in"
+    end
+    return state, true
+end
+
+function world_control.match_join(context, dispatcher, tick, state, presences)
+    for _, presence in ipairs(presences) do
+        local user_id = presence.user_id
+        state.presences[user_id] = presence
+        state.presences.count = state.presences.count + 1
+        state.user_spells[user_id] = {state.available_spells[1]}
+        state.usernames[user_id] = presence.username
+        state.ready_vote[user_id] = false
+        state.sandbox_vote[user_id] = false
+    end
+
+    dispatcher.broadcast_message(OpCodes.player_joined, nakama.json_encode(state.presences.count))
+    return state
+end
+
+function world_control.match_leave(context, dispatcher, tick, state, presences)
+    for _, presence in ipairs(presences) do
+        local user_id = presence.user_id
+        for key, _ in pairs(state) do
+            state[key][user_id] = nil
+        end
+    end
+
+    -- if no one is present, terminates the match
+    return next(state.presences) and state
+end
+
+function world_control.match_loop(context, dispatcher, tick, state, messages)
+    for _, message in ipairs(messages) do
+        local op_code = message.op_code
+        local command = commands[op_code]
+        local data = message.data
+        if command and data and string.len(data) > 0 then
+            data = nakama.json_decode(data)
+            data.user_id = message.sender.user_id
+
+            command(data, state)
+
+            if op_code == OpCodes.do_spawn then
+                dispatcher.broadcast_message(
+                    OpCodes.do_spawn,
+                    nakama.json_encode(
+                        {
+                            usernames = state.usernames,
+                            ready_vote = state.ready_vote,
+                            sandbox_vote = state.sandbox_vote,
+                            available_spells = state.available_spells,
+                            spell_queue = state.spell_queue
+                        }
+                    )
+                )
+            end
+        end
+    end
+    return state
+end
+
+function world_control.match_terminate(context, dispatcher, tick, state, grace_seconds)
+    return state
+end
+
+return world_control
