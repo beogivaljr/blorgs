@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/environment/torch/TorchWall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://levels/decor/barrelDark.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://levels/decor/banner.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://levels/sandbox/Sandbox.gd" type="Script" id=6]
+[ext_resource path="res://levels/sandbox/SandboxWorld.gd" type="Script" id=6]
 [ext_resource path="res://players/BasePlayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/interactable/gate/Gate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://levels/interactable/elevator/Elevator.tscn" type="PackedScene" id=10]
@@ -22,7 +22,7 @@ vertices = PoolVector3Array( -13.4518, 3.33, 0.377397, -13.4518, 3.33, 1.5774, -
 polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
 sample_partition_type/sample_partition_type = 1
 
-[node name="Sandbox" instance=ExtResource( 1 )]
+[node name="SandboxWorld" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
 
 [node name="FloorGrid" parent="." index="2"]
@@ -144,8 +144,11 @@ material/0 = null
 material/1 = null
 material/2 = null
 
-[node name="PlayerA" parent="." index="19" instance=ExtResource( 7 )]
+[node name="Player" parent="." index="19" instance=ExtResource( 7 )]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -9, 0, -3 )
 
 [node name="Elevator" parent="." index="20" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
+
+[connection signal="spell_done" from="Player" to="." method="_on_spell_done"]
+[connection signal="spell_started" from="Player" to="." method="_on_spell_started"]

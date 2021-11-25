@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Spatial",
+"base": "Node",
 "class": "BaseLevel",
 "language": "GDScript",
 "path": "res://levels/BaseLevel.gd"
+}, {
+"base": "Spatial",
+"class": "BaseWorld",
+"language": "GDScript",
+"path": "res://levels/BaseWorld.gd"
 }, {
 "base": "StaticBody",
 "class": "Elevator",
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
+"BaseWorld": "",
 "Elevator": "",
 "Gate": "",
 "SpellContainer": ""
@@ -45,6 +51,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalConstants="*res://constants/GlobalConstants.gd"
+GameState="*res://GameState.gd"
 
 [display]
 
@@ -62,39 +69,9 @@ singletons=[  ]
 
 [input]
 
-left={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-forward={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-right={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-back={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-jump={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
 click={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-move={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

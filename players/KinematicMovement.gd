@@ -1,10 +1,9 @@
 extends Node
 
-signal on_succeded_movement
+signal succeded_movement
 # warning-ignore:unused_signal
-signal on_failed_movement
-signal on_reached_gate
-signal on_reached_elevator(body, up)
+signal failed_movement
+signal reached_target(target)
 
 export var speed = 7.0
 export var jump_strength = 20.0
@@ -22,16 +21,14 @@ var _current_physics_frames_without_moving = 0
 const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 4
 var _previous_distance_vector = Vector3.ZERO
 
+
 func setup(body: KinematicBody, navigation: Navigation):
 	_body = body
 	_navigation = navigation
 
+
 func _physics_process(delta):
 	var move_direction = Vector3.ZERO
-	
-	## DEBUG: Direct input
-#	move_direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-#	move_direction.z = Input.get_action_strength("back") - Input.get_action_strength("forward")
 	
 	## Navigation input
 	if not _path.empty():
@@ -43,12 +40,10 @@ func _physics_process(delta):
 		else:
 			_path.remove(0)
 			if _path.empty():
-				if _target_node is Gate:
-					emit_signal("on_reached_gate")
-				elif _target_node is Elevator:
-					emit_signal("on_reached_elevator", _body, _elevator_transport_up)
+				if _target_node:
+					emit_signal("reached_target", _target_node)
 				else:
-					emit_signal("on_succeded_movement")
+					emit_signal("succeded_movement")
 		
 		## Cancel if not moving after _MAX_PHYSICS_FRAMES_WITHOUT_MOVING
 		if not distance_vector.is_equal_approx(_previous_distance_vector):
@@ -80,28 +75,6 @@ func _physics_process(delta):
 		_body.rotation.y = look_direction.angle()
 
 
-func _set_new_path(path, target_node):
-	if path.empty():
-		call_deferred("emit_signal", "on_failed_movement")
-#		emit_signal("on_failed_movement")
-		print("Failed movement!")
-	_target_node = target_node
-	_path = path
-	_current_physics_frames_without_moving = 0
-
-
-func _get_path_length_squared(path: PoolVector3Array) -> float:
-	if path.empty():
-		return INF
-	var path_length_squared = 0.0
-	var previous_location = path[0] as Vector3
-	for i in range(1, path.size()):
-		var location = path[i] as Vector3
-		path_length_squared += (location - previous_location).length_squared()
-		previous_location = location
-	return path_length_squared
-
-
 func move_to(location: Vector3):
 	var new_path = _navigation.get_simple_path(_body.transform.origin, location, true)
 	_set_new_path(new_path, null)
@@ -128,3 +101,24 @@ func move_to_elevator(elevator: Elevator):
 	else:
 		_set_new_path(upper_path, elevator)
 		_elevator_transport_up = false
+
+
+func _set_new_path(path, target_node):
+	if path.empty():
+		call_deferred("emit_signal", "failed_movement")
+		print("Failed movement!")
+	_target_node = target_node
+	_path = path
+	_current_physics_frames_without_moving = 0
+
+
+func _get_path_length_squared(path: PoolVector3Array) -> float:
+	if path.empty():
+		return INF
+	var path_length_squared = 0.0
+	var previous_location = path[0] as Vector3
+	for i in range(1, path.size()):
+		var location = path[i] as Vector3
+		path_length_squared += (location - previous_location).length_squared()
+		previous_location = location
+	return path_length_squared
