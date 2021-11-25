@@ -2,7 +2,7 @@ extends Node
 
 const KEY := "blorgs"
 
-enum OpCodes { DO_SPAWN = 1 }
+enum OpCodes { DO_SPAWN = 1, PLAYER_JOINED }
 
 var _session: NakamaSession
 var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
@@ -12,7 +12,7 @@ var _presences := {}
 
 
 func authenticate_async(username: String) -> int:
-	var deviceid = OS.get_unique_id()
+	var deviceid = OS.get_unique_id() + username
 	var result := OK
 
 	var new_session: NakamaSession = yield(
@@ -63,8 +63,19 @@ func join_world_async(world_code: String) -> Dictionary:
 func create_world_async() -> String:
 	var payload = []
 	for spell in GameState.get_spells():
-		payload.append({spell_id = spell.spell_id, spell_name = {function_name = spell.spell_name.function_name, parameter_name = spell.spell_name.parameter_name}})
-	var response: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "create_world", JSON.print({available_spells = payload})), "completed")
+		payload.append(
+			{
+				spell_id = spell.spell_id,
+				spell_name = {
+					function_name = spell.spell_name.function_name,
+					parameter_name = spell.spell_name.parameter_name
+				}
+			}
+		)
+	var response: NakamaAPI.ApiRpc = yield(
+		_client.rpc_async(_session, "create_world", JSON.print({available_spells = payload})),
+		"completed"
+	)
 	if not response.is_exception():
 		var hash_code: String = response.payload
 		return hash_code
@@ -91,4 +102,7 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 		OpCodes.DO_SPAWN:
 			var decoded: Dictionary = JSON.parse(raw).result
 			print(decoded)
-
+		OpCodes.PLAYER_JOINED:
+			var decoded: int = JSON.parse(raw).result
+			if decoded > 1:
+				print("Other user just joined")

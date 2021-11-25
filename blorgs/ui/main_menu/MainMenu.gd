@@ -12,6 +12,7 @@ func _on_MainButtons_new_game():
 	yield(ServerConnection.authenticate_async("Jogador"), "completed")
 	yield(ServerConnection.connect_to_server_async(), "completed")
 	var hash_code = yield(ServerConnection.create_world_async(), "completed")
+	print(hash_code)
 	yield(ServerConnection.join_world_async(hash_code), "completed")
 	$ScreensContainer/NewGameInfo.set_hash_code(hash_code)
 	$ScreensContainer/NewGameInfo.create_new_game()

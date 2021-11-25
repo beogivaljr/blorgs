@@ -3,7 +3,8 @@ local nakama = require("nakama")
 local world_control = {}
 
 local OpCodes = {
-    do_spawn = 1
+    do_spawn = 1,
+    player_joined = 2
 }
 
 local commands = {}
@@ -57,7 +58,7 @@ end
 function world_control.match_init(context, params)
     params = params or {}
     local state = {
-        presences = {},
+        presences = {count = 0},
         usernames = {},
         available_spells = params.available_spells or
             {{spell_id = 0, spell_name = {function_name = "Blorgs", parameter_name = "Pindos"}}},
@@ -83,11 +84,14 @@ function world_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences[user_id] = presence
+        state.presences.count = state.presences.count + 1
         state.user_spells[user_id] = {state.available_spells[1]}
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
         state.sandbox_vote[user_id] = false
     end
+
+    dispatcher.broadcast_message(OpCodes.player_joined, nakama.json_encode(state.presences.count))
     return state
 end
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/fonts/h2_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/main_menu/connect_to_game/ConnectToGameInfo.gd" type="Script" id=2]
-[ext_resource path="res://ui/main_menu/connect_to_game/GameCodeLineEdit.gd" type="Script" id=3]
 
 [node name="ConnectToGameInfo" type="VBoxContainer"]
 margin_left = 280.0
@@ -26,7 +25,6 @@ margin_right = 400.0
 margin_bottom = 107.0
 custom_fonts/font = ExtResource( 1 )
 placeholder_text = "XXXXXX"
-script = ExtResource( 3 )
 
 [node name="PlayerNameMessage" type="Label" parent="."]
 margin_top = 111.0
@@ -48,5 +46,4 @@ margin_right = 400.0
 margin_bottom = 242.0
 text = "Jogar"
 
-[connection signal="text_changed" from="GameCodeLineEdit" to="GameCodeLineEdit" method="_on_GameCode_text_changed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
