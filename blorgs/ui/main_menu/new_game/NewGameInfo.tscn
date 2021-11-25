@@ -11,25 +11,25 @@ __meta__ = {
 }
 
 [node name="GameCodeMessage" type="Label" parent="."]
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 14.0
 text = "O código para o seu jogo é:"
 
 [node name="GameCode" type="Label" parent="."]
 margin_top = 18.0
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 32.0
 text = "GAMECODE"
 
 [node name="WaitingMessage" type="Label" parent="."]
 margin_top = 36.0
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 50.0
 text = "Aguardando a conexão de um amigo..."
 
 [node name="Cancel" type="Button" parent="."]
 margin_top = 54.0
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 74.0
 text = "Cancelar"
 
