@@ -30,6 +30,7 @@ func connect_to_server_async() -> int:
 	var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 	if not result.is_exception():
 		_socket.connect("closed", self, "on_NakamaSocket_closed")
+		_socket.connect("received_match_state", self, "_on_NakamaSocket_received_match_state")
 		return OK
 	return ERR_CANT_CONNECT
 
@@ -60,7 +61,10 @@ func join_world_async(world_code: String) -> Dictionary:
 
 
 func create_world_async() -> String:
-	var response: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "create_world"), "completed")
+	var payload = []
+	for spell in GameState.get_spells():
+		payload.append({spell_id = spell.spell_id, spell_name = {function_name = spell.spell_name.function_name, parameter_name = spell.spell_name.parameter_name}})
+	var response: NakamaAPI.ApiRpc = yield(_client.rpc_async(_session, "create_world", JSON.print({available_spells = payload})), "completed")
 	if not response.is_exception():
 		var hash_code: String = response.payload
 		return hash_code
@@ -75,4 +79,16 @@ func send_spawn(spells: Array) -> void:
 		payload.append({spell_id = spell.spell_id, spell_name = spell.spell_name})
 
 	if _socket:
-		_socket.send_match_state_async(_world_id, OpCodes.DO_SPAWN, JSON.print(spells))
+		_socket.send_match_state_async(_world_id, OpCodes.DO_SPAWN, JSON.print({spells = payload}))
+
+
+# Called when the server received a custom message from the server.
+func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
+	var code := match_state.op_code
+	var raw := match_state.data
+
+	match code:
+		OpCodes.DO_SPAWN:
+			var decoded: Dictionary = JSON.parse(raw).result
+			print(decoded)
+
