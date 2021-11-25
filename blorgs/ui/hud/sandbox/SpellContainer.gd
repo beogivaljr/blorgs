@@ -6,30 +6,19 @@ signal spell_container_rename_function_pressed(new_spell)
 signal spell_container_rename_parameter_pressed(new_spell)
 signal spell_container_button_pressed(button)
 
-
-export(GlobalConstants.SpellIds) var spell_id = GlobalConstants.SpellIds.MOVE_TO
-export var _function_name = GlobalConstants.RANDOM_NAMES[0]
-export var _parameter_name = GlobalConstants.RANDOM_NAMES[1]
-var spell_name = {
-	function_name = _function_name,
-	parameter_name = _parameter_name,
-}
+var spell
 
 
-func _enter_tree():
-	randomize()
-	_function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-	$VBoxContainer/HBoxContainer/RenameFnButton.button_name = _function_name
+func setup(spell):
+	self.spell = spell
+	$VBoxContainer/HBoxContainer/RenameFnButton.button_name = self.spell.spell_name.function_name
 	
-	if spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
+	if spell.spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
 		$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
-		_parameter_name = ""
+		self.spell.spell_name.parameter_name = ""
 	else:
-		_parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-		$VBoxContainer/HBoxContainer/RenameParamButton.button_name = _parameter_name
-	
+		$VBoxContainer/HBoxContainer/RenameParamButton.button_name = self.spell.spell_name.parameter_name
 	_update_spell_name()
-
 
 func toggle_enable_other_buttons(button):
 	if button.pressed:
@@ -62,7 +51,7 @@ func _on_SelectButton_pressed():
 
 func _on_RenameFnButton_pressed(new_name = null):
 	if new_name:
-		_function_name = new_name
+		spell.spell_name.function_name = new_name
 		_update_spell_name()
 	emit_signal("spell_container_rename_function_pressed", self)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/RenameFnButton)
@@ -70,13 +59,11 @@ func _on_RenameFnButton_pressed(new_name = null):
 
 func _on_RenameParamButton_pressed(new_name = null):
 	if new_name:
-		_parameter_name = new_name
+		spell.spell_name.parameter_name = new_name
 		_update_spell_name()
 	emit_signal("spell_container_rename_parameter_pressed", self)
 	emit_signal("spell_container_button_pressed", $VBoxContainer/HBoxContainer/RenameParamButton)
 
 
 func _update_spell_name():
-	spell_name.function_name = _function_name
-	spell_name.parameter_name = _parameter_name
-	$VBoxContainer/SpellName.set_text(_function_name + "(" + _parameter_name + ")")
+	$VBoxContainer/SpellName.set_text(spell.spell_name.function_name + "(" + spell.spell_name.parameter_name + ")")

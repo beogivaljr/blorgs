@@ -18,23 +18,22 @@ var _spell_ids_list = [
 var _spells = []
 var _active_spell: SpellContainer = null
 
-func setup(spell_ids_list: PoolIntArray):
-	self._spell_ids_list = spell_ids_list
-	for spell_id in _spell_ids_list:
-		var spell: SpellContainer = spellContainer.instance()
-		spell.spell_id = spell_id
-		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.add_child(spell)
+func setup(spells):
+	_spells = spells
+	for spell in spells:
+		var spell_container: SpellContainer = spellContainer.instance()
+		spell_container.setup(spell)
 		
-		spell.connect("spell_selected", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_selected")
-		spell.connect("spell_container_button_pressed", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_container_button_pressed")
+		spell_container.connect("spell_selected", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_selected")
+		spell_container.connect("spell_container_button_pressed", $SpellPanel/VBoxContainer/ScrollContainer/SpellsList, "_on_spell_container_button_pressed")
 		
-		spell.connect("spell_container_button_pressed", $SelectedSpellPanelContainer, "_on_spell_container_button_pressed")
-		spell.connect("spell_container_rename_function_pressed", $SelectedSpellPanelContainer, "_on_rename_function_selected")
-		spell.connect("spell_container_rename_parameter_pressed", $SelectedSpellPanelContainer, "_on_rename_parameter_selected")
+		spell_container.connect("spell_container_button_pressed", $SelectedSpellPanelContainer, "_on_spell_container_button_pressed")
+		spell_container.connect("spell_container_rename_function_pressed", $SelectedSpellPanelContainer, "_on_rename_function_selected")
+		spell_container.connect("spell_container_rename_parameter_pressed", $SelectedSpellPanelContainer, "_on_rename_parameter_selected")
 		
-		spell.connect("spell_selected", self, "_on_spell_selected")
+		spell_container.connect("spell_selected", self, "_on_spell_selected")
 		
-		_spells.append(spell)
+		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.add_child(spell_container)
 
 
 func on_spell_started(_spell_id):
