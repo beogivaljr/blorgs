@@ -11,7 +11,7 @@ __meta__ = {
 }
 
 [node name="NewGame" type="Button" parent="."]
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 20.0
 text = "Novo jogo"
 __meta__ = {
@@ -20,7 +20,7 @@ __meta__ = {
 
 [node name="ConnectToGame" type="Button" parent="."]
 margin_top = 24.0
-margin_right = 960.0
+margin_right = 1440.0
 margin_bottom = 44.0
 text = "Conectar-se a um jogo"
 __meta__ = {
