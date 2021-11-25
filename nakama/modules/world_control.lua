@@ -66,11 +66,7 @@ function world_control.match_leave(context, dispatcher, tick, state, presences)
     end
 
     -- if no one is present, terminates the match
-    if next(state.presences) then
-        return state
-    else
-        return world_control.match_terminate(context, dispatcher, tick, {})
-    end
+    return next(state.presences) and state or nil
 end
 
 function world_control.match_loop(context, dispatcher, tick, state, messages)
