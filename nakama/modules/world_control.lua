@@ -103,7 +103,7 @@ function world_control.match_leave(context, dispatcher, tick, state, presences)
 end
 
 function world_control.match_loop(context, dispatcher, tick, state, messages)
-    for message in messages do
+    for _, message in ipairs(messages) do
         local op_code = message.op_code
         local command = commands[op_code]
         local data = message.data
