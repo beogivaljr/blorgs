@@ -46,3 +46,12 @@ func _on_spell_done(succeded, interactable, spell_id):
 		# its respective navmesh
 		pass
 	._on_spell_done(succeded, interactable, spell_id)
+
+
+func _on_received_spawn_command(creature_spawner):
+	var creature = preload("res://players/BasePlayer.tscn").instance()
+	creature.name = "Creature"
+	yield(self, "ready")
+	add_child(creature)
+	creature.setup($Navigation, _get_interactables())
+	creature.global_transform.origin = creature_spawner.global_transform.origin + Vector3(0, 1, 0)
