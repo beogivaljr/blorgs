@@ -8,8 +8,9 @@ local OpCodes = {
 
 local commands = {}
 
-local function find_spell(table, spell_id)
+local function find_spell(table, spell)
     local index
+    local spell_id = spell.spell_id
 
     for i, spell in ipairs(table) do
         if spell.spell_id == spell_id then
@@ -22,14 +23,14 @@ local function find_spell(table, spell_id)
 end
 
 commands[OpCodes.do_spawn] = function(data, state)
-    local user_id = data.sender.user_id
+    local user_id = data.user_id
 
     if not data.spells or not next(data.spells) then
         error("Envie ao menos um feitico", 3)
         return
     end
 
-    for i, spell in ipairs(data.spells) do
+    for _i, spell in ipairs(data.spells) do
         local available_spell_index = find_spell(state.available_spells, spell)
         if not available_spell_index then
             -- user sent a name for a spell that does not exist
@@ -108,7 +109,10 @@ function world_control.match_loop(context, dispatcher, tick, state, messages)
         local command = commands[op_code]
         local data = message.data
         if command and data and string.len(data) > 0 then
-            command(nakama.json_decode(data), state)
+            data = nakama.json_decode(data)
+            data.user_id = message.sender.user_id
+
+            command(data, state)
 
             if op_code == OpCodes.do_spawn then
                 dispatcher.broadcast_message(
