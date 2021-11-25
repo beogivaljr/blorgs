@@ -13,7 +13,6 @@ var _body: KinematicBody = null
 var _navigation: Navigation = null
 var _path = []
 var _target_node = null
-var _elevator_transport_up = true
 
 var _velocity = Vector3.ZERO
 var _snap_vector = Vector3.ZERO
@@ -97,10 +96,14 @@ func move_to_elevator(elevator: Elevator):
 	var upper_path = _navigation.get_simple_path(starting_position, elevator.upper_position)
 	if _get_path_length_squared(lower_path) < _get_path_length_squared(upper_path):
 		_set_new_path(lower_path, elevator)
-		_elevator_transport_up = true
 	else:
 		_set_new_path(upper_path, elevator)
-		_elevator_transport_up = false
+
+
+func move_to_button(button: MagicButton):
+	var starting_position = _body.transform.origin
+	var path = _navigation.get_simple_path(starting_position, button.global_transform.origin)
+	_set_new_path(path, button)
 
 
 func _set_new_path(path, target_node):

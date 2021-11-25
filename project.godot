@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://levels/BaseLevel.gd"
 }, {
+"base": "KinematicBody",
+"class": "BasePlayer",
+"language": "GDScript",
+"path": "res://players/BasePlayer.gd"
+}, {
 "base": "Spatial",
 "class": "BaseWorld",
 "language": "GDScript",
@@ -29,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://levels/interactable/gate/Gate.gd"
 }, {
+"base": "KinematicBody",
+"class": "MagicButton",
+"language": "GDScript",
+"path": "res://levels/interactable/magic_buttons/MagicButton.gd"
+}, {
 "base": "PanelContainer",
 "class": "SpellContainer",
 "language": "GDScript",
@@ -36,9 +46,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseLevel": "",
+"BasePlayer": "",
 "BaseWorld": "",
 "Elevator": "",
 "Gate": "",
+"MagicButton": "",
 "SpellContainer": ""
 }
 

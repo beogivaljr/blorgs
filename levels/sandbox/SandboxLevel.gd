@@ -11,7 +11,13 @@ func _setup_hud():
 
 func _get_spell_ids_list():
 	var spells_bucket = GlobalConstants.SpellIds
-	var spells =  [spells_bucket.MOVE_TO, spells_bucket.USE_ELEVATOR, spells_bucket.TOGGLE_GATE]
+	var spells =  [
+		spells_bucket.MOVE_TO, 
+		spells_bucket.USE_ELEVATOR, 
+		spells_bucket.TOGGLE_GATE,
+		spells_bucket.PRESS_SQUARE_BUTTON,
+		spells_bucket.PRESS_ROUND_BUTTON
+		]
 	randomize()
 	spells.shuffle()
 	return spells
