@@ -8,26 +8,25 @@ local OpCodes = {
 
 local commands = {}
 
+local function find_spell(table, spell_id)
+    local index
+
+    for i, spell in ipairs(table) do
+        if spell.spell_id == spell_id then
+            index = i
+            break
+        end
+    end
+
+    return index
+end
+
 commands[OpCodes.do_spawn] = function(data, state)
     local user_id = data.sender.user_id
-    state.usernames[user_id] = data.sender.username
 
     if not data.spells or not next(data.spells) then
         error("Envie ao menos um feitico", 3)
         return
-    end
-
-    local function find_spell(table, spell_id)
-        local index
-
-        for i, spell in ipairs(table) do
-            if spell.spell_id == spell_id then
-                index = i
-                break
-            end
-        end
-
-        return index
     end
 
     for i, spell in ipairs(data.spells) do
@@ -38,6 +37,7 @@ commands[OpCodes.do_spawn] = function(data, state)
             error("Esse feitico nao existe!", 3)
         end
 
+        --[[ TODO: Move user_spells assignment to match creation
         local user_spell_index = find_spell(state.user_spells[user_id], spell)
         if not user_spell_index then
             -- user sent a name for a spell that does not belong to them
@@ -46,8 +46,11 @@ commands[OpCodes.do_spawn] = function(data, state)
         end
 
         state.user_spells[user_id][user_spell_index].spell_name = spell.spell_name
+        --]]
         state.available_spells[available_spell_index].spell_name = spell.spell_name
     end
+
+    state.user_spells[user_id] = data.spells
 end
 
 function world_control.match_init(context, params)
