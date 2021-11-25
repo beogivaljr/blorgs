@@ -17,15 +17,36 @@ commands[OpCodes.do_spawn] = function(data, state)
         return
     end
 
-    for _index, spell in ipairs(data.spells) do
-        if state.spells[user_id][spell.spell_id] then
-            state.spells[spell.spell_id] = spell.spell_name
-        else
+    local function find_spell(table, spell_id)
+        local index
+
+        for i, spell in ipairs(table) do
+            if spell.spell_id == spell_id then
+                index = i
+                break
+            end
+        end
+
+        return index
+    end
+
+    for i, spell in ipairs(data.spells) do
+        local available_spell_index = find_spell(state.available_spells, spell)
+        if not available_spell_index then
+            -- user sent a name for a spell that does not exist
+            -- throw a nice error
+            error("Esse feitico nao existe!", 3)
+        end
+
+        local user_spell_index = find_spell(state.user_spells[user_id], spell)
+        if not user_spell_index then
             -- user sent a name for a spell that does not belong to them
             -- throw a nice error
             error("Esse feitico nao deve ser nomeado por voce!", 3)
-            return
         end
+
+        state.user_spells[user_id][user_spell_index].spell_name = spell.spell_name
+        state.available_spells[available_spell_index].spell_name = spell.spell_name
     end
 end
 
