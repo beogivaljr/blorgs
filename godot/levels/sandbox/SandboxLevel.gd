@@ -3,8 +3,7 @@ extends BaseLevel
 
 func _ready():
 	ServerConnection.send_spawn()
-	ServerConnection.connect("player_spells_updated", self, "_setup_hud")
-	ServerConnection.request_player_spells()
+	_setup_hud(GameState.get_spells())
 
 
 func _setup_hud(spells):

@@ -15,6 +15,23 @@ const _SPELLS = GlobalConstants.SpellIds
 var player_type
 
 
+func on_player_list_updated():
+	pass
+
+
+func on_player_spells_updated(spells, p_player_type: int = player_type):
+	match p_player_type:
+		PlayerTypes.A:
+			_spells_a = spells
+		PlayerTypes.B:
+			_spells_b = spells
+
+
+func on_all_spells_updated(spells):
+	_spells_a = spells[0]
+	_spells_b = spells[1]
+
+
 func _get_new_spell(spell_id: int) -> SpellNameDTO:
 	randomize()
 	var spell_name = {
@@ -30,9 +47,9 @@ var current_level_id = LevelIds.SANDBOX
 var current_maze_index = 0
 
 
-func get_spells(player_type: int):
+func get_spells(p_player_type: int = player_type):
 	randomize()
-	match player_type:
+	match p_player_type:
 		PlayerTypes.A:
 			_spells_a = (
 				_spells_a
@@ -64,8 +81,8 @@ func get_spells(player_type: int):
 			return _spells_b
 
 
-func get_dict_spells(player_type: int):
+func get_dict_spells(p_player_type: int):
 	var player_spells = []
-	for spell in get_spells(player_type):
+	for spell in get_spells(p_player_type):
 		player_spells.append(spell.dict())
 	return player_spells
