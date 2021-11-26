@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://levels/interactables/magic_buttons/MagicButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/interactables/magic_buttons/barrel.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://levels/interactables/magic_buttons/barrelDark.obj" type="ArrayMesh" id=2]
 
 [node name="MagicRoundButton" instance=ExtResource( 1 )]
 unlock_spell_id = 4
