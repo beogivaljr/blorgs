@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://levels/interactable/gate/wall_gate.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://levels/interactable/gate/Gate.gd" type="Script" id=4]
-[ext_resource path="res://levels/interactable/gate/axeDouble_common.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://levels/interactable/gate/chestTop_common.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://levels/interactables/gate/wall_gate.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://levels/interactables/gate/Gate.gd" type="Script" id=4]
+[ext_resource path="res://levels/interactables/gate/axeDouble_common.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://levels/interactables/gate/chestTop_common.obj" type="ArrayMesh" id=6]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 2, 2, 1 )
@@ -13,7 +13,7 @@ extents = Vector3( 1, 2, 1 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "Lower"
-length = 2.0
+length = 1.5
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("CollisionShape:translation:y")
 tracks/0/interp = 1
@@ -22,7 +22,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "points": PoolRealArray( 1, -0.25, 0, 0.25, 0, -2, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 2 )
+"times": PoolRealArray( 0, 1.5 )
 }
 tracks/1/type = "bezier"
 tracks/1/path = NodePath("wall_gate:translation:y")
@@ -31,8 +31,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( -1, -0.25, 0, 0.25, 0, -4, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 2 )
+"points": PoolRealArray( -1, -0.2, -0.299189, 0.2, 0.299189, -4, -0.5, -0.306668, 0.5, 0.306668 ),
+"times": PoolRealArray( 0, 1.5 )
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -41,7 +41,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 2 ),
+"times": PoolRealArray( 0, 1.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],

@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh"
+
+[deps]
+
+files=[ "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh" ]
+
+source_file="res://levels/interactables/creature_spawners/shield_common.obj"
+dest_files=[ "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh", "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

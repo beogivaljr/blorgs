@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://levels/interactable/elevator/torch.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://levels/interactable/elevator/Elevator.gd" type="Script" id=3]
-[ext_resource path="res://levels/interactable/elevator/elevator_glow.tres" type="Material" id=4]
+[ext_resource path="res://levels/interactables/elevator/torch.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://levels/interactables/elevator/Elevator.gd" type="Script" id=3]
+[ext_resource path="res://levels/interactables/elevator/elevator_glow.tres" type="Material" id=4]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.7

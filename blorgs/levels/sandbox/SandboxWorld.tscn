@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -7,8 +7,11 @@
 [ext_resource path="res://levels/decor/banner.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://levels/sandbox/SandboxWorld.gd" type="Script" id=6]
 [ext_resource path="res://players/BasePlayer.tscn" type="PackedScene" id=7]
-[ext_resource path="res://levels/interactable/gate/Gate.tscn" type="PackedScene" id=8]
-[ext_resource path="res://levels/interactable/elevator/Elevator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://levels/interactables/gate/Gate.tscn" type="PackedScene" id=8]
+[ext_resource path="res://levels/interactables/magic_buttons/MagicSquareButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://levels/interactables/elevator/Elevator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://levels/interactables/magic_buttons/MagicRoundButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawner.tscn" type="PackedScene" id=12]
 
 [sub_resource type="NavigationMesh" id=1]
 vertices = PoolVector3Array( 12.1803, 0.4, -0.660436, 12.7803, 0.4, -0.960435, 12.7803, 0.4, -6.96044, 6.18034, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -13.0197, 0.4, 2.63956, -13.0197, 0.4, 6.53956, -7.01966, 0.4, 6.83956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, 6.83956, 12.1803, 0.4, -0.660436, -6.41966, 0.4, -6.96044, -7.31966, 0.4, -0.960435, -7.01966, 0.4, 2.33956, -0.119658, 0.4, -6.96044, -12.7197, 0.4, -6.96044, -12.7197, 0.4, -0.960435, -7.31966, 0.4, -0.960435, -6.41966, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, -0.660436, 6.18034, 0.4, -6.96044, -0.119658, 0.4, -6.96044 )
@@ -27,7 +30,7 @@ script = ExtResource( 6 )
 
 [node name="FloorGrid" parent="." index="2"]
 data = {
-"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65532, 0, 2, 65534, 0, 3, 65535, 0, 3, 131065, 0, 3, 131066, 0, 3, 131067, 0, 3, 196601, 0, 3, 196602, 0, 3, 196603, 0, 3, 262137, 0, 0, 262138, 0, 0, 262139, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65534, 1, 3, 65535, 1, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 0, 65533, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65534, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
+"cells": PoolIntArray( 0, 0, 3, 1, 0, 3, 5, 0, 3, 6, 0, 3, 65529, 0, 3, 65530, 0, 3, 65532, 0, 2, 65534, 0, 3, 65535, 0, 3, 131065, 0, 3, 131066, 0, 3, 131067, 0, 3, 196601, 0, 3, 196602, 0, 3, 196603, 0, 3, 262137, 0, 0, 262138, 0, 0, 262139, 0, 3, 0, 1, 3, 1, 1, 3, 2, 1, 3, 3, 1, 3, 4, 1, 3, 5, 1, 3, 6, 1, 3, 65529, 1, 3, 65530, 1, 3, 65534, 1, 3, 65535, 1, 3, 0, 2, 3, 1, 2, 3, 2, 2, 3, 3, 2, 3, 4, 2, 3, 5, 2, 3, 6, 2, 3, 65528, 2, 3, 65529, 2, 3, 65530, 2, 3, 65531, 2, 3, 65532, 2, 3, 65533, 2, 3, 65534, 2, 3, 65535, 2, 3, 0, 3, 3, 1, 3, 3, 2, 3, 3, 3, 3, 3, 4, 3, 3, 5, 3, 3, 6, 3, 3, 65528, 3, 3, 65529, 3, 3, 65530, 3, 3, 65531, 3, 3, 65532, 3, 3, 65533, 3, 3, 65534, 3, 3, 65535, 3, 3, 0, 65532, 3, 1, 65532, 3, 2, 65532, 3, 3, 65532, 3, 4, 65532, 3, 5, 65532, 3, 6, 65532, 3, 65529, 65532, 3, 65530, 65532, 3, 65531, 65532, 3, 65532, 65532, 3, 65533, 65532, 3, 65534, 65532, 3, 65535, 65532, 3, 4, 65533, 3, 5, 65533, 3, 6, 65533, 3, 65529, 65533, 3, 65530, 65533, 3, 65531, 65533, 3, 65532, 65533, 3, 65533, 65533, 3, 65535, 65533, 3, 0, 65534, 3, 2, 65534, 1, 4, 65534, 3, 5, 65534, 3, 6, 65534, 3, 65529, 65534, 3, 65530, 65534, 3, 65531, 65534, 3, 65532, 65534, 3, 65533, 65534, 3, 65534, 65534, 3, 65535, 65534, 3, 0, 65535, 3, 4, 65535, 3, 5, 65535, 3, 6, 65535, 3, 65529, 65535, 3, 65530, 65535, 3, 65534, 65535, 3, 65535, 65535, 3 )
 }
 
 [node name="WallsGrid" parent="." index="3"]
@@ -39,6 +42,7 @@ data = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1 )
 
 [node name="Navigation" type="Navigation" parent="." index="5"]
+visible = false
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation" index="0"]
 navmesh = SubResource( 1 )
@@ -150,5 +154,15 @@ transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -
 [node name="Elevator" parent="." index="20" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
 
+[node name="MagicSquareButton" parent="." index="21" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5 )
+
+[node name="MagicRoundButton" parent="." index="22" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="CreatureSpawner" parent="." index="23" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1 )
+
 [connection signal="spell_done" from="Player" to="." method="_on_spell_done"]
 [connection signal="spell_started" from="Player" to="." method="_on_spell_started"]
+[connection signal="received_spawn_command" from="CreatureSpawner" to="." method="_on_received_spawn_command"]
