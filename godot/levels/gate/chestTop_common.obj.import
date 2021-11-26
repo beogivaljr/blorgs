@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/chestTop_common.obj-136a38668343fdaf88f9149b211517b5.mesh"
+path="res://.import/chestTop_common.obj-62cd4d526a6c9cc6a3becd51087ea2ce.mesh"
 
 [deps]
 
-files=[ "res://.import/chestTop_common.obj-136a38668343fdaf88f9149b211517b5.mesh" ]
+files=[ "res://.import/chestTop_common.obj-62cd4d526a6c9cc6a3becd51087ea2ce.mesh" ]
 
-source_file="res://levels/interactables/gate/chestTop_common.obj"
-dest_files=[ "res://.import/chestTop_common.obj-136a38668343fdaf88f9149b211517b5.mesh", "res://.import/chestTop_common.obj-136a38668343fdaf88f9149b211517b5.mesh" ]
+source_file="res://levels/gate/chestTop_common.obj"
+dest_files=[ "res://.import/chestTop_common.obj-62cd4d526a6c9cc6a3becd51087ea2ce.mesh", "res://.import/chestTop_common.obj-62cd4d526a6c9cc6a3becd51087ea2ce.mesh" ]
 
 [params]
 

@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh"
+path="res://.import/shield_common.obj-89aa547c98e1850e7a4ce8835c1594f0.mesh"
 
 [deps]
 
-files=[ "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh" ]
+files=[ "res://.import/shield_common.obj-89aa547c98e1850e7a4ce8835c1594f0.mesh" ]
 
-source_file="res://levels/interactables/creature_spawners/shield_common.obj"
-dest_files=[ "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh", "res://.import/shield_common.obj-9b556ec7a21bc8d55272e529190a427f.mesh" ]
+source_file="res://levels/creature_spawners/shield_common.obj"
+dest_files=[ "res://.import/shield_common.obj-89aa547c98e1850e7a4ce8835c1594f0.mesh", "res://.import/shield_common.obj-89aa547c98e1850e7a4ce8835c1594f0.mesh" ]
 
 [params]
 

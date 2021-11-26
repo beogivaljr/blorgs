@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/cratePlatform_small.obj-d6629360115adc9c825e0cfb79fb9b81.mesh"
+path="res://.import/cratePlatform_small.obj-51eee95ffaa1cf9b17035db2fe891ac3.mesh"
 
 [deps]
 
-files=[ "res://.import/cratePlatform_small.obj-d6629360115adc9c825e0cfb79fb9b81.mesh" ]
+files=[ "res://.import/cratePlatform_small.obj-51eee95ffaa1cf9b17035db2fe891ac3.mesh" ]
 
-source_file="res://levels/interactables/magic_buttons/cratePlatform_small.obj"
-dest_files=[ "res://.import/cratePlatform_small.obj-d6629360115adc9c825e0cfb79fb9b81.mesh", "res://.import/cratePlatform_small.obj-d6629360115adc9c825e0cfb79fb9b81.mesh" ]
+source_file="res://levels/magic_buttons/cratePlatform_small.obj"
+dest_files=[ "res://.import/cratePlatform_small.obj-51eee95ffaa1cf9b17035db2fe891ac3.mesh", "res://.import/cratePlatform_small.obj-51eee95ffaa1cf9b17035db2fe891ac3.mesh" ]
 
 [params]
 

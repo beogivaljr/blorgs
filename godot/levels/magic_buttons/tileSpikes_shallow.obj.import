@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/tileSpikes_shallow.obj-c0be464aab6b9eb037b6ce4f5b5d525c.mesh"
+path="res://.import/tileSpikes_shallow.obj-6942e62c1b06062125e0b3f5ab95d6d9.mesh"
 
 [deps]
 
-files=[ "res://.import/tileSpikes_shallow.obj-c0be464aab6b9eb037b6ce4f5b5d525c.mesh" ]
+files=[ "res://.import/tileSpikes_shallow.obj-6942e62c1b06062125e0b3f5ab95d6d9.mesh" ]
 
-source_file="res://levels/interactables/magic_buttons/tileSpikes_shallow.obj"
-dest_files=[ "res://.import/tileSpikes_shallow.obj-c0be464aab6b9eb037b6ce4f5b5d525c.mesh", "res://.import/tileSpikes_shallow.obj-c0be464aab6b9eb037b6ce4f5b5d525c.mesh" ]
+source_file="res://levels/magic_buttons/tileSpikes_shallow.obj"
+dest_files=[ "res://.import/tileSpikes_shallow.obj-6942e62c1b06062125e0b3f5ab95d6d9.mesh", "res://.import/tileSpikes_shallow.obj-6942e62c1b06062125e0b3f5ab95d6d9.mesh" ]
 
 [params]
 

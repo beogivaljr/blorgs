@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/torch.obj-3117f3e806d8229e22b01d07730b1c3b.mesh"
+path="res://.import/torch.obj-8151667e150b2f30748e7bccc71e0638.mesh"
 
 [deps]
 
-files=[ "res://.import/torch.obj-3117f3e806d8229e22b01d07730b1c3b.mesh" ]
+files=[ "res://.import/torch.obj-8151667e150b2f30748e7bccc71e0638.mesh" ]
 
-source_file="res://levels/interactables/elevator/torch.obj"
-dest_files=[ "res://.import/torch.obj-3117f3e806d8229e22b01d07730b1c3b.mesh", "res://.import/torch.obj-3117f3e806d8229e22b01d07730b1c3b.mesh" ]
+source_file="res://levels/elevator/torch.obj"
+dest_files=[ "res://.import/torch.obj-8151667e150b2f30748e7bccc71e0638.mesh", "res://.import/torch.obj-8151667e150b2f30748e7bccc71e0638.mesh" ]
 
 [params]
 

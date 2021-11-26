@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/barrel.obj-0f5355ca3596c2e5676c48647295b7e8.mesh"
+path="res://.import/barrel.obj-8210e465939c4d6db7e9f57192dc219b.mesh"
 
 [deps]
 
-files=[ "res://.import/barrel.obj-0f5355ca3596c2e5676c48647295b7e8.mesh" ]
+files=[ "res://.import/barrel.obj-8210e465939c4d6db7e9f57192dc219b.mesh" ]
 
-source_file="res://levels/interactables/magic_buttons/barrel.obj"
-dest_files=[ "res://.import/barrel.obj-0f5355ca3596c2e5676c48647295b7e8.mesh", "res://.import/barrel.obj-0f5355ca3596c2e5676c48647295b7e8.mesh" ]
+source_file="res://levels/magic_buttons/barrel.obj"
+dest_files=[ "res://.import/barrel.obj-8210e465939c4d6db7e9f57192dc219b.mesh", "res://.import/barrel.obj-8210e465939c4d6db7e9f57192dc219b.mesh" ]
 
 [params]
 

@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/wall_gate.obj-55d0a44ab65347e0bbd7e833ad160beb.mesh"
+path="res://.import/wall_gate.obj-92914b87ca8811b812bb0160f3020671.mesh"
 
 [deps]
 
-files=[ "res://.import/wall_gate.obj-55d0a44ab65347e0bbd7e833ad160beb.mesh" ]
+files=[ "res://.import/wall_gate.obj-92914b87ca8811b812bb0160f3020671.mesh" ]
 
-source_file="res://levels/interactables/gate/wall_gate.obj"
-dest_files=[ "res://.import/wall_gate.obj-55d0a44ab65347e0bbd7e833ad160beb.mesh", "res://.import/wall_gate.obj-55d0a44ab65347e0bbd7e833ad160beb.mesh" ]
+source_file="res://levels/gate/wall_gate.obj"
+dest_files=[ "res://.import/wall_gate.obj-92914b87ca8811b812bb0160f3020671.mesh", "res://.import/wall_gate.obj-92914b87ca8811b812bb0160f3020671.mesh" ]
 
 [params]
 

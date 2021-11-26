@@ -2,14 +2,14 @@
 
 importer="wavefront_obj"
 type="Mesh"
-path="res://.import/axeDouble_common.obj-fcd555e7201128ccd6784567d90e9544.mesh"
+path="res://.import/axeDouble_common.obj-6b0313e871e2a42ad5dc884c1044e4b0.mesh"
 
 [deps]
 
-files=[ "res://.import/axeDouble_common.obj-fcd555e7201128ccd6784567d90e9544.mesh" ]
+files=[ "res://.import/axeDouble_common.obj-6b0313e871e2a42ad5dc884c1044e4b0.mesh" ]
 
-source_file="res://levels/interactables/gate/axeDouble_common.obj"
-dest_files=[ "res://.import/axeDouble_common.obj-fcd555e7201128ccd6784567d90e9544.mesh", "res://.import/axeDouble_common.obj-fcd555e7201128ccd6784567d90e9544.mesh" ]
+source_file="res://levels/gate/axeDouble_common.obj"
+dest_files=[ "res://.import/axeDouble_common.obj-6b0313e871e2a42ad5dc884c1044e4b0.mesh", "res://.import/axeDouble_common.obj-6b0313e871e2a42ad5dc884c1044e4b0.mesh" ]
 
 [params]
 
