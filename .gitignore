@@ -8,3 +8,6 @@ build
 .import/
 export.cfg
 export_presets.cfg
+
+# Server ignores
+logs/

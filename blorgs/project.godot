@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://levels/interactables/gate/Gate.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody",
 "class": "MagicButton",
 "language": "GDScript",
 "path": "res://levels/interactables/magic_buttons/MagicButton.gd"
