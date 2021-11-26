@@ -204,7 +204,7 @@ surfaces/0 = {
 "vertex_count": 88
 }
 
-[node name="Gate" type="KinematicBody"]
+[node name="Gate" type="StaticBody"]
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

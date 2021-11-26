@@ -1,5 +1,5 @@
 class_name MagicButton
-extends KinematicBody
+extends StaticBody
 
 signal spell_done(succeded, interactable)
 

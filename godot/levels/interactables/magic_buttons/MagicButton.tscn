@@ -94,7 +94,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 )
 }
 
-[node name="MagicButton" type="KinematicBody"]
+[node name="MagicButton" type="StaticBody"]
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

@@ -1,5 +1,5 @@
 class_name Gate
-extends KinematicBody
+extends StaticBody
 
 signal spell_done(succeded, interactable)
 
