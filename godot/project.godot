@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "MagicButton",
 "language": "GDScript",
-"path": "res://levels/magic_buttons/MagicButton.gd"
+"path": "res://levels/interactables/magic_buttons/MagicButton.gd"
 }, {
 "base": "Reference",
 "class": "NakamaAPI",
