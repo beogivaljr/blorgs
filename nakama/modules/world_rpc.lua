@@ -9,7 +9,7 @@ end
 
 local function create_world(_context, json_payload)
     local payload = json_payload and string.len(json_payload) > 0 and nakama.json_decode(json_payload) or {}
-    local match_id = nakama.match_create("mathc_controlworld", payload)
+    local match_id = nakama.match_create("match_control", payload)
     local hash_code = string.sub(match_id, 1, 8)
     hash_code = string.upper(hash_code)
     match_ids[hash_code] = match_id
