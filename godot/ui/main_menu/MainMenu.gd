@@ -44,7 +44,7 @@ func _set_screen(screen):
 		CONNECT_TO_GAME_INFO:
 			$ScreensContainer/ConnectToGameInfo.visible = true
 		CONNECTING:
-			$ScreensContainer/ConnectToGameInfo.visible = false
+			$ScreensContainer/Connecting.visible = true
 
 
 func _on_Connecting_canceled() -> void:
