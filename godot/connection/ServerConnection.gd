@@ -114,9 +114,6 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 		OpCodes.PLAYER_SPELLS:
 			var decoded = JSON.parse(raw).result
 			var spells = []
-			print(raw)
 			for spell in decoded:
-				print(spell)
 				spells.append(SpellDTO.new(spell))
-				print(spell)
 			emit_signal("player_spells_updated", spells)
