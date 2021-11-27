@@ -15,5 +15,9 @@ func _on_spell_started(spell_id):
 	emit_signal("spell_started", spell_id)
 
 
-func _on_spell_done(succeded: bool, _interactable, _spell_id):
-	emit_signal("spell_done", succeded)
+func _on_spell_done(spell_id):
+	emit_signal("spell_done", spell_id)
+
+
+func _on_KillYArea_body_entered(body):
+	pass

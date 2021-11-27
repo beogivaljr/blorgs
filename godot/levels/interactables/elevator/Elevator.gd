@@ -1,7 +1,8 @@
 class_name Elevator
 extends StaticBody
 
-signal spell_done(succeded, interactable)
+signal transported_up(elevator_name)
+signal transported_down(elevator_name)
 
 var lower_position = Vector3.ZERO
 var upper_position = Vector3.ZERO
@@ -19,6 +20,7 @@ func transport(body: KinematicBody):
 	var closer_to_lower = distance_sq_to_lower < distance_sq_to_upper
 	if closer_to_lower:
 		body.global_transform.origin = upper_position + Vector3(0, 1, 0)
+		emit_signal("transported_up", self.name)
 	else:
 		body.global_transform.origin = lower_position + Vector3(0, 1, 0)
-	emit_signal("spell_done", true, self)
+		emit_signal("transported_down", self.name)

@@ -7,6 +7,15 @@
 unlock_spell_id = 4
 
 [node name="ButtonMesh" parent="." index="2"]
-transform = Transform( -1.8, 8.65485e-08, 0, -2.10962e-07, -1.32722, 0, 0, 0, 1.8, 0, -0.1, 0 )
+transform = Transform( -1.8, 8.65485e-08, 0, -2.10962e-07, -1.32722, 0, 0, 0, 1.8, 0, -0.2, 0 )
 mesh = ExtResource( 2 )
 material/2 = null
+
+[node name="PlatformPivot" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, -0.5, 5 )
+
+[node name="Platform" parent="PlatformPivot" index="0"]
+transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="PlatformMesh" parent="PlatformPivot/Platform" index="1"]
+transform = Transform( -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -0.1, 0 )
