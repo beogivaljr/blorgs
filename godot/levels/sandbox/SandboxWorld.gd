@@ -35,8 +35,11 @@ func _bind_interactables():
 			child.connect("transported_up", self, "_on_transported_up")
 			child.connect("transported_down", self, "_on_transported_down")
 		elif child is MagicButton:
-			child.connect("button_activated", self, "_on_button_activated")
-			child.connect("button_deactivated", self, "_on_button_deactivated")
+			for bridge_platform in get_tree().get_nodes_in_group(child.name):
+				child.connect("button_activated", bridge_platform, "activate")
+				child.connect("button_deactivated", bridge_platform, "deactivate")
+				bridge_platform.connect("platform_activated", self, "_on_button_activated")
+				bridge_platform.connect("platform_deactivated", self, "_on_button_deactivated")
 
 
 # Gate

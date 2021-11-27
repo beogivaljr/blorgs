@@ -102,9 +102,12 @@ func move_to_elevator(elevator: Elevator):
 
 
 func move_to_button(button: MagicButton):
+	button.set_lock(false)
 	var starting_position = _body.transform.origin
 	var path = _navigation.get_simple_path(starting_position, button.global_transform.origin)
 	_set_new_path(path, button)
+	yield(self, "failed_movement")
+	button.set_lock(true)
 
 
 func _set_new_path(path, target_node):
@@ -128,3 +131,7 @@ func _get_path_length_squared(path: PoolVector3Array) -> float:
 		path_length_squared += (location - previous_location).length_squared()
 		previous_location = location
 	return path_length_squared
+
+
+func _exit_tree():
+	emit_signal("failed_movement")

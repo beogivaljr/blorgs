@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -6,9 +6,12 @@
 [ext_resource path="res://levels/decor/barrelDark.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://levels/decor/banner.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://levels/sandbox/SandboxWorld.gd" type="Script" id=6]
+[ext_resource path="res://levels/interactables/magic_buttons/MagicRoundButton.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/interactables/gate/Gate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://levels/interactables/magic_buttons/MagicSquareButton.tscn" type="PackedScene" id=9]
 [ext_resource path="res://levels/interactables/elevator/Elevator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://levels/interactables/magic_buttons/Drawbridge.tscn" type="PackedScene" id=11]
+[ext_resource path="res://levels/interactables/magic_buttons/MovingPlatform.tscn" type="PackedScene" id=12]
 
 [sub_resource type="NavigationMesh" id=1]
 vertices = PoolVector3Array( 12.1803, 0.4, -0.660436, 12.7803, 0.4, -0.960435, 12.7803, 0.4, -6.96044, 6.18034, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -13.0197, 0.4, 2.63956, -13.0197, 0.4, 6.53956, -7.01966, 0.4, 6.83956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, 6.83956, 12.1803, 0.4, -0.660436, -6.41966, 0.4, -6.96044, -7.31966, 0.4, -0.960435, -7.01966, 0.4, 2.33956, -0.119658, 0.4, -6.96044, -12.7197, 0.4, -6.96044, -12.7197, 0.4, -0.960435, -7.31966, 0.4, -0.960435, -6.41966, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, -0.660436, 6.18034, 0.4, -6.96044, -0.119658, 0.4, -6.96044 )
@@ -153,3 +156,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1 )
 
 [node name="MagicSquareButton" parent="." index="22" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5 )
+
+[node name="Platform" parent="." index="23" groups=["MagicSquareButton"] instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1 )
+
+[node name="MagicRoundButton" parent="." index="24" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
+
+[node name="Bridge" parent="." index="25" groups=["MagicRoundButton"] instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, -1 )

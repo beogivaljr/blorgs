@@ -7,7 +7,6 @@ signal button_deactivated(node_name)
 export(GlobalConstants.SpellIds) var unlock_spell_id = GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON
 
 const _BUTTON_ANIMATION_NAME = "PressDown"
-const _PLATFORM_ANIMATION_NAME = "MovePlatformForward"
 const _LOCKED_SCALE = Vector3(1, 2, 1)
 const _UNLOCKED_SCALE = Vector3(1, 1, 1)
 
@@ -48,11 +47,6 @@ func _on_AnimationPlayer_animation_finished(animation_name):
 	match animation_name:
 		_BUTTON_ANIMATION_NAME:
 			is_pressed = not is_pressed
-			if is_pressed:
-				_animation_player.play(_PLATFORM_ANIMATION_NAME)
-			else:
-				_animation_player.play_backwards(_PLATFORM_ANIMATION_NAME)
-		_PLATFORM_ANIMATION_NAME:
 			if is_pressed:
 				emit_signal("button_activated", self.name)
 			else:

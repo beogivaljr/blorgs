@@ -2,7 +2,7 @@ class_name BasePlayer
 extends KinematicBody
 
 signal spell_started(spell_id)
-signal spell_done(spell_id)
+signal spell_done(succeded)
 
 const _SPELLS = GlobalConstants.SpellIds
 
@@ -60,7 +60,6 @@ func _cast_use_elevator_spell(elevator: Elevator):
 
 
 func _cast_press_button_spell(button: MagicButton):
-	button.set_lock(false)
 	_kinematic_movement.move_to_button(button)
 
 
