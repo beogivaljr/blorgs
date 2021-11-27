@@ -1,7 +1,7 @@
 extends Node
 
+signal started_movement
 signal succeded_movement
-# warning-ignore:unused_signal
 signal failed_movement
 signal reached_target(target)
 
@@ -17,8 +17,7 @@ var _target_node = null
 var _velocity = Vector3.ZERO
 var _snap_vector = Vector3.ZERO
 var _current_physics_frames_without_moving = 0
-const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 4
-var _previous_distance_vector = Vector3.ZERO
+const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 6
 
 
 func setup(body: KinematicBody, navigation: Navigation):
@@ -27,26 +26,28 @@ func setup(body: KinematicBody, navigation: Navigation):
 
 
 func _physics_process(delta):
-	var move_direction = Vector3.ZERO
-	
 	## Navigation input
+	var move_direction = Vector3.ZERO
 	if not _path.empty():
 		var next_location = _path[0] as Vector3
 		var distance_vector = next_location - _body.transform.origin
 		distance_vector = Vector3(distance_vector.x, 0, distance_vector.z)
-		if distance_vector.length_squared() > 0.01:
+		if distance_vector.length_squared() > 0.1:
 			move_direction = distance_vector
 		else:
+			var final_distance = _body.global_transform.origin.distance_squared_to(_path[0])
 			_path.remove(0)
 			if _path.empty():
-				if _target_node:
-					emit_signal("reached_target", _target_node)
+				if _target_node: 
+					if final_distance < 1:
+						emit_signal("reached_target", _target_node)
+					else:
+						emit_signal("failed_movement")
 				else:
 					emit_signal("succeded_movement")
-		
-		## Cancel if not moving after _MAX_PHYSICS_FRAMES_WITHOUT_MOVING
-		if not distance_vector.is_equal_approx(_previous_distance_vector):
-			_previous_distance_vector = distance_vector
+		# Cancel if not moving after _MAX_PHYSICS_FRAMES_WITHOUT_MOVING
+		if _velocity.length_squared() > 0.5:
+			_current_physics_frames_without_moving = 0
 		elif _current_physics_frames_without_moving <= _MAX_PHYSICS_FRAMES_WITHOUT_MOVING:
 			_current_physics_frames_without_moving += 1
 		else:
@@ -59,17 +60,17 @@ func _physics_process(delta):
 	_velocity.y -=  gravity * delta
 	
 	## Jump logic
-#	var just_landed = _body.is_on_floor() and _snap_vector == Vector3.ZERO
-#	var is_jumping = _body.is_on_floor() and Input.is_action_just_pressed("jump")
-#	if is_jumping:
-#		_velocity.y = jump_strength
-#		_snap_vector = Vector3.ZERO
-#	elif just_landed:
-#		_snap_vector = Vector3.DOWN
+#		var just_landed = _body.is_on_floor() and _snap_vector == Vector3.ZERO
+#		var is_jumping = _body.is_on_floor() and Input.is_action_just_pressed("jump")
+#		if is_jumping:
+#			_velocity.y = jump_strength
+#			_snap_vector = Vector3.ZERO
+#		elif just_landed:
+#			_snap_vector = Vector3.DOWN
 	_velocity = _body.move_and_slide_with_snap(_velocity, _snap_vector, Vector3.UP, true)
-	
+		
 	## Look at movement direction
-	if _velocity.normalized().length() > 0.1:
+	if _velocity.normalized().length() > 0.05:
 		var look_direction = Vector2(_velocity.z, _velocity.x)
 		_body.rotation.y = look_direction.angle()
 
@@ -107,12 +108,14 @@ func move_to_button(button: MagicButton):
 
 
 func _set_new_path(path, target_node):
+	_current_physics_frames_without_moving = 0
 	if path.empty():
 		call_deferred("emit_signal", "failed_movement")
 		print("Failed movement!")
+	else:
+		emit_signal("started_movement")
 	_target_node = target_node
 	_path = path
-	_current_physics_frames_without_moving = 0
 
 
 func _get_path_length_squared(path: PoolVector3Array) -> float:
