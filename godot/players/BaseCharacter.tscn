@@ -1,13 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://players/BasePlayer.gd" type="Script" id=1]
+[ext_resource path="res://players/BaseCharacter.gd" type="Script" id=1]
 [ext_resource path="res://players/KinematicMovement.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.5
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.545098, 0.180392, 0.843137, 1 )
+albedo_color = Color( 0.639216, 0.25098, 0.87451, 1 )
 
 [sub_resource type="CapsuleMesh" id=2]
 material = SubResource( 3 )
@@ -17,9 +17,9 @@ radius = 0.5
 size = Vector3( 0.5, 1, 0.2 )
 
 [sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.301961, 0.619608, 0.988235, 1 )
+albedo_color = Color( 0.219608, 0.329412, 0.662745, 1 )
 
-[node name="BasePlayer" type="KinematicBody"]
+[node name="BaseCharacter" type="KinematicBody"]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

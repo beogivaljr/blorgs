@@ -1,4 +1,4 @@
-class_name BasePlayer
+class_name BaseCharacter
 extends KinematicBody
 
 signal spell_started(spell_id)

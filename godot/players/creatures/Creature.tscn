@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://players/BaseCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://players/creatures/Creature.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.25098, 0.87451, 0.305882, 1 )
+
+[sub_resource type="CapsuleMesh" id=2]
+material = SubResource( 1 )
+radius = 0.5
+
+[sub_resource type="PrismMesh" id=3]
+size = Vector3( 0.5, 1, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.619608, 0.396078, 0.886275, 1 )
+
+[node name="Creature" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" parent="." index="1"]
+mesh = SubResource( 2 )
+
+[node name="MeshInstance" parent="MeshInstance" index="0"]
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )

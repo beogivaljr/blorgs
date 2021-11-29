@@ -4,26 +4,26 @@ extends BaseWorld
 ## exactly which level it is managing.
 
 
-var player: BasePlayer
-
-
 func _ready() -> void:
 	_spawn_and_setup_player()
-	world_input_handler.connect("on_clicked", self, "_handle_world_click")
+	_world_input_handler.connect("on_clicked", self, "_handle_world_click")
 	_bind_interactables()
 
 
 func _spawn_and_setup_player():
-	player = preload("res://players/BasePlayer.tscn").instance()
+	var player = preload("res://players/BaseCharacter.tscn").instance()
 	player.connect("spell_started", self, "_on_spell_started")
 	player.connect("spell_done", self, "_on_spell_done")
 	add_child(player, true)
 	player.global_transform = $PlayerSpawn.global_transform
 	player.setup($Navigation)
+	_players[player.name] = player
+	_active_character = player
 
 
 func set_active_spell_id(spell_id):
-	player.set_active_spell_id(spell_id)
+	.set_active_spell_id(spell_id)
+	_active_character.set_active_spell_id(spell_id)
 
 
 func _bind_interactables():
@@ -77,10 +77,14 @@ func _handle_world_click(_event, intersection):
 	if not intersection.empty():
 		var node = intersection.collider
 		var location = intersection.position
-		player.attempt_to_cast_spell_on(node, location)
+		_active_character.attempt_to_cast_spell_on(node, location)
+		.attempt_to_cast_spell_on(node, location)
 
 
 func _on_KillYArea_body_entered(body: Node):
+	if body is Creature:
+		_spawn_and_setup_creature(_active_creature_spawner_per_creature[body.name])
+	elif body is BaseCharacter:
+		_spawn_and_setup_player()
 	body.queue_free()
 	emit_signal("spell_done", false)
-	_spawn_and_setup_player()
