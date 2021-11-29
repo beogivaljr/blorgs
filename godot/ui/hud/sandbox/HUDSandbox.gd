@@ -4,15 +4,6 @@ var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
 
-var _spell_ids_list = [
-	GlobalConstants.SpellIds.MOVE_TO,
-	GlobalConstants.SpellIds.USE_ELEVATOR,
-	GlobalConstants.SpellIds.PRESS_ROUND_BUTTON,
-	GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON,
-	GlobalConstants.SpellIds.TOGGLE_GATE,
-	GlobalConstants.SpellIds.DESTROY_SUMMON,
-	GlobalConstants.SpellIds.SUMMON_ASCENDING_PORTAL,
-]
 var _spells = []
 var _active_spell: SpellDTO = null
 
