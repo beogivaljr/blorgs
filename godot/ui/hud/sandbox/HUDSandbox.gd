@@ -14,18 +14,32 @@ onready var _spells_queue = get_node("SpellPanel/VBoxContainer/ScrollContainer/S
 
 
 func setup(spells, puzzle_mode: bool = false):
-#	_puzzle_mode = true
+	_puzzle_mode = true
 	if _puzzle_mode:
 		$SelectedSpellPanelContainer/SelectedSpell.set_text("Coloque os feitiços na lista")
 		$SpellPanel/VBoxContainer/ReadyButton.hide()
-	_setup_spells_list(spells)
+	_update_spells_list(spells)
 
 
-func update_spells_queue(spells_queue):
-	_spells = spells_queue
+func update_spells_queue(spells):
+	_spells = spells
+
+	for container in _spells_queue.get_children():
+		_spells_queue.remove_child(container)
+		container.queue_free()
+
+	for spell in spells:
+		var spell_container: SpellContainer = spellContainer.instance()
+		spell_container.setup(spell, _puzzle_mode)
+
+		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
+
+		spell_container.connect("spell_selected", self, "_on_spell_selected")
+
+		_spells_queue.add_child(spell_container)
 
 
-func _setup_spells_list(spells):
+func _update_spells_list(spells):
 	if not _puzzle_mode:
 		_spells = spells
 	for container in _spells_list.get_children():
@@ -62,12 +76,12 @@ func _setup_spells_list(spells):
 		_spells_list.add_child(spell_container)
 
 
-func on_spell_started(_spell_id):
+func on_spell_started(_spell_id: int):
 	_spells_list.disable_buttons()
 	$SelectedSpellPanelContainer.hide()
 
 
-func on_spell_done(succeded = true):
+func on_spell_done(succeded: bool = true):
 	if not succeded:
 		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
@@ -78,7 +92,7 @@ func on_spell_done(succeded = true):
 func _on_spell_selected(spell: SpellDTO):
 	_active_spell = spell
 	if spell:
-		emit_signal("spell_selected", spell.spell_id)
+		emit_signal("spell_selected", _active_spell.spell_id)
 	else:
 		emit_signal("spell_selected", null)
 
