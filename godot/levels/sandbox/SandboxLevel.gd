@@ -2,9 +2,8 @@ extends BaseLevel
 
 
 func _ready():
-	var spells = GameState.get_spells()
-	_setup_hud(spells)
-	ServerConnection.send_spawn(spells)
+	ServerConnection.send_spawn()
+	_setup_hud(GameState.get_spells())
 
 
 func _setup_hud(spells):

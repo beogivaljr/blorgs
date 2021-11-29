@@ -1,10 +1,11 @@
 local nakama = require("nakama")
 
-local world_control = {}
+local match_control = {}
 
 local OpCodes = {
     do_spawn = 1,
-    player_joined = 2
+    player_joined = 2,
+    player_spells = 3
 }
 
 local commands = {}
@@ -24,8 +25,6 @@ local function find_spell(table, spell)
 end
 
 commands[OpCodes.do_spawn] = function(data, state)
-    local user_id = data.user_id
-
     if not data.spells or not next(data.spells) then
         error("Envie ao menos um feitico", 3)
         return
@@ -51,41 +50,44 @@ commands[OpCodes.do_spawn] = function(data, state)
         --]]
         state.available_spells[available_spell_index].spell_name = spell.spell_name
     end
-
-    state.user_spells[user_id] = data.spells
 end
 
-function world_control.match_init(context, params)
+commands[OpCodes.player_spells] = function(data, state)
+end
+
+function match_control.match_init(context, params)
     params = params or {}
     local state = {
         presences = {count = 0},
         usernames = {},
-        available_spells = params.available_spells or
-            {{spell_id = 0, spell_name = {function_name = "Blorgs", parameter_name = "Pindos"}}},
-        user_spells = {},
+        player_spells = params.player_spells or
+            {
+                {function_name = "F1", parameter_name = "P1"},
+                {function_name = "F2", parameter_name = "P2"}
+            },
         spell_queue = {},
         ready_vote = {},
         sandbox_vote = {}
     }
     local tick_rate = params.tick_rate or 10
-    local label = params.label or "Game world"
+    local label = params.label or "Game match"
 
     return state, tick_rate, label
 end
 
-function world_control.match_join_attempt(context, dispatcher, tick, state, presence, metadata)
+function match_control.match_join_attempt(context, dispatcher, tick, state, presence, metadata)
     if state.presences[presence.user_id] ~= nil then
         return state, false, "User already logged in"
     end
     return state, true
 end
 
-function world_control.match_join(context, dispatcher, tick, state, presences)
+function match_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences[user_id] = presence
         state.presences.count = state.presences.count + 1
-        state.user_spells[user_id] = {state.available_spells[1]}
+        state.player_spells[user_id] = state.player_spells[state.presences.count]
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
         state.sandbox_vote[user_id] = false
@@ -95,7 +97,7 @@ function world_control.match_join(context, dispatcher, tick, state, presences)
     return state
 end
 
-function world_control.match_leave(context, dispatcher, tick, state, presences)
+function match_control.match_leave(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         for key, _ in pairs(state) do
@@ -107,7 +109,7 @@ function world_control.match_leave(context, dispatcher, tick, state, presences)
     return next(state.presences) and state
 end
 
-function world_control.match_loop(context, dispatcher, tick, state, messages)
+function match_control.match_loop(context, dispatcher, tick, state, messages)
     for _, message in ipairs(messages) do
         local op_code = message.op_code
         local command = commands[op_code]
@@ -126,10 +128,15 @@ function world_control.match_loop(context, dispatcher, tick, state, messages)
                             usernames = state.usernames,
                             ready_vote = state.ready_vote,
                             sandbox_vote = state.sandbox_vote,
-                            available_spells = state.available_spells,
                             spell_queue = state.spell_queue
                         }
                     )
+                )
+            elseif op_code == OpCodes.player_spells then
+                dispatcher.broadcast_message(
+                    OpCodes.player_spells,
+                    nakama.json_encode(state.user_spells[data.user_id]),
+                    {message.sender}
                 )
             end
         end
@@ -137,8 +144,8 @@ function world_control.match_loop(context, dispatcher, tick, state, messages)
     return state
 end
 
-function world_control.match_terminate(context, dispatcher, tick, state, grace_seconds)
+function match_control.match_terminate(context, dispatcher, tick, state, grace_seconds)
     return state
 end
 
-return world_control
+return match_control

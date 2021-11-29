@@ -15,22 +15,25 @@ margin_right = 1440.0
 margin_bottom = 14.0
 text = "O código para o seu jogo é:"
 
-[node name="GameCode" type="Label" parent="."]
+[node name="GameCode" type="RichTextLabel" parent="."]
 margin_top = 18.0
 margin_right = 1440.0
-margin_bottom = 32.0
+margin_bottom = 33.0
+focus_mode = 2
 text = "GAMECODE"
+fit_content_height = true
+selection_enabled = true
 
 [node name="WaitingMessage" type="Label" parent="."]
-margin_top = 36.0
+margin_top = 37.0
 margin_right = 1440.0
-margin_bottom = 50.0
+margin_bottom = 51.0
 text = "Aguardando a conexão de um amigo..."
 
 [node name="Cancel" type="Button" parent="."]
-margin_top = 54.0
+margin_top = 55.0
 margin_right = 1440.0
-margin_bottom = 74.0
+margin_bottom = 75.0
 text = "Cancelar"
 
 [connection signal="pressed" from="Cancel" to="." method="_on_Cancel_pressed"]

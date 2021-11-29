@@ -15,23 +15,23 @@ var _spell_ids_list = [
 ]
 var _spells = []
 var _active_spell_container: SpellContainer = null
+var _spell_containers = []
 
 
 func setup(spells):
+	var spells_list = $SpellPanel/VBoxContainer/ScrollContainer/SpellsList
 	_spells = spells
+	for container in spells_list.get_children():
+		spells_list.remove_child(container)
+		container.queue_free()
+
 	for spell in spells:
 		var spell_container: SpellContainer = spellContainer.instance()
 		spell_container.setup(spell)
 
+		spell_container.connect("spell_selected", spells_list, "_on_spell_selected")
 		spell_container.connect(
-			"spell_selected",
-			$SpellPanel/VBoxContainer/ScrollContainer/SpellsList,
-			"_on_spell_selected"
-		)
-		spell_container.connect(
-			"spell_container_button_pressed",
-			$SpellPanel/VBoxContainer/ScrollContainer/SpellsList,
-			"_on_spell_container_button_pressed"
+			"spell_container_button_pressed", spells_list, "_on_spell_container_button_pressed"
 		)
 
 		spell_container.connect(
@@ -52,7 +52,7 @@ func setup(spells):
 
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
-		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.add_child(spell_container)
+		spells_list.add_child(spell_container)
 
 
 func on_spell_started(_spell_id):
