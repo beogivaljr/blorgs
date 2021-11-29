@@ -9,12 +9,15 @@ func _on_MainButtons_connect_to_game():
 
 func _on_MainButtons_new_game():
 	GameState.player_type = GameState.PlayerTypes.A
-	yield(ServerConnection.authenticate_async("Jogador1"), "completed")
-	yield(ServerConnection.connect_to_server_async(), "completed")
-	var match_code = yield(ServerConnection.create_match_async(), "completed")
-	$ScreensContainer/NewGameInfo.set_game_code(match_code)
-	bind_server_connection(match_code)
-	_set_screen(NEW_GAME_INFO)
+	var result = yield(ServerConnection.authenticate_async("Jogador1"), "completed")
+	if result == OK:
+		yield(ServerConnection.connect_to_server_async(), "completed")
+		var match_code = yield(ServerConnection.create_match_async(), "completed")
+		$ScreensContainer/NewGameInfo.set_game_code(match_code)
+		bind_server_connection(match_code)
+		_set_screen(NEW_GAME_INFO)
+	elif OS.is_debug_build():
+		_on_player_list_updated()
 
 
 func _on_player_list_updated():
