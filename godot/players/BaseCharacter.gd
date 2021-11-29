@@ -6,8 +6,8 @@ signal spell_done(succeded)
 
 const _SPELLS = GlobalConstants.SpellIds
 
+var _active_spell_id = null setget set_active_spell_id
 onready var _kinematic_movement = $KinematicMovement
-var _active_spell = null setget set_active_spell_id
 
 
 func setup(navigation: Navigation):
@@ -15,11 +15,11 @@ func setup(navigation: Navigation):
 
 
 func set_active_spell_id(spell_id):
-	_active_spell = spell_id
+	_active_spell_id = spell_id
 
 
 func attempt_to_cast_spell_on(node, location):
-	var spell = _active_spell
+	var spell = _active_spell_id
 	if (
 		spell == _SPELLS.MOVE_TO
 		and location is Vector3
@@ -38,13 +38,13 @@ func attempt_to_cast_spell_on(node, location):
 	elif (
 		(spell == _SPELLS.PRESS_SQUARE_BUTTON or spell == _SPELLS.PRESS_ROUND_BUTTON) 
 		and node is MagicButton
-		and node.unlock_spell_id == _active_spell and not node.is_pressed
+		and node.unlock_spell_id == _active_spell_id and not node.is_pressed
 		):
 		_cast_press_button_spell(node)
 	else:
 		# Not a valid target
 		return
-	emit_signal("spell_started", _active_spell)
+	emit_signal("spell_started", _active_spell_id)
 
 
 func _cast_move_to_spell(location: Vector3):
@@ -70,9 +70,9 @@ func _on_spell_done(succeded, interactable):
 
 func _on_KinematicMovement_reached_target(target):
 	assert(target)
-	if target is Gate and _active_spell == _SPELLS.TOGGLE_GATE:
+	if target is Gate and _active_spell_id == _SPELLS.TOGGLE_GATE:
 		target.toggle_raise_lower()
-	elif target is Elevator and _active_spell == _SPELLS.USE_ELEVATOR:
+	elif target is Elevator and _active_spell_id == _SPELLS.USE_ELEVATOR:
 		target.transport(self)
 	elif target is MagicButton:
 		target.press()
@@ -81,7 +81,7 @@ func _on_KinematicMovement_reached_target(target):
 
 
 func _on_KinematicMovement_succeded_movement():
-	if _active_spell == _SPELLS.MOVE_TO:
+	if _active_spell_id == _SPELLS.MOVE_TO:
 		_on_spell_done(true, null)
 
 

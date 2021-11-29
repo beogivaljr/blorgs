@@ -134,4 +134,5 @@ func _get_path_length_squared(path: PoolVector3Array) -> float:
 
 
 func _exit_tree():
-	emit_signal("failed_movement")
+	if not _path.empty():
+		emit_signal("failed_movement")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -12,7 +12,8 @@
 [ext_resource path="res://levels/interactables/elevator/Elevator.tscn" type="PackedScene" id=10]
 [ext_resource path="res://levels/interactables/magic_buttons/Drawbridge.tscn" type="PackedScene" id=11]
 [ext_resource path="res://levels/interactables/magic_buttons/MovingPlatform.tscn" type="PackedScene" id=12]
-[ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawner.tscn" type="PackedScene" id=13]
+[ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawnerAscending.tscn" type="PackedScene" id=13]
+[ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawnerDescending.tscn" type="PackedScene" id=14]
 
 [sub_resource type="NavigationMesh" id=1]
 vertices = PoolVector3Array( 12.1803, 0.4, -0.660436, 12.7803, 0.4, -0.960435, 12.7803, 0.4, -6.96044, 6.18034, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -13.0197, 0.4, 2.63956, -13.0197, 0.4, 6.53956, -7.01966, 0.4, 6.83956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, 6.83956, 12.1803, 0.4, -0.660436, -6.41966, 0.4, -6.96044, -7.31966, 0.4, -0.960435, -7.01966, 0.4, 2.33956, -0.119658, 0.4, -6.96044, -12.7197, 0.4, -6.96044, -12.7197, 0.4, -0.960435, -7.31966, 0.4, -0.960435, -6.41966, 0.4, -6.96044, -7.01966, 0.4, 2.33956, -0.719659, 0.4, 6.83956, 5.58034, 0.4, 6.83956, 12.1803, 0.4, -0.660436, 6.18034, 0.4, -6.96044, -0.119658, 0.4, -6.96044 )
@@ -167,5 +168,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5 )
 [node name="Bridge" parent="." index="25" groups=["MagicRoundButton"] instance=ExtResource( 11 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, -1 )
 
-[node name="CreatureSpawner" parent="." index="26" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5 )
+[node name="CreatureSpawnerAscending" parent="." index="26" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.95, 0, 5.1 )
+
+[node name="CreatureSpawnerDescending" parent="." index="27" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35, 0, -6.8 )
