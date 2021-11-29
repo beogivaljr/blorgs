@@ -16,7 +16,7 @@ onready var _spells_queue = get_node("SpellPanel/VBoxContainer/ScrollContainer/S
 
 
 func setup(spells, puzzle_mode: bool = false):
-	_puzzle_mode = true
+	_puzzle_mode = puzzle_mode
 	if _puzzle_mode:
 		$SelectedSpellPanelContainer/SelectedSpell.set_text("Coloque os feitiços na lista")
 		$SpellPanel/VBoxContainer/ReadyButton.hide()
