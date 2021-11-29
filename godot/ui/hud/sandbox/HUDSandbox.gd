@@ -20,6 +20,8 @@ func setup(spells, puzzle_mode: bool = false):
 	if _puzzle_mode:
 		$SelectedSpellPanelContainer/SelectedSpell.set_text("Coloque os feitiços na lista")
 		$SpellPanel/VBoxContainer/ReadyButton.hide()
+	else:
+		$SpellPanel.hide()
 	_update_spells_list(spells)
 
 
