@@ -9,20 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody",
+"class": "BaseCharacter",
+"language": "GDScript",
+"path": "res://players/BaseCharacter.gd"
+}, {
 "base": "Node",
 "class": "BaseLevel",
 "language": "GDScript",
 "path": "res://levels/BaseLevel.gd"
 }, {
-"base": "KinematicBody",
-"class": "BasePlayer",
-"language": "GDScript",
-"path": "res://players/BasePlayer.gd"
-}, {
 "base": "Spatial",
 "class": "BaseWorld",
 "language": "GDScript",
 "path": "res://levels/BaseWorld.gd"
+}, {
+"base": "BaseCharacter",
+"class": "Creature",
+"language": "GDScript",
+"path": "res://players/creatures/Creature.gd"
 }, {
 "base": "StaticBody",
 "class": "CreatureSpawner",
@@ -34,12 +39,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://levels/interactables/elevator/Elevator.gd"
 }, {
-"base": "KinematicBody",
+"base": "StaticBody",
 "class": "Gate",
 "language": "GDScript",
 "path": "res://levels/interactables/gate/Gate.gd"
 }, {
-"base": "KinematicBody",
+"base": "StaticBody",
 "class": "MagicButton",
 "language": "GDScript",
 "path": "res://levels/interactables/magic_buttons/MagicButton.gd"
@@ -135,9 +140,10 @@ _global_script_classes=[ {
 "path": "res://data_objects/SpellName.gd"
 } ]
 _global_script_class_icons={
+"BaseCharacter": "",
 "BaseLevel": "",
-"BasePlayer": "",
 "BaseWorld": "",
+"Creature": "",
 "CreatureSpawner": "",
 "Elevator": "",
 "Gate": "",

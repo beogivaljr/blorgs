@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.119171, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0727272 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.5
+trail_divisor = 6
+emission_shape = 5
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_height = 1.0
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.1
+angular_velocity = 40.0
+angular_velocity_random = 1.0
+linear_accel = 1.0
+linear_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_random = 0.8
+scale_curve = SubResource( 3 )
+color = Color( 0.329412, 0.0470588, 0, 1 )
+hue_variation = -0.01
+hue_variation_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 6
+particles_anim_v_frames = 5
+particles_anim_loop = true
+albedo_color = Color( 0.560784, 0.211765, 0.85098, 1 )
+
+[sub_resource type="QuadMesh" id=6]
+material = SubResource( 5 )
+size = Vector2( 0.15, 0.15 )
+
+[node name="AscendingParticles" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+amount = 200
+lifetime = 5.0
+speed_scale = 0.8
+randomness = 1.0
+local_coords = false
+draw_order = 2
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 6 )

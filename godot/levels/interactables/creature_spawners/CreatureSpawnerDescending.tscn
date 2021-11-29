@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawner.tscn" type="PackedScene" id=1]
+
+[node name="CreatureSpawnerDescending" instance=ExtResource( 1 )]
+summon_spell_id = 6
+
+[node name="AscendingParticles" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3, 0 )

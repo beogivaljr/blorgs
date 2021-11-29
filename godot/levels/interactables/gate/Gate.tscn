@@ -204,7 +204,7 @@ surfaces/0 = {
 "vertex_count": 88
 }
 
-[node name="Gate" type="KinematicBody"]
+[node name="Gate" type="StaticBody"]
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -221,10 +221,10 @@ anims/LowerLever = SubResource( 5 )
 anims/RESET = SubResource( 11 )
 
 [node name="LeverTarget" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, -2 )
 
 [node name="LeverTarget2" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, 2 )
 
 [node name="wall_gate" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.3, -1, -1, 0 )

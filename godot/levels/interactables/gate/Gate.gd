@@ -1,7 +1,8 @@
 class_name Gate
-extends KinematicBody
+extends StaticBody
 
-signal spell_done(succeded, interactable)
+signal gate_lowered(node_name)
+signal gate_raised(node_name)
 
 var lever_target_a_position = Vector3.ZERO
 var lever_target_b_position = Vector3.ZERO
@@ -27,16 +28,12 @@ func toggle_raise_lower():
 
 func _on_interaction_done_raised():
 	if _is_raised:
-		_on_spell_done()
+		emit_signal("gate_raised", self.name)
 
 
 func _on_interaction_done_lowered():
 	if not _is_raised:
-		_on_spell_done()
-
-
-func _on_spell_done():
-	emit_signal("spell_done", true, self)
+		emit_signal("gate_lowered", self.name)
 
 
 func _move_gate(finished_animation):
