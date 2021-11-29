@@ -40,4 +40,7 @@ const RANDOM_NAMES = [
 	"sl",
 	"Numsei",
 	"AchoQueDeu",
+	"asdf",
+	"fdsa",
+	"lololo"
 ]
