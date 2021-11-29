@@ -3,6 +3,8 @@ extends Control
 var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
+signal sandbox_vote_updated(vote)
+signal undo_pressed
 
 var _spells = []
 var _active_spell: SpellDTO = null
@@ -30,7 +32,7 @@ func update_spells_queue(spells):
 
 	for spell in spells:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell, _puzzle_mode)
+		spell_container.setup(spell, _puzzle_mode, true)
 
 		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
 
@@ -99,8 +101,27 @@ func _on_spell_selected(spell: SpellDTO):
 
 func _on_ReadyButton_toggled(button_pressed: bool):
 	if button_pressed:
+		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.pressed = false
+		_on_SandboxButton_toggled(false)
+
 		_spells_list.disable_buttons()
 		emit_signal("player_ready", _spells)
 	else:
 		_spells_list.enable_buttons()
 		emit_signal("player_ready", null)
+
+
+func _on_UndoButton_pressed():
+	on_disable_undo(true)
+	emit_signal("undo_pressed")
+
+
+func on_disable_undo(disable: bool = true):
+	$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.disabled = disable
+
+
+func _on_SandboxButton_toggled(button_pressed):
+	if button_pressed:
+		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed = false
+		_on_ReadyButton_toggled(false)
+	emit_signal("sandbox_vote_updated", button_pressed)

@@ -55,7 +55,7 @@ text = "Feitiços disponíveis"
 [node name="ScrollContainer" type="ScrollContainer" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
 margin_top = 57.0
 margin_right = 274.0
-margin_bottom = 733.0
+margin_bottom = 607.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -71,6 +71,19 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SandboxButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
+margin_top = 611.0
+margin_right = 274.0
+margin_bottom = 670.0
+toggle_mode = true
+text = "Sandbox"
+
+[node name="UndoButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
+margin_top = 674.0
+margin_right = 274.0
+margin_bottom = 733.0
+text = "Desfazer"
 
 [node name="ReadyButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
 margin_top = 737.0
@@ -174,17 +187,17 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="SpellPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 307.0
+margin_right = 254.0
 margin_bottom = 803.0
 
 [node name="Label" type="Label" parent="SpellPanel/VBoxContainer"]
-margin_right = 300.0
+margin_right = 247.0
 margin_bottom = 53.0
-text = "Próximos disponíveis"
+text = "Próximos feitiços"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel/VBoxContainer"]
 margin_top = 57.0
-margin_right = 300.0
+margin_right = 247.0
 margin_bottom = 733.0
 grow_horizontal = 0
 size_flags_horizontal = 3
@@ -193,7 +206,7 @@ follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="SpellsList" type="VBoxContainer" parent="SpellPanel/VBoxContainer/ScrollContainer"]
-margin_right = 300.0
+margin_right = 247.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 alignment = 1
@@ -204,7 +217,7 @@ __meta__ = {
 
 [node name="ReadyButton" type="Button" parent="SpellPanel/VBoxContainer"]
 margin_top = 737.0
-margin_right = 300.0
+margin_right = 247.0
 margin_bottom = 796.0
 toggle_mode = true
 text = "Pronto ▶"
@@ -212,6 +225,8 @@ text = "Pronto ▶"
 [connection signal="spell_renamed" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]
 [connection signal="spell_selected" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]
 [connection signal="spell_unselected" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_unselected"]
+[connection signal="toggled" from="HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton" to="." method="_on_SandboxButton_toggled"]
+[connection signal="pressed" from="HamburgerContainer/SpellPanel/VBoxContainer/UndoButton" to="." method="_on_UndoButton_pressed"]
 [connection signal="toggled" from="HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_toggled"]
 [connection signal="pressed" from="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]

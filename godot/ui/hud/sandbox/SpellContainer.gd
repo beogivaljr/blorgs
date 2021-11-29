@@ -9,14 +9,17 @@ signal spell_container_button_pressed(button)
 var _spell: SpellDTO
 
 
-func setup(spell: SpellDTO, puzzle_mode: bool = false):
+func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false):
 	_spell = spell
 	if puzzle_mode:
 		$VBoxContainer/HBoxContainer/RenameFnButton.visible = false
 		$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
+		$VBoxContainer/HBoxContainer/SelectButton.set_text("Adicionar à lista")
+		if queue:
+			$VBoxContainer/HBoxContainer/SelectButton.visible = false
 	else:
 		$VBoxContainer/HBoxContainer/RenameFnButton.button_name = _spell.spell_name.function_name
-		
+
 		if spell.spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
 			$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
 			self.spell.spell_name.parameter_name = ""
