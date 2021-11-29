@@ -22,7 +22,7 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false):
 
 		if spell.spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
 			$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
-			self.spell.spell_name.parameter_name = ""
+			_spell.spell_name.parameter_name = ""
 		else:
 			$VBoxContainer/HBoxContainer/RenameParamButton.button_name = _spell.spell_name.parameter_name
 	_update_spell_name()
