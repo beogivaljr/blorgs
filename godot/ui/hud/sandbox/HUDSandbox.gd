@@ -22,6 +22,8 @@ func setup(spells, puzzle_mode: bool = false):
 		$SpellPanel/VBoxContainer/ReadyButton.hide()
 	else:
 		$SpellPanel.hide()
+		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.hide()
+		$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.hide()
 	_update_spells_list(spells)
 
 
