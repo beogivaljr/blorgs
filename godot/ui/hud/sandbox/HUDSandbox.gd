@@ -3,35 +3,58 @@ extends Control
 var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
+signal sandbox_vote_updated(vote)
+signal undo_pressed
 
-var _spell_ids_list = [
-	GlobalConstants.SpellIds.MOVE_TO,
-	GlobalConstants.SpellIds.USE_ELEVATOR,
-	GlobalConstants.SpellIds.PRESS_ROUND_BUTTON,
-	GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON,
-	GlobalConstants.SpellIds.TOGGLE_GATE,
-	GlobalConstants.SpellIds.DESTROY_SUMMON,
-	GlobalConstants.SpellIds.SUMMON_ASCENDING_PORTAL,
-]
 var _spells = []
-var _active_spell_container: SpellContainer = null
-var _spell_containers = []
+var _active_spell: SpellDTO = null
+var _puzzle_mode: bool = false
+onready var _spells_list = get_node(
+	"HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList"
+)
+onready var _spells_queue = get_node("SpellPanel/VBoxContainer/ScrollContainer/SpellsList")
 
 
-func setup(spells):
-	var spells_list = $SpellPanel/VBoxContainer/ScrollContainer/SpellsList
+func setup(spells, puzzle_mode: bool = false):
+	_puzzle_mode = puzzle_mode
+	if _puzzle_mode:
+		$SelectedSpellPanelContainer/SelectedSpell.set_text("Coloque os feitiços na lista")
+		$SpellPanel/VBoxContainer/ReadyButton.hide()
+	_update_spells_list(spells)
+
+
+func update_spells_queue(spells):
 	_spells = spells
-	for container in spells_list.get_children():
-		spells_list.remove_child(container)
+
+	for container in _spells_queue.get_children():
+		_spells_queue.remove_child(container)
 		container.queue_free()
 
 	for spell in spells:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell)
+		spell_container.setup(spell, _puzzle_mode, true)
 
-		spell_container.connect("spell_selected", spells_list, "_on_spell_selected")
+		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
+
+		spell_container.connect("spell_selected", self, "_on_spell_selected")
+
+		_spells_queue.add_child(spell_container)
+
+
+func _update_spells_list(spells):
+	if not _puzzle_mode:
+		_spells = spells
+	for container in _spells_list.get_children():
+		_spells_list.remove_child(container)
+		container.queue_free()
+
+	for spell in spells:
+		var spell_container: SpellContainer = spellContainer.instance()
+		spell_container.setup(spell, _puzzle_mode)
+
+		spell_container.connect("spell_selected", _spells_list, "_on_spell_selected")
 		spell_container.connect(
-			"spell_container_button_pressed", spells_list, "_on_spell_container_button_pressed"
+			"spell_container_button_pressed", _spells_list, "_on_spell_container_button_pressed"
 		)
 
 		spell_container.connect(
@@ -52,38 +75,53 @@ func setup(spells):
 
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
-		spells_list.add_child(spell_container)
+		_spells_list.add_child(spell_container)
 
 
-func on_spell_started(_spell_id):
-	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.disable_buttons()
+func on_spell_started(_spell_id: int):
+	_spells_list.disable_buttons()
 	$SelectedSpellPanelContainer.hide()
 
 
-func on_spell_done(succeded = true):
+func on_spell_done(succeded: bool = true):
 	if not succeded:
-		var spell_name = (
-			_active_spell_container.spell.spell_name.function_name
-			if _active_spell_container
-			else ""
-		)
+		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
 
-	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.enable_buttons()
+	_spells_list.enable_buttons()
 
 
-func _on_spell_selected(spell_container: SpellContainer):
-	_active_spell_container = spell_container
-	if spell_container:
-		emit_signal("spell_selected", spell_container.spell.spell_id)
+func _on_spell_selected(spell: SpellDTO):
+	_active_spell = spell
+	if spell:
+		emit_signal("spell_selected", _active_spell.spell_id)
 	else:
 		emit_signal("spell_selected", null)
 
 
 func _on_ReadyButton_toggled(button_pressed: bool):
 	if button_pressed:
-		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.disable_buttons()
+		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.pressed = false
+		_on_SandboxButton_toggled(false)
+
+		_spells_list.disable_buttons()
 		emit_signal("player_ready", _spells)
 	else:
-		$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.enable_buttons()
+		_spells_list.enable_buttons()
 		emit_signal("player_ready", null)
+
+
+func _on_UndoButton_pressed():
+	on_disable_undo(true)
+	emit_signal("undo_pressed")
+
+
+func on_disable_undo(disable: bool = true):
+	$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.disabled = disable
+
+
+func _on_SandboxButton_toggled(button_pressed):
+	if button_pressed:
+		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed = false
+		_on_ReadyButton_toggled(false)
+	emit_signal("sandbox_vote_updated", button_pressed)

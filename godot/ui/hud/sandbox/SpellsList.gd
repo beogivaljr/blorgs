@@ -5,20 +5,20 @@ signal spell_selected(new_spell)
 signal spell_renamed(spell)
 signal spell_unselected
 
-var selected_spell: SpellContainer
+var _selected_spell: SpellDTO
 
 
-func _on_spell_renamed(spell: SpellContainer):
-	if spell == selected_spell:
+func _on_spell_renamed(spell: SpellDTO):
+	if spell == _selected_spell:
 		emit_signal("spell_renamed", spell)
 
 
-func _on_spell_selected(new_spell: SpellContainer):
-	if new_spell == selected_spell:
-		selected_spell = null
+func _on_spell_selected(new_spell: SpellDTO):
+	if new_spell == _selected_spell:
+		_selected_spell = null
 		emit_signal("spell_unselected")
 	else:
-		selected_spell = new_spell
+		_selected_spell = new_spell
 	
 	emit_signal("spell_selected", new_spell)
 
