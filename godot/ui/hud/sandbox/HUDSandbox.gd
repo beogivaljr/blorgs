@@ -14,20 +14,30 @@ var _spell_ids_list = [
 	GlobalConstants.SpellIds.SUMMON_ASCENDING_PORTAL,
 ]
 var _spells = []
-var _active_spell_container: SpellContainer = null
-var _spell_containers = []
+var _active_spell: SpellDTO = null
 
 
-func setup(spells):
+func setup(spells, puzzle_mode: bool = false):
+	if puzzle_mode:
+		$SelectedSpellPanelContainer/SelectedSpell.set_text("Coloque os feitiços na lista")
+	_setup_spells_list(spells, puzzle_mode)
+
+
+func update_spells_queue(spells_queue):
+	_spells = spells_queue
+
+
+func _setup_spells_list(spells, puzzle_mode: bool = false):
 	var spells_list = $SpellPanel/VBoxContainer/ScrollContainer/SpellsList
-	_spells = spells
+	if not puzzle_mode:
+		_spells = spells
 	for container in spells_list.get_children():
 		spells_list.remove_child(container)
 		container.queue_free()
 
 	for spell in spells:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell)
+		spell_container.setup(spell, puzzle_mode)
 
 		spell_container.connect("spell_selected", spells_list, "_on_spell_selected")
 		spell_container.connect(
@@ -62,20 +72,16 @@ func on_spell_started(_spell_id):
 
 func on_spell_done(succeded = true):
 	if not succeded:
-		var spell_name = (
-			_active_spell_container.spell.spell_name.function_name
-			if _active_spell_container
-			else ""
-		)
+		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
 
 	$SpellPanel/VBoxContainer/ScrollContainer/SpellsList.enable_buttons()
 
 
-func _on_spell_selected(spell_container: SpellContainer):
-	_active_spell_container = spell_container
-	if spell_container:
-		emit_signal("spell_selected", spell_container.spell.spell_id)
+func _on_spell_selected(spell: SpellDTO):
+	_active_spell = spell
+	if spell:
+		emit_signal("spell_selected", spell.spell_id)
 	else:
 		emit_signal("spell_selected", null)
 
