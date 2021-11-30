@@ -3,6 +3,9 @@ extends Node
 const KEY := "blorgs"
 
 signal player_spells_updated(player_spells)
+signal all_spells_updated(all_spells)
+signal all_spell_calls_updated(spell_call_list)
+signal received_start_simulation(spell_call_list)
 signal player_list_updated
 
 enum OpCodes { DO_SPAWN = 1, PLAYER_JOINED, PLAYER_SPELLS }
@@ -96,6 +99,27 @@ func send_spawn() -> void:
 func request_player_spells() -> void:
 	if _socket:
 		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+
+
+func request_all_spells() -> void:
+	if _socket:
+		push_error("TODO: impelment server function")
+#		emit -> all_spells_updated(all_spells)
+#		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+
+
+func request_all_spell_calls() -> void:
+	if _socket:
+#		emit -> all_spell_calls_updated(spell_call_list)
+		push_error("TODO: impelment server function")
+
+
+func request_start_simulation(spell_call_list) -> void:
+	# Remove this loop back
+	emit_signal("received_start_simulation", spell_call_list)
+	if _socket:
+#		emit -> received_start_simulation(spell_call_list)
+		push_error("TODO: impelment server function")
 
 
 # Called when the server received a custom message from the server.
