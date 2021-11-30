@@ -4,10 +4,10 @@ extends Node
 signal level_finished
 
 export(GameState.PlayerTypes) var _starting_player_type
-export(PackedScene) var _packe_world
+export(PackedScene) var _packed_world
 export(Array, GlobalConstants.SpellIds) var _current_level_spells = []
 
-onready var _world = _packe_world.instance()
+onready var _world = _packed_world.instance()
 onready var _hud = preload("res://ui/hud/sandbox/HUDSandbox.tscn").instance()
 
 func _ready():
