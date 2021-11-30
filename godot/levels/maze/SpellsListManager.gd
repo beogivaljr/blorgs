@@ -11,11 +11,12 @@ func _ready():
 
 
 func on_spell_and_parameter_selected(spell_id, node_name, location):
-	var new_spell_call = SpellCallDTO.new()
-	new_spell_call.player_type = GameState.player_type
-	new_spell_call.spell_id = spell_id
-	new_spell_call.target_parameter_node_name = node_name
-	new_spell_call.target_parameter_location = location
+	var new_spell_call = SpellCallDTO.new(
+		GameState.player_type,
+		spell_id,
+		node_name,
+		location
+	)
 	_spell_call_list.append(new_spell_call)
 	emit_signal("spell_started", spell_id)
 	call_deferred("emit_signal", "spell_done", true)
