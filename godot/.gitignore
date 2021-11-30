@@ -5,4 +5,4 @@ build
 .import/
 export.cfg
 export_presets.cfg
-
+ios/icons/*.import
