@@ -26,6 +26,7 @@ func _on_player_list_updated():
 
 
 func bind_server_connection(match_code):
+	ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated")
 	ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated")
 	ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated")
 	ServerConnection.connect("player_list_updated", self, "_on_player_list_updated")

@@ -6,7 +6,7 @@ signal spell_done(succeded)
 
 const _SPELLS = GlobalConstants.SpellIds
 
-var _active_spell_id = null setget set_active_spell_id
+var _active_spell_id = null setget begin_casting_spell
 onready var _kinematic_movement = $KinematicMovement
 
 
@@ -14,11 +14,11 @@ func setup(navigation: Navigation):
 	$KinematicMovement.setup(self, navigation)
 
 
-func set_active_spell_id(spell_id):
+func begin_casting_spell(spell_id):
 	_active_spell_id = spell_id
 
 
-func attempt_to_cast_spell_on(node, location):
+func _attempt_to_cast_spell_on_target(node, location):
 	var spell = _active_spell_id
 	if (
 		spell == _SPELLS.MOVE_TO
@@ -65,7 +65,7 @@ func _cast_press_button_spell(button: MagicButton):
 
 func _on_spell_done(succeded, interactable):
 	emit_signal("spell_done", succeded)
-	set_active_spell_id(null)
+	begin_casting_spell(null)
 
 
 func _on_KinematicMovement_reached_target(target):

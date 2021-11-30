@@ -1,17 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://ui/hud/sandbox/HUDSandbox.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/sandbox/SandboxWorld.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/sandbox/SandboxWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/SandboxLevel.gd" type="Script" id=3]
 
 [node name="SandboxLevel" type="Node"]
 script = ExtResource( 3 )
-
-[node name="SandboxWorld" parent="." instance=ExtResource( 2 )]
-
-[node name="HUDSandbox" parent="." instance=ExtResource( 1 )]
-
-[connection signal="spell_done" from="SandboxWorld" to="HUDSandbox" method="on_spell_done"]
-[connection signal="spell_started" from="SandboxWorld" to="HUDSandbox" method="on_spell_started"]
-[connection signal="player_ready" from="HUDSandbox" to="." method="_on_HUDSandbox_player_ready"]
-[connection signal="spell_selected" from="HUDSandbox" to="SandboxWorld" method="set_active_spell_id"]
+_packe_world = ExtResource( 1 )
+_current_level_spells = [ 0, 1, 2, 3 ]

@@ -1,5 +1,7 @@
 extends Node
 
+signal all_spells_updated
+
 enum LevelIds {
 	SANDBOX,
 	MAZE1,
@@ -30,9 +32,10 @@ func on_player_spells_updated(spells, p_player_type: int = player_type):
 func on_all_spells_updated(spells):
 	_spells_a = spells[0]
 	_spells_b = spells[1]
+	emit_signal("all_spells_updated")
 
 
-func _get_new_spell(spell_id: int) -> SpellNameDTO:
+func _get_new_spell(spell_id: int) -> SpellDTO:
 	randomize()
 	var spell_name = {
 		function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()],
@@ -55,10 +58,10 @@ func get_spells(p_player_type: int = player_type):
 				_spells_a
 				if _spells_a
 				else [
-					_get_new_spell(_SPELLS.MOVE_TO),
+					_get_new_spell(_SPELLS.USE_ELEVATOR),
+					_get_new_spell(_SPELLS.PRESS_SQUARE_BUTTON),
 					_get_new_spell(_SPELLS.TOGGLE_GATE),
-					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON),
-					_get_new_spell(_SPELLS.SUMMON_DESCENDING_PORTAL)
+					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON)
 				]
 			)
 
@@ -70,15 +73,24 @@ func get_spells(p_player_type: int = player_type):
 				_spells_b
 				if _spells_b
 				else [
-					_get_new_spell(_SPELLS.USE_ELEVATOR),
-					_get_new_spell(_SPELLS.PRESS_SQUARE_BUTTON),
+					_get_new_spell(_SPELLS.MOVE_TO),
 					_get_new_spell(_SPELLS.SUMMON_ASCENDING_PORTAL),
 					_get_new_spell(_SPELLS.DESTROY_SUMMON),
+					_get_new_spell(_SPELLS.SUMMON_DESCENDING_PORTAL)
 				]
 			)
 
 			_spells_b.shuffle()
 			return _spells_b
+
+
+func get_all_spells():
+	randomize()
+	var spells = get_spells(PlayerTypes.A) as Array
+	spells.append_array(get_spells(PlayerTypes.B))
+#	spells.shuffle()
+	push_warning("TODO: shuffle list.")
+	return spells
 
 
 func get_dict_spells(p_player_type: int):

@@ -3,7 +3,7 @@ extends Node
 
 var _levels = {
 	GameState.LevelIds.SANDBOX: preload("res://levels/sandbox/SandboxLevel.tscn"),
-	GameState.LevelIds.MAZE1: preload("res://levels/sandbox/SandboxLevel.tscn"),
+	GameState.LevelIds.MAZE1: preload("res://levels/maze/maze_1/Maze1Level.tscn"),
 	GameState.LevelIds.MAZE2: preload("res://levels/sandbox/SandboxLevel.tscn"),
 	GameState.LevelIds.MAZE3: preload("res://levels/sandbox/SandboxLevel.tscn"),
 	GameState.LevelIds.MAZE4: preload("res://levels/sandbox/SandboxLevel.tscn"),
