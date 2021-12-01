@@ -7,8 +7,9 @@ var _has_started_simulation = false
 
 
 func _ready():
-	_active_player_id = GameState.player_type
-	_spawn_and_setup_player()
+	_active_player_id = GameState.character_type
+	_spawn_and_setup_player(GameState.CharacterTypes.A)
+	_spawn_and_setup_player(GameState.CharacterTypes.B)
 
 
 func auto_cast_spell(player_id, spell_id, node_name, location):
@@ -21,18 +22,25 @@ func auto_cast_spell(player_id, spell_id, node_name, location):
 
 func begin_casting_spell(spell_id):
 	.begin_casting_spell(spell_id)
-#	get_active_character().begin_casting_spell(spell_id)
+	get_active_character().begin_casting_spell(spell_id)
 
 
-func _spawn_and_setup_player():
+func _spawn_and_setup_player(type):
+	var player_spawn_node_name = "PlayerSpawn"
+	if type == GameState.CharacterTypes.A:
+		player_spawn_node_name += "A"
+	elif type == GameState.CharacterTypes.B:
+		player_spawn_node_name += "B"
+	else:
+		assert(false)
 	var player = preload("res://players/BaseCharacter.tscn").instance()
-#	player.connect("spell_started", self, "_on_spell_started")
-#	player.connect("spell_done", self, "_on_spell_done")
-#	add_child(player)
-#	player.global_transform = $PlayerSpawn.global_transform
-#	player.setup($Navigation)
-#	_players[_active_player_id] = player
-#	set_active_character(player)
+	player.connect("spell_started", self, "_on_spell_started")
+	player.connect("spell_done", self, "_on_spell_done")
+	add_child(player)
+	player.global_transform = get_node(player_spawn_node_name).global_transform
+	player.setup($Navigation, type)
+	_players[_active_player_id] = player
+	set_active_character(player)
 
 
 func _validate_parameters(node, location):

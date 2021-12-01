@@ -10,22 +10,22 @@ enum LevelIds {
 	MAZE4,
 }
 
-enum PlayerTypes { A, B }
+enum CharacterTypes { A, B, SA, SB }
 var _spells_a
 var _spells_b
 const _SPELLS = GlobalConstants.SpellIds
-var player_type
+var character_type
 
 
 func on_player_list_updated():
 	pass
 
 
-func on_player_spells_updated(spells, p_player_type: int = player_type):
+func on_player_spells_updated(spells, p_player_type: int = character_type):
 	match p_player_type:
-		PlayerTypes.A:
+		CharacterTypes.A:
 			_spells_a = spells
-		PlayerTypes.B:
+		CharacterTypes.B:
 			_spells_b = spells
 
 
@@ -50,10 +50,10 @@ var current_level_id = LevelIds.SANDBOX
 var current_maze_index = 0
 
 
-func get_spells(p_player_type: int = player_type):
+func get_spells(p_player_type: int = character_type):
 	randomize()
 	match p_player_type:
-		PlayerTypes.A:
+		CharacterTypes.A:
 			_spells_a = (
 				_spells_a
 				if _spells_a
@@ -68,7 +68,7 @@ func get_spells(p_player_type: int = player_type):
 			_spells_a.shuffle()
 			return _spells_a
 
-		PlayerTypes.B:
+		CharacterTypes.B:
 			_spells_b = (
 				_spells_b
 				if _spells_b
@@ -86,8 +86,8 @@ func get_spells(p_player_type: int = player_type):
 
 func get_all_spells():
 	randomize()
-	var spells = get_spells(PlayerTypes.A) as Array
-	spells.append_array(get_spells(PlayerTypes.B))
+	var spells = get_spells(CharacterTypes.A) as Array
+	spells.append_array(get_spells(CharacterTypes.B))
 #	spells.shuffle()
 	push_warning("TODO: shuffle list.")
 	return spells

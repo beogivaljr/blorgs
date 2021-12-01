@@ -8,7 +8,7 @@ func _on_MainButtons_connect_to_game():
 
 
 func _on_MainButtons_new_game():
-	GameState.player_type = GameState.PlayerTypes.A
+	GameState.character_type = GameState.CharacterTypes.A
 	var result = yield(ServerConnection.authenticate_async("Jogador1"), "completed")
 	if result == OK:
 		yield(ServerConnection.connect_to_server_async(), "completed")
@@ -22,15 +22,15 @@ func _on_MainButtons_new_game():
 
 func _on_player_list_updated():
 	ServerConnection.request_player_spells()
-	get_tree().change_scene("res://levels/LevelManager.tscn")
+	assert(get_tree().change_scene("res://levels/LevelManager.tscn") == OK)
 
 
 func bind_server_connection(match_code):
-	ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated")
-	ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated")
-	ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated")
-	ServerConnection.connect("player_list_updated", self, "_on_player_list_updated")
-	ServerConnection.request_player_spells()
+	assert(ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated") == OK)
+	assert(ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated") == OK)
+	assert(ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated") == OK)
+	assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
+	assert(ServerConnection.request_player_spells())
 	yield(ServerConnection.join_match_async(match_code), "completed")
 
 
@@ -38,7 +38,7 @@ func _on_NewGameInfo_on_cancelled() -> void:
 	_set_screen(MAIN_BUTTONS)
 
 
-func _on_ConnectToGameInfo_play_pressed(match_code, playerName) -> void:
+func _on_ConnectToGameInfo_play_pressed(match_code, _playerName) -> void:
 	bind_server_connection(match_code)
 	_set_screen(CONNECTING)
 

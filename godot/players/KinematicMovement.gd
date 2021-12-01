@@ -9,7 +9,7 @@ export var speed = 7.0
 export var jump_strength = 20.0
 export var gravity = 98.0
 
-var _body: KinematicBody = null
+onready var _body: KinematicBody = get_parent()
 var _navigation: Navigation = null
 var _path = []
 var _target_node = null
@@ -20,12 +20,13 @@ var _current_physics_frames_without_moving = 0
 const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 6
 
 
-func setup(body: KinematicBody, navigation: Navigation):
-	_body = body
+func setup(navigation: Navigation):
 	_navigation = navigation
 
 
 func _physics_process(delta):
+	if not _navigation:
+		return
 	## Navigation input
 	var move_direction = Vector3.ZERO
 	if not _path.empty():
