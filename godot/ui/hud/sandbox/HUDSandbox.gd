@@ -4,6 +4,7 @@ var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
 signal sandbox_vote_updated(vote)
+signal pass_turn
 signal undo_pressed
 
 var _spells = []
@@ -129,3 +130,7 @@ func _on_SandboxButton_toggled(button_pressed):
 		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed = false
 		_on_ReadyButton_toggled(false)
 	emit_signal("sandbox_vote_updated", button_pressed)
+
+
+func _on_TurnButton_pressed():
+	emit_signal("pass_turn")

@@ -16,3 +16,16 @@ func _init(
 	self.spell_id = spell_id
 	self.target_parameter_node_name = target_parameter_node_name
 	self.target_parameter_location = target_parameter_location
+
+
+func dict():
+	return {
+		character_type = character_type, 
+		spell_id = spell_id, 
+		target_parameter_node_name = target_parameter_node_name, 
+		target_parameter_location = {
+			x = target_parameter_location.x,
+			y = target_parameter_location.y,
+			z = target_parameter_location.z,
+			},
+		}

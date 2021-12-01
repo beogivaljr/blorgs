@@ -56,3 +56,7 @@ func start_simulation(spell_call_list, world: MazeWorld):
 func on_undo_pressed():
 	_spell_call_list.pop_back()
 	on_spell_call_list_updated(_spell_call_list)
+
+
+func on_turn_passed():
+	ServerConnection.send_pass_turn(_spell_call_list)

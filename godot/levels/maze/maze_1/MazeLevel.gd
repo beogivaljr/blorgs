@@ -20,6 +20,7 @@ func _setup_hud(spells):
 	_hud.connect("spell_selected", _world, "begin_casting_spell")
 	_hud.connect("sandbox_vote_updated", self, "_on_sandbox_vote_updated")
 	_hud.connect("undo_pressed", _spells_list_manager, "on_undo_pressed")
+	_hud.connect("pass_turn", _spells_list_manager, "on_turn_passed")
 	add_child(_hud) # _ready() before setup()
 	_hud.setup(spells, true)
 
@@ -34,6 +35,7 @@ func _setup_spells_list_manager():
 	_spells_list_manager.connect("spell_done", _hud, "on_spell_done")
 	_spells_list_manager.connect("spell_list_updated", _hud, "update_spells_queue")
 	ServerConnection.connect("all_spell_calls_updated", _spells_list_manager, "on_spell_call_list_updated")
+	ServerConnection.connect("your_turn_started", _spells_list_manager, "on_spell_call_list_updated")
 	ServerConnection.connect("received_start_simulation", _spells_list_manager, "start_simulation", [_world])
 
 

@@ -62,7 +62,7 @@ end
 
 commands[OpCodes.send_ready_to_start_state] = function(data, state, user_id)
     state.spell_queue = data.spell_queue
-    state.ready_state[user_id] = true
+    state.ready_vote[user_id] = true
 end
 
 commands[OpCodes.send_pass_turn] = function(data, state, user_id)
@@ -192,8 +192,7 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
             elseif op_code == OpCodes.send_pass_turn then
                 dispatcher.broadcast_message(
                     OpCodes.your_turn,
-                    nakama.json_encode(state.spell_queue),
-                    {find_other_sender(state, sender_id)}
+                    nakama.json_encode(state.spell_queue)
                 )
             end
         end

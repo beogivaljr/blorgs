@@ -137,16 +137,24 @@ func request_all_spell_calls() -> void:
 
 
 func request_start_simulation(spell_call_list) -> void:
+	var spell_call_list_dict = []
+	for spell_call in spell_call_list:
+		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
+		
 	if _socket:
 		_socket.send_match_state_async(
-			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print(spell_call_list)
+			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({spell_queue = spell_call_list_dict})
 		)
 
 
 func send_pass_turn(spell_call_list) -> void:
+	var spell_call_list_dict = []
+	for spell_call in spell_call_list:
+		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
+		
 	if _socket:
 		_socket.send_match_state_async(
-			_match_id, OpCodes.SEND_PASS_TURN, JSON.print(spell_call_list)
+			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = spell_call_list_dict})
 		)
 
 
@@ -158,7 +166,7 @@ func _parse_spells_queue(decoded_json):
 				spell.character_type,
 				spell.spell_id,
 				spell.target_parameter_node_name,
-				spell.target_parameter_location
+				Vector3(spell.target_parameter_location.x, spell.target_parameter_location.y, spell.target_parameter_location.z)
 			)
 		)
 	return spell_queue
