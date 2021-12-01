@@ -104,7 +104,7 @@ function match_control.match_join_attempt(context, dispatcher, tick, state, pres
 end
 
 local function find_other_sender(state, sender_id)
-    local other_sender = {}
+    local other_sender
     for user_id, presence in pairs(state.presences) do
         if not user_id == sender_id then
             other_sender = presence
