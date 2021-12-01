@@ -108,6 +108,7 @@ local function find_other_sender(state, sender_id)
     for user_id, presence in pairs(state.presences) do
         if not user_id == sender_id then
             other_sender = presence
+            break
         end
     end
     return other_sender
@@ -120,7 +121,7 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
         state.presences[user_id] = presence
         state.user_types[user_id] = state.presences.count
         state.presences.count = state.presences.count + 1
-        state.player_spells[user_id] = state.player_spells[state.presences.count]
+        state.available_spells[user_id] = state.available_spells[state.presences.count]
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
         state.sandbox_vote[user_id] = false
