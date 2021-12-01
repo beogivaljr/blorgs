@@ -14,7 +14,7 @@ local OpCodes = {
     send_ready_to_start_state = 9,
     ready_state = 10,
     send_pass_turn = 11,
-    turn = 12
+    your_turn = 12
 }
 
 local commands = {}

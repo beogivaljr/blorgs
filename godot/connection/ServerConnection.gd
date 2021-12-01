@@ -6,6 +6,7 @@ signal player_spells_updated(player_spells)
 signal all_spells_updated(all_spells)
 signal all_spell_calls_updated(spell_call_list)
 signal received_start_simulation(spell_call_list)
+signal your_turn_started(spell_call_list)
 signal player_list_updated
 
 enum OpCodes {
@@ -20,7 +21,7 @@ enum OpCodes {
 	SEND_READY_TO_START_STATE,
 	READY_STATE,
 	SEND_PASS_TURN,
-	TURN
+	YOUR_TURN
 }
 
 var _session: NakamaSession
@@ -130,6 +131,7 @@ func request_all_spell_calls() -> void:
 	if _socket:
 		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
+
 #		emit -> all_spell_calls_updated(spell_call_list)
 
 
@@ -162,3 +164,51 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 			for spell in decoded:
 				spells.append(SpellDTO.new(spell))
 			emit_signal("player_spells_updated", spells)
+		OpCodes.AVAILABLE_SPELLS:
+			var decoded: Dictionary = JSON.parse(raw).result
+			var spells_a = []
+			for spell in decoded.player_a_spells:
+				spells_a.append(SpellDTO.new(spell))
+			var spells_b = []
+			for spell in decoded.player_b_spells:
+				spells_b.append(SpellDTO.new(spell))
+			emit_signal("all_spells_updated", [spells_a, spells_b])
+		OpCodes.SPELL_QUEUE:
+			var decoded: Dictionary = JSON.parse(raw).result
+			var spell_queue = []
+			for spell in decoded:
+				spell_queue.append(
+					SpellCallDTO.new(
+						spell.character_type,
+						spell.spell_id,
+						spell.target_parameter_node_name,
+						spell.target_parameter_location
+					)
+				)
+			emit_signal("all_spell_calls_updated", spell_queue)
+		OpCodes.READY_STATE:
+			var decoded: Dictionary = JSON.parse(raw).result
+			var spell_queue = []
+			for spell in decoded:
+				spell_queue.append(
+					SpellCallDTO.new(
+						spell.character_type,
+						spell.spell_id,
+						spell.target_parameter_node_name,
+						spell.target_parameter_location
+					)
+				)
+			emit_signal("received_start_simulation", spell_queue)
+		OpCodes.YOUR_TURN:
+			var decoded: Dictionary = JSON.parse(raw).result
+			var spell_queue = []
+			for spell in decoded:
+				spell_queue.append(
+					SpellCallDTO.new(
+						spell.character_type,
+						spell.spell_id,
+						spell.target_parameter_node_name,
+						spell.target_parameter_location
+					)
+				)
+			emit_signal("your_turn_started", spell_queue)
