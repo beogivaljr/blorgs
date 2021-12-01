@@ -76,6 +76,7 @@ commands[OpCodes.send_ready_to_start_state] = function(data, state, user_id)
 end
 
 commands[OpCodes.send_pass_turn] = function(data, state, user_id)
+    state.spell_queue = data.spell_queue
 end
 
 function match_control.match_init(context, params)
@@ -135,7 +136,7 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
         local op_code = message.op_code
         local command = commands[op_code]
         local data = message.data
-        local user_id = message.sender.user_id
+        local sender_id = message.sender.user_id
         if command then
             if data and string.len(data) > 0 then
                 data = nakama.json_decode(data)
@@ -143,7 +144,7 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                 data = {}
             end
 
-            command(data, state, user_id)
+            command(data, state, sender_id)
 
             if op_code == OpCodes.do_spawn then
                 dispatcher.broadcast_message(
@@ -160,7 +161,7 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
             elseif op_code == OpCodes.request_player_spells then
                 dispatcher.broadcast_message(
                     OpCodes.player_spells,
-                    nakama.json_encode(state.available_spells[state.user_types[user_id]]),
+                    nakama.json_encode(state.available_spells[state.user_types[sender_id]]),
                     {message.sender}
                 )
             elseif op_code == OpCodes.request_available_spells then
@@ -186,11 +187,15 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                         return state
                     end
                 end
-                dispatcher.broadcast_message(
-                    OpCodes.start_simulation,
-                    nakama.json_encode(state.spell_queue)
-                )
+                dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue))
             elseif op_code == OpCodes.send_pass_turn then
+                local other_sender = {}
+                for user_id, presence in pairs(state.presences) do
+                    if not user_id == sender_id then
+                        other_sender = presence
+                    end
+                end
+                dispatcher.broadcast_message(OpCodes.your_turn, nakama.json_encode(state.spell_queue) {other_sender})
             end
         end
     end
