@@ -131,7 +131,16 @@ func request_all_spell_calls() -> void:
 
 func request_start_simulation(spell_call_list) -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.READY_STATE, JSON.print(spell_call_list))
+		_socket.send_match_state_async(
+			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print(spell_call_list)
+		)
+
+
+func send_pass_turn(spell_call_list) -> void:
+	if _socket:
+		_socket.send_match_state_async(
+			_match_id, OpCodes.SEND_PASS_TURN, JSON.print(spell_call_list)
+		)
 
 
 # Called when the server received a custom message from the server.
