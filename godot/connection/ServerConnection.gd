@@ -25,7 +25,7 @@ enum OpCodes {
 }
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
+var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http", 3, NakamaLogger.LOG_LEVEL.INFO)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}
@@ -116,7 +116,7 @@ func send_spawn(spells) -> void:
 	var spells_dict = []
 	for spell in spells:
 		spells_dict.append((spell as SpellDTO).dict())
-		
+
 	if _socket:
 		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({spells = spells_dict}))
 
@@ -140,7 +140,7 @@ func request_start_simulation(spell_call_list) -> void:
 	var spell_call_list_dict = []
 	for spell_call in spell_call_list:
 		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
-		
+
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({spell_queue = spell_call_list_dict})
@@ -151,7 +151,7 @@ func send_pass_turn(spell_call_list) -> void:
 	var spell_call_list_dict = []
 	for spell_call in spell_call_list:
 		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
-		
+
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = spell_call_list_dict})
