@@ -19,7 +19,7 @@ enum OpCodes {
 	REQUEST_SPELL_QUEUE,
 	SPELL_QUEUE,
 	SEND_READY_TO_START_STATE,
-	READY_STATE,
+	START_SIMULATION,
 	SEND_PASS_TURN,
 	YOUR_TURN
 }
@@ -184,7 +184,7 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 					)
 				)
 			emit_signal("all_spell_calls_updated", spell_queue)
-		OpCodes.READY_STATE:
+		OpCodes.START_SIMULATION:
 			var decoded: Dictionary = JSON.parse(raw).result
 			var spell_queue = []
 			for spell in decoded:
