@@ -5,7 +5,12 @@ local match_control = {}
 local OpCodes = {
     do_spawn = 1,
     player_joined = 2,
-    player_spells = 3
+    request_player_spells = 3,
+    player_spells = 4,
+    request_available_spells = 5,
+    available_spells = 6,
+    request_spell_queue = 7,
+    spell_queue = 8
 }
 
 local commands = {}
@@ -116,29 +121,31 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
         local data = message.data
         if command and data and string.len(data) > 0 then
             data = nakama.json_decode(data)
-            data.user_id = message.sender.user_id
+        else
+            data = {}
+        end
+        data.user_id = message.sender.user_id
 
-            command(data, state)
+        command(data, state)
 
-            if op_code == OpCodes.do_spawn then
-                dispatcher.broadcast_message(
-                    OpCodes.do_spawn,
-                    nakama.json_encode(
-                        {
-                            usernames = state.usernames,
-                            ready_vote = state.ready_vote,
-                            sandbox_vote = state.sandbox_vote,
-                            spell_queue = state.spell_queue
-                        }
-                    )
+        if op_code == OpCodes.do_spawn then
+            dispatcher.broadcast_message(
+                OpCodes.do_spawn,
+                nakama.json_encode(
+                    {
+                        usernames = state.usernames,
+                        ready_vote = state.ready_vote,
+                        sandbox_vote = state.sandbox_vote,
+                        spell_queue = state.spell_queue
+                    }
                 )
-            elseif op_code == OpCodes.player_spells then
-                dispatcher.broadcast_message(
-                    OpCodes.player_spells,
-                    nakama.json_encode(state.user_spells[data.user_id]),
-                    {message.sender}
-                )
-            end
+            )
+        elseif op_code == OpCodes.player_spells then
+            dispatcher.broadcast_message(
+                OpCodes.player_spells,
+                nakama.json_encode(state.user_spells[data.user_id]),
+                {message.sender}
+            )
         end
     end
     return state

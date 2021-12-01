@@ -8,7 +8,16 @@ signal all_spell_calls_updated(spell_call_list)
 signal received_start_simulation(spell_call_list)
 signal player_list_updated
 
-enum OpCodes { DO_SPAWN = 1, PLAYER_JOINED, PLAYER_SPELLS }
+enum OpCodes {
+	DO_SPAWN = 1,
+	PLAYER_JOINED,
+	REQUEST_PLAYER_SPELLS,
+	PLAYER_SPELLS,
+	REQUEST_AVAILABLE_SPELLS,
+	AVAILABLE_SPELLS,
+	REQUEST_SPELL_QUEUE,
+	SPELL_QUEUE
+}
 
 var _session: NakamaSession
 var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
@@ -37,7 +46,11 @@ func connect_to_server_async() -> int:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 		if not result.is_exception():
 			assert(_socket.connect("closed", self, "on_NakamaSocket_closed"))
-			assert(_socket.connect("received_match_state", self, "_on_NakamaSocket_received_match_state"))
+			assert(
+				_socket.connect(
+					"received_match_state", self, "_on_NakamaSocket_received_match_state"
+				)
+			)
 			return OK
 	return ERR_CANT_CONNECT
 
@@ -98,28 +111,35 @@ func send_spawn() -> void:
 
 func request_player_spells() -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_PLAYER_SPELLS, "")
 
 
 func request_all_spells() -> void:
 	if _socket:
-		push_error("TODO: impelment server function")
+		pass
+
+
 #		emit -> all_spells_updated(all_spells)
-#		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+#		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
 
 
 func request_all_spell_calls() -> void:
 	if _socket:
+		pass
+
+
 #		emit -> all_spell_calls_updated(spell_call_list)
-		push_error("TODO: impelment server function")
+#		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 
 func request_start_simulation(spell_call_list) -> void:
 	# Remove this loop back
 	emit_signal("received_start_simulation", spell_call_list)
 	if _socket:
+		pass
+
+
 #		emit -> received_start_simulation(spell_call_list)
-		push_error("TODO: impelment server function")
 
 
 # Called when the server received a custom message from the server.
