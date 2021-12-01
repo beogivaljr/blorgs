@@ -103,9 +103,20 @@ function match_control.match_join_attempt(context, dispatcher, tick, state, pres
     return state, true
 end
 
+local function find_other_sender(state, sender_id)
+    local other_sender = {}
+    for user_id, presence in pairs(state.presences) do
+        if not user_id == sender_id then
+            other_sender = presence
+        end
+    end
+    return other_sender
+end
+
 function match_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
+
         state.presences[user_id] = presence
         state.user_types[user_id] = state.presences.count
         state.presences.count = state.presences.count + 1
@@ -113,9 +124,14 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
         state.sandbox_vote[user_id] = false
+
+        dispatcher.broadcast_message(
+            OpCodes.player_joined,
+            nakama.json_encode(state.presences.count),
+            {find_other_sender(state, user_id)}
+        )
     end
 
-    dispatcher.broadcast_message(OpCodes.player_joined, nakama.json_encode(state.presences.count))
     return state
 end
 
@@ -189,13 +205,11 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                 end
                 dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue))
             elseif op_code == OpCodes.send_pass_turn then
-                local other_sender = {}
-                for user_id, presence in pairs(state.presences) do
-                    if not user_id == sender_id then
-                        other_sender = presence
-                    end
-                end
-                dispatcher.broadcast_message(OpCodes.your_turn, nakama.json_encode(state.spell_queue) {other_sender})
+                dispatcher.broadcast_message(
+                    OpCodes.your_turn,
+                    nakama.json_encode(state.spell_queue),
+                    {find_other_sender(state, sender_id)}
+                )
             end
         end
     end
