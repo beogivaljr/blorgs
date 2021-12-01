@@ -52,9 +52,12 @@ func connect_to_server_async() -> int:
 		if not result.is_exception():
 			assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
 			assert(
-				_socket.connect(
-					"received_match_state", self, "_on_NakamaSocket_received_match_state"
-				) == OK
+				(
+					_socket.connect(
+						"received_match_state", self, "_on_NakamaSocket_received_match_state"
+					)
+					== OK
+				)
 			)
 			return OK
 	return ERR_CANT_CONNECT
@@ -170,8 +173,6 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 	var raw := match_state.data
 
 	match code:
-		OpCodes.DO_SPAWN:
-			pass
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result
 			if decoded > 1:
