@@ -16,7 +16,11 @@ enum OpCodes {
 	REQUEST_AVAILABLE_SPELLS,
 	AVAILABLE_SPELLS,
 	REQUEST_SPELL_QUEUE,
-	SPELL_QUEUE
+	SPELL_QUEUE,
+	SEND_READY_TO_START_STATE,
+	READY_STATE,
+	SEND_PASS_TURN,
+	TURN
 }
 
 var _session: NakamaSession
@@ -116,20 +120,17 @@ func request_player_spells() -> void:
 
 func request_all_spells() -> void:
 	if _socket:
-		pass
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
 
 
 #		emit -> all_spells_updated(all_spells)
-#		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
 
 
 func request_all_spell_calls() -> void:
 	if _socket:
-		pass
-
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 #		emit -> all_spell_calls_updated(spell_call_list)
-#		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 
 func request_start_simulation(spell_call_list) -> void:

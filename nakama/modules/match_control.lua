@@ -10,7 +10,11 @@ local OpCodes = {
     request_available_spells = 5,
     available_spells = 6,
     request_spell_queue = 7,
-    spell_queue = 8
+    spell_queue = 8,
+    send_ready_to_start_state = 9,
+    ready_state = 10,
+    send_pass_turn = 11,
+    turn = 12
 }
 
 local commands = {}
