@@ -94,14 +94,11 @@ function match_control.match_join_attempt(context, dispatcher, tick, state, pres
 end
 
 local function find_other_sender(state, sender_id)
-    local other_sender
     for user_id, presence in pairs(state.presences) do
-        if not user_id == sender_id then
-            other_sender = presence
-            break
+        if not (user_id == sender_id) and type(presence) == "table" then
+            return presence
         end
     end
-    return other_sender
 end
 
 function match_control.match_join(context, dispatcher, tick, state, presences)
@@ -192,7 +189,8 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
             elseif op_code == OpCodes.send_pass_turn then
                 dispatcher.broadcast_message(
                     OpCodes.your_turn,
-                    nakama.json_encode(state.spell_queue)
+                    nakama.json_encode(state.spell_queue),
+                    {find_other_sender(state, sender_id)}
                 )
             end
         end
