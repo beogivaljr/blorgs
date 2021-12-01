@@ -21,4 +21,5 @@ func _setup_world():
 
 func _on_player_ready(spells):
 	ServerConnection.send_spawn(spells)
+	yield(ServerConnection, "all_spells_updated")
 	emit_signal("level_finished")

@@ -19,9 +19,8 @@ local OpCodes = {
 
 local commands = {}
 
-local function find_spell(table, spell)
+local function find_spell(table, spell_id)
     local index
-    local spell_id = spell.spell_id
 
     for i, spell in ipairs(table) do
         if spell.spell_id == spell_id then
@@ -40,7 +39,7 @@ commands[OpCodes.do_spawn] = function(data, state, user_id)
     end
 
     for _i, spell in ipairs(data.spells) do
-        local user_spell_index = find_spell(state.available_spells[state.user_types[user_id]], spell)
+        local user_spell_index = find_spell(state.available_spells[state.user_types[user_id]], spell.spell_id)
         if not user_spell_index then
             -- user sent a name for a spell that does not belong to them
             -- throw a nice error
@@ -48,8 +47,8 @@ commands[OpCodes.do_spawn] = function(data, state, user_id)
         end
 
         state.available_spells[state.user_types[user_id]][user_spell_index].spell_name = spell.spell_name
-        state.ready_state[user_id] = true
     end
+    state.ready_vote[user_id] = true
 end
 
 commands[OpCodes.request_player_spells] = function(data, state, user_id)

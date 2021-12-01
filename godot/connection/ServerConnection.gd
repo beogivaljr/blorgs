@@ -113,8 +113,12 @@ func create_match_async() -> String:
 
 # Sends a message to the server stating the client is spawning in after character selection.
 func send_spawn(spells) -> void:
+	var spells_dict = []
+	for spell in spells:
+		spells_dict.append((spell as SpellDTO).dict())
+		
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({spells = spells}))
+		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({spells = spells_dict}))
 
 
 func request_player_spells() -> void:
