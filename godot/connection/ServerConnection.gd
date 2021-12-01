@@ -143,6 +143,27 @@ func send_pass_turn(spell_call_list) -> void:
 		)
 
 
+func _parse_spells_queue(decoded_json: Dictionary):
+	var spell_queue = []
+	for spell in decoded_json:
+		spell_queue.append(
+			SpellCallDTO.new(
+				spell.character_type,
+				spell.spell_id,
+				spell.target_parameter_node_name,
+				spell.target_parameter_location
+			)
+		)
+	return spell_queue
+
+
+func _parse_spells(decoded_json: Dictionary):
+	var spells = []
+	for spell in decoded_json:
+		spells.append(SpellDTO.new(spell))
+	return spells
+
+
 # Called when the server received a custom message from the server.
 func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 	var code := match_state.op_code
@@ -150,63 +171,26 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 
 	match code:
 		OpCodes.DO_SPAWN:
-			var decoded: Dictionary = JSON.parse(raw).result
+			pass
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result
 			if decoded > 1:
 				print("Other player just joined")
 				emit_signal("player_list_updated")
 		OpCodes.PLAYER_SPELLS:
-			var decoded = JSON.parse(raw).result
-			var spells = []
-			for spell in decoded:
-				spells.append(SpellDTO.new(spell))
+			var spells = _parse_spells(JSON.parse(raw).result)
 			emit_signal("player_spells_updated", spells)
 		OpCodes.AVAILABLE_SPELLS:
 			var decoded: Dictionary = JSON.parse(raw).result
-			var spells_a = []
-			for spell in decoded.player_a_spells:
-				spells_a.append(SpellDTO.new(spell))
-			var spells_b = []
-			for spell in decoded.player_b_spells:
-				spells_b.append(SpellDTO.new(spell))
+			var spells_a = _parse_spells(decoded.player_a_spells)
+			var spells_b = _parse_spells(decoded.player_b_spells)
 			emit_signal("all_spells_updated", [spells_a, spells_b])
 		OpCodes.SPELL_QUEUE:
-			var decoded: Dictionary = JSON.parse(raw).result
-			var spell_queue = []
-			for spell in decoded:
-				spell_queue.append(
-					SpellCallDTO.new(
-						spell.character_type,
-						spell.spell_id,
-						spell.target_parameter_node_name,
-						spell.target_parameter_location
-					)
-				)
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
 			emit_signal("all_spell_calls_updated", spell_queue)
 		OpCodes.START_SIMULATION:
-			var decoded: Dictionary = JSON.parse(raw).result
-			var spell_queue = []
-			for spell in decoded:
-				spell_queue.append(
-					SpellCallDTO.new(
-						spell.character_type,
-						spell.spell_id,
-						spell.target_parameter_node_name,
-						spell.target_parameter_location
-					)
-				)
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
 			emit_signal("received_start_simulation", spell_queue)
 		OpCodes.YOUR_TURN:
-			var decoded: Dictionary = JSON.parse(raw).result
-			var spell_queue = []
-			for spell in decoded:
-				spell_queue.append(
-					SpellCallDTO.new(
-						spell.character_type,
-						spell.spell_id,
-						spell.target_parameter_node_name,
-						spell.target_parameter_location
-					)
-				)
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
 			emit_signal("your_turn_started", spell_queue)
