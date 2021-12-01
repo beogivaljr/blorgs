@@ -9,7 +9,7 @@ signal spell_container_button_pressed(button)
 var _spell: SpellDTO
 
 
-func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false):
+func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, player_type = null):
 	_spell = spell
 	if puzzle_mode:
 		$VBoxContainer/HBoxContainer/RenameFnButton.visible = false
@@ -25,6 +25,10 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false):
 			_spell.spell_name.parameter_name = ""
 		else:
 			$VBoxContainer/HBoxContainer/RenameParamButton.button_name = _spell.spell_name.parameter_name
+	if player_type == GameState.CharacterTypes.A:
+		$VBoxContainer/SpellName.add_color_override("font_color", Color("ffbfbf"))
+	else:
+		pass
 	_update_spell_name()
 
 func toggle_enable_other_buttons(button: Button):

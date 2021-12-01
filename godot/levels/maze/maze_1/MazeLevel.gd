@@ -5,14 +5,25 @@ onready var _spells_list_manager = preload("res://levels/maze/SpellsListManager.
 
 func _ready():
 	# Geta all spells
-#	ServerConnection.request_all_spells()
-#	yield(GameState, "all_spells_updated")
 	var spells = GameState.get_all_spells()
 	
 	# Setups
+	_bind_server_signals()
 	_setup_hud(_get_filtered_level_spells(spells))
 	_setup_world()
 	_setup_spells_list_manager()
+	
+	# Set starting player
+	if _starting_player_type == GameState.character_type:
+		_hud.set_you_turn(true)
+	else:
+		_hud.set_you_turn(false)
+
+
+func _bind_server_signals():
+	ServerConnection.connect("all_spell_calls_updated", _spells_list_manager, "on_spell_call_list_updated")
+	ServerConnection.connect("your_turn_started", self, "_on_your_turn_started")
+	ServerConnection.connect("received_start_simulation", _spells_list_manager, "start_simulation", [_world])
 
 
 func _setup_hud(spells):
@@ -34,13 +45,15 @@ func _setup_spells_list_manager():
 	_spells_list_manager.connect("spell_started", _hud, "on_spell_started")
 	_spells_list_manager.connect("spell_done", _hud, "on_spell_done")
 	_spells_list_manager.connect("spell_list_updated", _hud, "update_spells_queue")
-	ServerConnection.connect("all_spell_calls_updated", _spells_list_manager, "on_spell_call_list_updated")
-	ServerConnection.connect("your_turn_started", _spells_list_manager, "on_spell_call_list_updated")
-	ServerConnection.connect("received_start_simulation", _spells_list_manager, "start_simulation", [_world])
 
 
 func _on_player_ready(_spells):
 	_spells_list_manager.send_ready_and_spell_call_list()
+
+
+func _on_your_turn_started(spell_call_list):
+	_spells_list_manager.on_spell_call_list_updated(spell_call_list)
+	_hud.set_you_turn(true)
 
 
 func _on_sandbox_vote_updated(vote):

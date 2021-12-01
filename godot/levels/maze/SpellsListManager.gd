@@ -33,6 +33,7 @@ func on_spell_call_list_updated(spell_call_list):
 			if (spell as SpellDTO).spell_id == spell_id:
 				spell_list.append(spell)
 				break
+	_spell_call_list = spell_call_list
 	emit_signal("spell_list_updated", spell_list)
 
 

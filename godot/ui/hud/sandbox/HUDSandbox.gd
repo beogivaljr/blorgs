@@ -37,7 +37,7 @@ func update_spells_queue(spells):
 
 	for spell in spells:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell, _puzzle_mode, true)
+		spell_container.setup(spell, _puzzle_mode, true, spell.character_type)
 
 		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
 
@@ -81,6 +81,14 @@ func _update_spells_list(spells):
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
 		_spells_list.add_child(spell_container)
+
+
+func set_you_turn(you_turn):
+	if you_turn:
+		_spells_list.enable_buttons()
+	else:
+		_spells_list.disable_buttons()
+		$SelectedSpellPanelContainer.hide()
 
 
 func on_spell_started(_spell_id: int):
@@ -133,4 +141,5 @@ func _on_SandboxButton_toggled(button_pressed):
 
 
 func _on_TurnButton_pressed():
+	set_you_turn(false)
 	emit_signal("pass_turn")
