@@ -1,7 +1,7 @@
 extends Node
 
-signal on_clicked(event, intersection)
-signal on_dragged(event)
+signal clicked(event, intersection)
+signal dragged(event)
 
 var _is_dragging = false
 
@@ -23,7 +23,7 @@ func _unhandled_input(event):
 			var ray_start = camera.project_ray_origin(target_input_position)
 			var ray_end = ray_start + camera.project_ray_normal(target_input_position) * 2000
 			var intersection = space_state.intersect_ray(ray_start, ray_end)
-			emit_signal("on_clicked", event, intersection)
+			emit_signal("clicked", event, intersection)
 	elif event is InputEventScreenDrag:
 		_is_dragging = true
-		emit_signal("on_dragged", event)
+		emit_signal("dragged", event)

@@ -5,9 +5,8 @@ extends BaseWorld
 
 
 func _ready() -> void:
-	_active_player_id = GameState.player_type
+	_active_player_id = GameState.character_type
 	_spawn_and_setup_player()
-	_world_input_handler.connect("on_clicked", self, "_handle_world_click")
 
 
 func _spawn_and_setup_player():
@@ -16,7 +15,8 @@ func _spawn_and_setup_player():
 	player.connect("spell_done", self, "_on_spell_done")
 	add_child(player)
 	player.global_transform = $PlayerSpawn.global_transform
-	player.setup($Navigation)
+	player.setup($Navigation, GameState.character_type)
+	$GameCamera.target_to_follow = player
 	_players[_active_player_id] = player
 	set_active_character(player)
 

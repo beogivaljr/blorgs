@@ -6,12 +6,15 @@ signal spell_done(succeded)
 
 const _SPELLS = GlobalConstants.SpellIds
 
+var character_type = null
 var _active_spell_id = null setget begin_casting_spell
 onready var _kinematic_movement = $KinematicMovement
 
 
-func setup(navigation: Navigation):
-	$KinematicMovement.setup(self, navigation)
+func setup(navigation: Navigation, type):
+	assert(type != null)
+	self.character_type = type
+	$KinematicMovement.setup(navigation)
 
 
 func begin_casting_spell(spell_id):

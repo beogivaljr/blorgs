@@ -36,8 +36,8 @@ func connect_to_server_async() -> int:
 	if _session:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 		if not result.is_exception():
-			_socket.connect("closed", self, "on_NakamaSocket_closed")
-			_socket.connect("received_match_state", self, "_on_NakamaSocket_received_match_state")
+			assert(_socket.connect("closed", self, "on_NakamaSocket_closed"))
+			assert(_socket.connect("received_match_state", self, "_on_NakamaSocket_received_match_state"))
 			return OK
 	return ERR_CANT_CONNECT
 
@@ -75,8 +75,8 @@ func create_match_async() -> String:
 			JSON.print(
 				{
 					user_spells = [
-						GameState.get_dict_spells(GameState.PlayerTypes.A),
-						GameState.get_dict_spells(GameState.PlayerTypes.B)
+						GameState.get_dict_spells(GameState.CharacterTypes.A),
+						GameState.get_dict_spells(GameState.CharacterTypes.B)
 					]
 				}
 			)

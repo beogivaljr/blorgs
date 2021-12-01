@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/maze/MazeWorld.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://levels/interactables/magic_buttons/MagicSquareButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://levels/interactables/elevator/Elevator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://levels/interactables/magic_buttons/MovingPlatform.tscn" type="PackedScene" id=6]
+[ext_resource path="res://levels/interactables/finish_line/FinishLine.tscn" type="PackedScene" id=7]
 
 [node name="Maze1World" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -43,8 +44,15 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 
 [node name="Elevator" parent="." index="11" instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 7, 0, -7 )
 
-[node name="PlayerASpawn" type="Position3D" parent="." index="12"]
+[node name="PlayerSpawnA" type="Position3D" parent="." index="12"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, 5 )
 
-[node name="PlayerBSpawn" type="Position3D" parent="." index="13"]
+[node name="PlayerSpawnB" type="Position3D" parent="." index="13"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, 7 )
+
+[node name="FinishLineA" parent="." index="14" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, 3, -8 )
+
+[node name="FinishLineB" parent="." index="15" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14, 0, -4 )
+character_type = 1

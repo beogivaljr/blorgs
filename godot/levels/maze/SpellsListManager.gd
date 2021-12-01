@@ -12,7 +12,7 @@ func _ready():
 
 func on_spell_and_parameter_selected(spell_id, node_name, location):
 	var new_spell_call = SpellCallDTO.new(
-		GameState.player_type,
+		GameState.character_type,
 		spell_id,
 		node_name,
 		location
@@ -44,7 +44,7 @@ func start_simulation(spell_call_list, world: MazeWorld):
 	emit_signal("spell_started")
 	for spell in spell_call_list:
 		var spell_call_dto = (spell as SpellCallDTO)
-		var player_id = spell_call_dto.player_type
+		var player_id = spell_call_dto.character_type
 		var spell_id = spell_call_dto.spell_id
 		var node_name = spell_call_dto.target_parameter_node_name
 		var location = spell_call_dto.target_parameter_location

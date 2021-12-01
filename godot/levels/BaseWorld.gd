@@ -3,8 +3,10 @@ extends Spatial
 
 signal spell_started(spell_id)
 signal spell_done(succeded)
+signal game_over(won)
 
 const _SPELLS = GlobalConstants.SpellIds
+var _players_on_finish_line = 0
 var _active_spell_id = null
 var _active_player_id = null
 var _players: Dictionary
@@ -14,8 +16,10 @@ onready var _world_input_handler = $WorldInputHandler
 
 
 func _ready():
-	_world_input_handler.connect("on_dragged", $GameCamera, "pan_camera")
-	_world_input_handler.connect("on_clicked", self, "_handle_world_click")
+	_world_input_handler.connect("dragged", $GameCamera, "pan_camera")
+	_world_input_handler.connect("touch_began", $GameCamera, "on_touch_began")
+	_world_input_handler.connect("touch_ended", $GameCamera, "on_touch_ended")
+	_world_input_handler.connect("clicked", self, "_handle_world_click")
 	_bind_interactables()
 
 
@@ -33,6 +37,9 @@ func _bind_interactables():
 				child.connect("button_deactivated", bridge_platform, "deactivate")
 				bridge_platform.connect("platform_activated", self, "_on_button_activated")
 				bridge_platform.connect("platform_deactivated", self, "_on_button_deactivated")
+		elif child is FinishLine:
+			child.connect("player_entered_finish_line", self, "_on_player_entered_finish_line")
+			child.connect("player_exited_finish_line", self, "_on_player_exited_finish_line")
 
 
 # Gate
@@ -60,6 +67,17 @@ func _on_button_activated(button_name):
 
 func _on_button_deactivated(button_name):
 	pass
+
+
+# FinishLine
+func _on_player_entered_finish_line():
+	_players_on_finish_line += 1
+	if _players_on_finish_line == 2:
+		emit_signal("game_over", true)
+
+
+func _on_player_exited_finish_line():
+	_players_on_finish_line -= 1
 
 
 func begin_casting_spell(spell_id):
