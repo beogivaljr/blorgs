@@ -61,19 +61,28 @@ commands[OpCodes.do_spawn] = function(data, state)
     end
 end
 
-commands[OpCodes.player_spells] = function(data, state)
+commands[OpCodes.request_player_spells] = function(data, state)
+end
+
+commands[OpCodes.request_available_spells] = function(data, state)
+end
+
+commands[OpCodes.request_spell_queue] = function(data, state)
+end
+
+commands[OpCodes.send_ready_to_start_state] = function(data, state)
+end
+
+commands[OpCodes.send_pass_turn] = function(data, state)
 end
 
 function match_control.match_init(context, params)
     params = params or {}
     local state = {
         presences = {count = 0},
+        user_types = {},
         usernames = {},
-        player_spells = params.player_spells or
-            {
-                {function_name = "F1", parameter_name = "P1"},
-                {function_name = "F2", parameter_name = "P2"}
-            },
+        available_spells = params.user_spells or {},
         spell_queue = {},
         ready_vote = {},
         sandbox_vote = {}
@@ -95,6 +104,7 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences[user_id] = presence
+        state.user_types[user_id] = state.presences.count
         state.presences.count = state.presences.count + 1
         state.player_spells[user_id] = state.player_spells[state.presences.count]
         state.usernames[user_id] = presence.username
@@ -123,33 +133,54 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
         local op_code = message.op_code
         local command = commands[op_code]
         local data = message.data
-        if command and data and string.len(data) > 0 then
-            data = nakama.json_decode(data)
-        else
-            data = {}
-        end
-        data.user_id = message.sender.user_id
+        local user_id = message.sender.user_id
+        if command then
+            if data and string.len(data) > 0 then
+                data = nakama.json_decode(data)
+            else
+                data = {}
+            end
 
-        command(data, state)
+            command(data, state)
 
-        if op_code == OpCodes.do_spawn then
-            dispatcher.broadcast_message(
-                OpCodes.do_spawn,
-                nakama.json_encode(
-                    {
-                        usernames = state.usernames,
-                        ready_vote = state.ready_vote,
-                        sandbox_vote = state.sandbox_vote,
-                        spell_queue = state.spell_queue
-                    }
+            if op_code == OpCodes.do_spawn then
+                dispatcher.broadcast_message(
+                    OpCodes.do_spawn,
+                    nakama.json_encode(
+                        {
+                            usernames = state.usernames,
+                            ready_vote = state.ready_vote,
+                            sandbox_vote = state.sandbox_vote,
+                            spell_queue = state.spell_queue
+                        }
+                    )
                 )
-            )
-        elseif op_code == OpCodes.player_spells then
-            dispatcher.broadcast_message(
-                OpCodes.player_spells,
-                nakama.json_encode(state.user_spells[data.user_id]),
-                {message.sender}
-            )
+            elseif op_code == OpCodes.request_player_spells then
+                dispatcher.broadcast_message(
+                    OpCodes.player_spells,
+                    nakama.json_encode(state.available_spells[state.user_types[user_id]]),
+                    {message.sender}
+                )
+            elseif op_code == OpCodes.request_available_spells then
+                dispatcher.broadcast_message(
+                    OpCodes.available_spells,
+                    nakama.json_encode(
+                        {
+                            player_a_spells = state.available_spells[1],
+                            player_b_spells = state.available_spells[2]
+                        }
+                    ),
+                    {message.sender}
+                )
+            elseif op_code == OpCodes.request_spell_queue then
+                dispatcher.broadcast_message(
+                    OpCodes.spell_queue,
+                    nakama.json_encode(state.spell_queue),
+                    {message.sender}
+                )
+            elseif op_code == OpCodes.send_ready_to_start_state then
+            elseif op_code == OpCodes.send_pass_turn then
+            end
         end
     end
     return state
