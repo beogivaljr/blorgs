@@ -124,25 +124,14 @@ func request_all_spells() -> void:
 		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
 
 
-#		emit -> all_spells_updated(all_spells)
-
-
 func request_all_spell_calls() -> void:
 	if _socket:
 		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 
-#		emit -> all_spell_calls_updated(spell_call_list)
-
-
 func request_start_simulation(spell_call_list) -> void:
-	# Remove this loop back
-	emit_signal("received_start_simulation", spell_call_list)
 	if _socket:
-		pass
-
-
-#		emit -> received_start_simulation(spell_call_list)
+		_socket.send_match_state_async(_match_id, OpCodes.READY_STATE, JSON.print(spell_call_list))
 
 
 # Called when the server received a custom message from the server.
