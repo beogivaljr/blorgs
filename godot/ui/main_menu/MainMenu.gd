@@ -30,7 +30,7 @@ func bind_server_connection(match_code):
 	assert(ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated") == OK)
 	assert(ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated") == OK)
 	assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
-	assert(ServerConnection.request_player_spells())
+	ServerConnection.request_player_spells()
 	yield(ServerConnection.join_match_async(match_code), "completed")
 
 

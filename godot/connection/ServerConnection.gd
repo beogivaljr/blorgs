@@ -50,11 +50,11 @@ func connect_to_server_async() -> int:
 	if _session:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 		if not result.is_exception():
-			assert(_socket.connect("closed", self, "on_NakamaSocket_closed"))
+			assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
 			assert(
 				_socket.connect(
 					"received_match_state", self, "_on_NakamaSocket_received_match_state"
-				)
+				) == OK
 			)
 			return OK
 	return ERR_CANT_CONNECT
@@ -109,9 +109,9 @@ func create_match_async() -> String:
 
 
 # Sends a message to the server stating the client is spawning in after character selection.
-func send_spawn() -> void:
+func send_spawn(spells) -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, "")
+		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({spells = spells}))
 
 
 func request_player_spells() -> void:
@@ -143,7 +143,7 @@ func send_pass_turn(spell_call_list) -> void:
 		)
 
 
-func _parse_spells_queue(decoded_json: Dictionary):
+func _parse_spells_queue(decoded_json):
 	var spell_queue = []
 	for spell in decoded_json:
 		spell_queue.append(
@@ -157,7 +157,7 @@ func _parse_spells_queue(decoded_json: Dictionary):
 	return spell_queue
 
 
-func _parse_spells(decoded_json: Dictionary):
+func _parse_spells(decoded_json):
 	var spells = []
 	for spell in decoded_json:
 		spells.append(SpellDTO.new(spell))

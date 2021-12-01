@@ -119,8 +119,8 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
         local user_id = presence.user_id
 
         state.presences[user_id] = presence
-        state.user_types[user_id] = state.presences.count
         state.presences.count = state.presences.count + 1
+        state.user_types[user_id] = state.presences.count
         state.available_spells[user_id] = state.available_spells[state.presences.count]
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
@@ -128,8 +128,7 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
 
         dispatcher.broadcast_message(
             OpCodes.player_joined,
-            nakama.json_encode(state.presences.count),
-            {find_other_sender(state, user_id)}
+            nakama.json_encode(state.presences.count)
         )
     end
 

@@ -11,8 +11,7 @@ onready var _world = _packed_world.instance()
 onready var _hud = preload("res://ui/hud/sandbox/HUDSandbox.tscn").instance()
 
 func _ready():
-	GameState.character_type = GameState.CharacterTypes.A
-	push_error("TODO: remove line above")
+	pass
 
 
 func _get_filtered_level_spells(spells):
