@@ -12,6 +12,8 @@ var _block_target_follow = false
 func _process(delta):
 	if target_to_follow and not _block_target_follow:
 		transform.origin = lerp(transform.origin, target_to_follow.transform.origin, delta)
+		if transform.origin.distance_squared_to(target_to_follow.transform.origin) < 0.1:
+			target_to_follow = null
 	
 	var relative_x = Input.get_action_strength("camera_right") - Input.get_action_strength("camera_left")
 	var relative_z = Input.get_action_strength("camera_down") - Input.get_action_strength("camera_up")

@@ -26,6 +26,21 @@ func toggle_raise_lower():
 		animation_player.play("LowerLever")
 
 
+func on_spell_selected(spell_id):
+	if spell_id == GlobalConstants.SpellIds.TOGGLE_GATE:
+		_set_touch_highlight_visible(true)
+	else:
+		_set_touch_highlight_visible(false)
+
+
+func on_spell_started(_spell_id):
+	on_spell_selected(null)
+
+
+func _set_touch_highlight_visible(is_visible):
+	$HighlightMeshInstance.visible = is_visible
+
+
 func _on_interaction_done_raised():
 	if _is_raised:
 		emit_signal("gate_raised", self.name)

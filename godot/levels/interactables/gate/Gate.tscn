@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://levels/interactables/gate/wall_gate.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://levels/interactables/TouchHighlight.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/interactables/gate/Gate.gd" type="Script" id=4]
 [ext_resource path="res://levels/interactables/gate/axeDouble_common.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://levels/interactables/gate/chestTop_common.obj" type="ArrayMesh" id=6]
@@ -291,3 +292,7 @@ mesh = ExtResource( 5 )
 skeleton = NodePath("../../../..")
 material/0 = null
 material/1 = null
+
+[node name="HighlightMeshInstance" parent="." instance=ExtResource( 2 )]
+transform = Transform( 2.5, 0, 0, 0, 2.3, 0, 0, 0, 1.2, 0, 0, 0 )
+visible = false

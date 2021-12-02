@@ -35,11 +35,12 @@ tracks/0/keys = {
 
 [node name="Bridge" type="Spatial"]
 script = ExtResource( 2 )
+unlock_spell_id = 4
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0, 0.5 )
+transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0, -1.5 )
 
-[node name="PlatformBody" type="StaticBody" parent="Pivot"]
+[node name="PlatformBody" type="KinematicBody" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0.15, 1.5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Pivot/PlatformBody"]

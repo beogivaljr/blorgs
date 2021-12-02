@@ -4,6 +4,7 @@ extends Spatial
 signal spell_started(spell_id)
 signal spell_done(succeded)
 signal game_over(won)
+signal spell_selected(spell_id)
 
 const _SPELLS = GlobalConstants.SpellIds
 var _players_on_finish_line = 0
@@ -26,13 +27,22 @@ func _ready():
 func _bind_interactables():
 	for child in get_children():
 		if child is Gate:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			child.connect("gate_lowered", self, "_on_gate_lowered")
 			child.connect("gate_raised", self, "_on_gate_raised")
 		elif child is Elevator:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			child.connect("transported_up", self, "_on_transported_up")
 			child.connect("transported_down", self, "_on_transported_down")
 		elif child is MagicButton:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			for bridge_platform in get_tree().get_nodes_in_group(child.name):
+				connect("spell_selected", bridge_platform, "on_spell_selected")
+				connect("spell_started", bridge_platform, "on_spell_started")
+				child.target_locations.append(bridge_platform.global_transform.origin)
 				child.connect("button_activated", bridge_platform, "activate")
 				child.connect("button_deactivated", bridge_platform, "deactivate")
 				bridge_platform.connect("platform_activated", self, "_on_button_activated")
@@ -40,6 +50,9 @@ func _bind_interactables():
 		elif child is FinishLine:
 			child.connect("player_entered_finish_line", self, "_on_player_entered_finish_line")
 			child.connect("player_exited_finish_line", self, "_on_player_exited_finish_line")
+		elif child is CreatureSpawner:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 
 
 # Gate
@@ -82,6 +95,7 @@ func _on_player_exited_finish_line():
 
 func begin_casting_spell(spell_id):
 	_active_spell_id = spell_id
+	emit_signal("spell_selected", spell_id)
 	if _is_valid_destroy_summon(spell_id):
 		if get_active_character() is Creature:
 			_disassemble_creature()

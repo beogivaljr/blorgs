@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://levels/interactables/elevator/torch.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://levels/interactables/TouchHighlight.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/interactables/elevator/Elevator.gd" type="Script" id=3]
 [ext_resource path="res://levels/interactables/elevator/elevator_glow.tres" type="Material" id=4]
 
@@ -108,3 +109,10 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 material/0 = null
 material/1 = null
+
+[node name="HighlightMeshInstance" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="HighlightMeshInstance2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.5, 0 )
+visible = false

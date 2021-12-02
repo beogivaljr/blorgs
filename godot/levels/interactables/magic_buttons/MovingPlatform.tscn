@@ -57,9 +57,8 @@ tracks/2/keys = {
 script = ExtResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[node name="PlatformBody" type="StaticBody" parent="Pivot"]
+[node name="PlatformBody" type="KinematicBody" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Pivot/PlatformBody"]
