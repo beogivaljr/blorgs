@@ -1,8 +1,6 @@
 extends BaseLevel
 
 func _ready():
-	._ready()
-	ServerConnection.send_spawn()
 	var spells = GameState.get_spells()
 	_setup_hud(_get_filtered_level_spells(spells))
 	_setup_world()
@@ -21,5 +19,9 @@ func _setup_world():
 	add_child(_world)
 
 
-func _on_player_ready(_spells):
-	emit_signal("level_finished")
+func _on_player_ready(spells):
+	var ready = spells != null
+	ServerConnection.send_spawn(spells, ready)
+	if ready:
+		yield(ServerConnection, "all_spells_updated")
+		emit_signal("level_finished")

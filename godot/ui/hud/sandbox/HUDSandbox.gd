@@ -4,11 +4,13 @@ var spellContainer = preload("res://ui/hud/sandbox/SpellContainer.tscn")
 signal spell_selected(function_id)
 signal player_ready(spells)
 signal sandbox_vote_updated(vote)
+signal pass_turn
 signal undo_pressed
 
 var _spells = []
 var _active_spell: SpellDTO = null
 var _puzzle_mode: bool = false
+var _your_turn = null
 onready var _spells_list = get_node(
 	"HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList"
 )
@@ -24,6 +26,7 @@ func setup(spells, puzzle_mode: bool = false):
 		$SpellPanel.hide()
 		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.hide()
 		$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.hide()
+		$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.hide()
 	_update_spells_list(spells)
 
 
@@ -43,6 +46,10 @@ func update_spells_queue(spells):
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
 		_spells_queue.add_child(spell_container)
+	if spells.empty() or spells[-1].spell_call.character_type != GameState.character_type:
+		on_disable_undo(true)
+	elif spells[-1].spell_call.character_type == GameState.character_type:
+		on_disable_undo(false)
 
 
 func _update_spells_list(spells):
@@ -82,6 +89,17 @@ func _update_spells_list(spells):
 		_spells_list.add_child(spell_container)
 
 
+func set_your_turn(your_turn):
+	_your_turn = your_turn
+	if your_turn:
+		_spells_list.enable_buttons()
+		$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = false
+	else:
+		$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = true
+		_spells_list.disable_buttons()
+		$SelectedSpellPanelContainer.hide()
+
+
 func on_spell_started(_spell_id: int):
 	_spells_list.disable_buttons()
 	$SelectedSpellPanelContainer.hide()
@@ -105,13 +123,14 @@ func _on_spell_selected(spell: SpellDTO):
 
 func _on_ReadyButton_toggled(button_pressed: bool):
 	if button_pressed:
-		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.pressed = false
-		_on_SandboxButton_toggled(false)
-
-		_spells_list.disable_buttons()
+#		$HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton.pressed = false
+#		_on_SandboxButton_toggled(false)
+#		_spells_list.disable_buttons()
+		_on_TurnButton_pressed()
 		emit_signal("player_ready", _spells)
 	else:
-		_spells_list.enable_buttons()
+#		if _your_turn or not _puzzle_mode:
+#			_spells_list.enable_buttons()
 		emit_signal("player_ready", null)
 
 
@@ -120,12 +139,23 @@ func _on_UndoButton_pressed():
 	emit_signal("undo_pressed")
 
 
-func on_disable_undo(disable: bool = true):
-	$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.disabled = disable
+func on_disable_undo(disable: bool):
+	var should_disable = disable or not _your_turn
+	$HamburgerContainer/SpellPanel/VBoxContainer/UndoButton.disabled = should_disable
 
 
-func _on_SandboxButton_toggled(button_pressed):
-	if button_pressed:
-		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed = false
-		_on_ReadyButton_toggled(false)
-	emit_signal("sandbox_vote_updated", button_pressed)
+#func _on_SandboxButton_toggled(button_pressed):
+#	if button_pressed:
+#		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed = false
+#		_on_ReadyButton_toggled(false)
+#	emit_signal("sandbox_vote_updated", button_pressed)
+
+
+func _on_TurnButton_pressed():
+	set_your_turn(false)
+	on_disable_undo(true)
+	emit_signal("pass_turn")
+
+
+func on_received_other_player_ready(ready):
+	$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = ready

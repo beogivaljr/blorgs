@@ -5,14 +5,23 @@ local match_control = {}
 local OpCodes = {
     do_spawn = 1,
     player_joined = 2,
-    player_spells = 3
+    request_player_spells = 3,
+    player_spells = 4,
+    request_available_spells = 5,
+    available_spells = 6,
+    request_spell_queue = 7,
+    spell_queue = 8,
+    send_ready_to_start_state = 9,
+    start_simulation = 10,
+    send_pass_turn = 11,
+    your_turn = 12,
+    other_player_ready = 13,
 }
 
 local commands = {}
 
-local function find_spell(table, spell)
+local function find_spell(table, spell_id)
     local index
-    local spell_id = spell.spell_id
 
     for i, spell in ipairs(table) do
         if spell.spell_id == spell_id then
@@ -24,47 +33,49 @@ local function find_spell(table, spell)
     return index
 end
 
-commands[OpCodes.do_spawn] = function(data, state)
+commands[OpCodes.do_spawn] = function(data, state, user_id)
+    state.ready_vote[user_id] = data.ready
     if not data.spells or not next(data.spells) then
-        error("Envie ao menos um feitico", 3)
         return
     end
 
     for _i, spell in ipairs(data.spells) do
-        local available_spell_index = find_spell(state.available_spells, spell)
-        if not available_spell_index then
-            -- user sent a name for a spell that does not exist
-            -- throw a nice error
-            error("Esse feitico nao existe!", 3)
-        end
-
-        --[[ TODO: Move user_spells assignment to match creation
-        local user_spell_index = find_spell(state.user_spells[user_id], spell)
+        local user_spell_index = find_spell(state.available_spells[state.user_types[user_id]], spell.spell_id)
         if not user_spell_index then
             -- user sent a name for a spell that does not belong to them
             -- throw a nice error
             error("Esse feitico nao deve ser nomeado por voce!", 3)
         end
 
-        state.user_spells[user_id][user_spell_index].spell_name = spell.spell_name
-        --]]
-        state.available_spells[available_spell_index].spell_name = spell.spell_name
+        state.available_spells[state.user_types[user_id]][user_spell_index].spell_name = spell.spell_name
     end
 end
 
-commands[OpCodes.player_spells] = function(data, state)
+commands[OpCodes.request_player_spells] = function(data, state, user_id)
+end
+
+commands[OpCodes.request_available_spells] = function(data, state, user_id)
+end
+
+commands[OpCodes.request_spell_queue] = function(data, state, user_id)
+end
+
+commands[OpCodes.send_ready_to_start_state] = function(data, state, user_id)
+    state.spell_queue = data.spell_queue or state.spell_queue
+    state.ready_vote[user_id] = data.ready
+end
+
+commands[OpCodes.send_pass_turn] = function(data, state, user_id)
+    state.spell_queue = data.spell_queue
 end
 
 function match_control.match_init(context, params)
     params = params or {}
     local state = {
         presences = {count = 0},
+        user_types = {},
         usernames = {},
-        player_spells = params.player_spells or
-            {
-                {function_name = "F1", parameter_name = "P1"},
-                {function_name = "F2", parameter_name = "P2"}
-            },
+        available_spells = params.user_spells or {},
         spell_queue = {},
         ready_vote = {},
         sandbox_vote = {}
@@ -82,18 +93,28 @@ function match_control.match_join_attempt(context, dispatcher, tick, state, pres
     return state, true
 end
 
+local function find_other_sender(state, sender_id)
+    for user_id, presence in pairs(state.presences) do
+        if not (user_id == sender_id) and type(presence) == "table" then
+            return presence
+        end
+    end
+end
+
 function match_control.match_join(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
+
         state.presences[user_id] = presence
         state.presences.count = state.presences.count + 1
-        state.player_spells[user_id] = state.player_spells[state.presences.count]
+        state.user_types[user_id] = state.presences.count
         state.usernames[user_id] = presence.username
         state.ready_vote[user_id] = false
         state.sandbox_vote[user_id] = false
+
+        dispatcher.broadcast_message(OpCodes.player_joined, nakama.json_encode(state.presences.count))
     end
 
-    dispatcher.broadcast_message(OpCodes.player_joined, nakama.json_encode(state.presences.count))
     return state
 end
 
@@ -114,29 +135,73 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
         local op_code = message.op_code
         local command = commands[op_code]
         local data = message.data
-        if command and data and string.len(data) > 0 then
-            data = nakama.json_decode(data)
-            data.user_id = message.sender.user_id
+        local sender_id = message.sender.user_id
+        if command then
+            if data and string.len(data) > 0 then
+                data = nakama.json_decode(data)
+            else
+                data = {}
+            end
 
-            command(data, state)
+            command(data, state, sender_id)
 
             if op_code == OpCodes.do_spawn then
+                local ready_count = 0
+                for _, ready in pairs(state.ready_vote) do
+                    if ready then
+                        ready_count = ready_count + 1
+                    end
+                end
+                if ready_count < 2 then
+                    return state
+                end
+                state.ready_vote = {}
                 dispatcher.broadcast_message(
-                    OpCodes.do_spawn,
+                    OpCodes.available_spells,
                     nakama.json_encode(
                         {
-                            usernames = state.usernames,
-                            ready_vote = state.ready_vote,
-                            sandbox_vote = state.sandbox_vote,
-                            spell_queue = state.spell_queue
+                            player_a_spells = state.available_spells[1],
+                            player_b_spells = state.available_spells[2]
                         }
                     )
                 )
-            elseif op_code == OpCodes.player_spells then
+            elseif op_code == OpCodes.request_available_spells then
                 dispatcher.broadcast_message(
-                    OpCodes.player_spells,
-                    nakama.json_encode(state.user_spells[data.user_id]),
+                    OpCodes.available_spells,
+                    nakama.json_encode(
+                        {
+                            player_a_spells = state.available_spells[1],
+                            player_b_spells = state.available_spells[2]
+                        }
+                    ),
                     {message.sender}
+                )
+            elseif op_code == OpCodes.request_spell_queue then
+                dispatcher.broadcast_message(
+                    OpCodes.spell_queue,
+                    nakama.json_encode(state.spell_queue),
+                    {message.sender}
+                )
+            elseif op_code == OpCodes.send_ready_to_start_state then
+                dispatcher.broadcast_message(OpCodes.other_player_ready,
+                    nakama.json_encode(state.ready_vote[sender_id]),
+                    {find_other_sender(state, sender_id)})
+                local ready_count = 0
+                for _, ready in pairs(state.ready_vote) do
+                    if ready then
+                        ready_count = ready_count + 1
+                    end
+                end
+                if ready_count < 2 then
+                    return state
+                end
+                state.ready_vote = {}
+                dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue))
+            elseif op_code == OpCodes.send_pass_turn then
+                dispatcher.broadcast_message(
+                    OpCodes.your_turn,
+                    nakama.json_encode(state.spell_queue),
+                    {find_other_sender(state, sender_id)}
                 )
             end
         end

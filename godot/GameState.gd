@@ -10,7 +10,7 @@ enum LevelIds {
 	MAZE4,
 }
 
-enum CharacterTypes { A, B, SA, SB }
+enum CharacterTypes { NONE, A, B}
 var _spells_a
 var _spells_b
 const _SPELLS = GlobalConstants.SpellIds
@@ -41,7 +41,12 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 		function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()],
 		parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 	}
-	var spell = SpellDTO.new({spell_id = spell_id, spell_name = spell_name})
+	var spell_call = {
+		character_type = character_type,
+		target_parameter_node_name = null,
+		target_parameter_location = null,
+	}
+	var spell = SpellDTO.new({spell_id = spell_id, spell_name = spell_name, spell_call = spell_call})
 
 	return spell
 
@@ -98,3 +103,14 @@ func get_dict_spells(p_player_type: int):
 	for spell in get_spells(p_player_type):
 		player_spells.append(spell.dict())
 	return player_spells
+
+
+func get_spell(character_id, spell_id, node_name, location):
+	var all_spells = get_all_spells()
+	for spell in all_spells:
+		if spell.spell_id == spell_id:
+			spell.spell_call.character_type = character_id
+			spell.spell_call.target_parameter_node_name = node_name
+			spell.spell_call.target_parameter_location = location
+			return spell
+	return null

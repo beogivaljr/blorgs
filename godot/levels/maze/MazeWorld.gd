@@ -3,11 +3,8 @@ extends BaseWorld
 
 signal valid_parameter_selected(spell_id, node_name, location)
 
-var _has_started_simulation = false
-
 
 func _ready():
-	_active_player_id = GameState.character_type
 	_spawn_and_setup_player(GameState.CharacterTypes.A)
 	_spawn_and_setup_player(GameState.CharacterTypes.B)
 
@@ -53,6 +50,7 @@ func _validate_parameters(node, location):
 		or _is_valid_summon_creature(spell, node)
 		or _is_valid_destroy_summon(spell)
 		):
+		begin_casting_spell(null)
 		emit_signal("valid_parameter_selected", spell, node.name, location)
 
 

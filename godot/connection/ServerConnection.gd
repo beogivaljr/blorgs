@@ -4,14 +4,30 @@ const KEY := "blorgs"
 
 signal player_spells_updated(player_spells)
 signal all_spells_updated(all_spells)
-signal all_spell_calls_updated(spell_call_list)
-signal received_start_simulation(spell_call_list)
+signal all_spell_calls_updated(spell_list)
+signal received_start_simulation(spell_list)
+signal your_turn_started(spell_list)
 signal player_list_updated
+signal received_other_player_ready(ready)
 
-enum OpCodes { DO_SPAWN = 1, PLAYER_JOINED, PLAYER_SPELLS }
+enum OpCodes {
+	DO_SPAWN = 1,
+	PLAYER_JOINED,
+	REQUEST_PLAYER_SPELLS,
+	PLAYER_SPELLS,
+	REQUEST_AVAILABLE_SPELLS,
+	AVAILABLE_SPELLS,
+	REQUEST_SPELL_QUEUE,
+	SPELL_QUEUE,
+	SEND_READY_TO_START_STATE,
+	START_SIMULATION,
+	SEND_PASS_TURN,
+	YOUR_TURN,
+	OTHER_PLAYER_READY
+}
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
+var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http", 3, NakamaLogger.LOG_LEVEL.INFO)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}
@@ -36,8 +52,15 @@ func connect_to_server_async() -> int:
 	if _session:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 		if not result.is_exception():
-			assert(_socket.connect("closed", self, "on_NakamaSocket_closed"))
-			assert(_socket.connect("received_match_state", self, "_on_NakamaSocket_received_match_state"))
+			assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
+			assert(
+				(
+					_socket.connect(
+						"received_match_state", self, "_on_NakamaSocket_received_match_state"
+					)
+					== OK
+				)
+			)
 			return OK
 	return ERR_CANT_CONNECT
 
@@ -91,35 +114,72 @@ func create_match_async() -> String:
 
 
 # Sends a message to the server stating the client is spawning in after character selection.
-func send_spawn() -> void:
+func send_spawn(spells, ready) -> void:
+	var spells_dict = []
+	if spells:
+		for spell in spells:
+			spells_dict.append((spell as SpellDTO).dict())
+
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, "")
+		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({
+			spells = spells_dict, 
+			ready = ready,
+			}))
 
 
 func request_player_spells() -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_PLAYER_SPELLS, "")
 
 
 func request_all_spells() -> void:
 	if _socket:
-		push_error("TODO: impelment server function")
-#		emit -> all_spells_updated(all_spells)
-#		_socket.send_match_state_async(_match_id, OpCodes.PLAYER_SPELLS, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
 
 
 func request_all_spell_calls() -> void:
 	if _socket:
-#		emit -> all_spell_calls_updated(spell_call_list)
-		push_error("TODO: impelment server function")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 
-func request_start_simulation(spell_call_list) -> void:
-	# Remove this loop back
-	emit_signal("received_start_simulation", spell_call_list)
+func send_ready_state(spell_list, ready) -> void:
+	var spell_list_dict = []
+	if spell_list:
+		for spell in spell_list:
+			spell_list_dict.append(spell.dict())
+
 	if _socket:
-#		emit -> received_start_simulation(spell_call_list)
-		push_error("TODO: impelment server function")
+		_socket.send_match_state_async(
+			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({
+				spell_queue = spell_list_dict,
+				ready = ready
+				})
+		)
+
+
+func send_pass_turn(spell_list) -> void:
+	var spell_list_dict = []
+	for spell in spell_list:
+		spell_list_dict.append(spell.dict())
+
+	if _socket:
+		_socket.send_match_state_async(
+			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = spell_list_dict})
+		)
+
+
+func _parse_spells_queue(decoded_json):
+	var spell_queue = []
+	for spell in decoded_json:
+		spell_queue.append(SpellDTO.new(spell))
+	return spell_queue
+
+
+func _parse_spells(decoded_json):
+	var spells = []
+	for spell in decoded_json:
+		spells.append(SpellDTO.new(spell))
+	return spells
 
 
 # Called when the server received a custom message from the server.
@@ -128,16 +188,28 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 	var raw := match_state.data
 
 	match code:
-		OpCodes.DO_SPAWN:
-			var decoded: Dictionary = JSON.parse(raw).result
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result
 			if decoded > 1:
 				print("Other player just joined")
 				emit_signal("player_list_updated")
 		OpCodes.PLAYER_SPELLS:
-			var decoded = JSON.parse(raw).result
-			var spells = []
-			for spell in decoded:
-				spells.append(SpellDTO.new(spell))
+			var spells = _parse_spells(JSON.parse(raw).result)
 			emit_signal("player_spells_updated", spells)
+		OpCodes.AVAILABLE_SPELLS:
+			var decoded: Dictionary = JSON.parse(raw).result
+			var spells_a = _parse_spells(decoded.player_a_spells)
+			var spells_b = _parse_spells(decoded.player_b_spells)
+			emit_signal("all_spells_updated", [spells_a, spells_b])
+		OpCodes.SPELL_QUEUE:
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
+			emit_signal("all_spell_calls_updated", spell_queue)
+		OpCodes.START_SIMULATION:
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
+			emit_signal("received_start_simulation", spell_queue)
+		OpCodes.YOUR_TURN:
+			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
+			emit_signal("your_turn_started", spell_queue)
+		OpCodes.OTHER_PLAYER_READY:
+			var other_player_ready: bool = JSON.parse(raw).result
+			emit_signal("received_other_player_ready", other_player_ready)

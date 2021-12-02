@@ -73,17 +73,25 @@ __meta__ = {
 }
 
 [node name="SandboxButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
-margin_top = 611.0
+visible = false
+margin_top = 548.0
 margin_right = 274.0
-margin_bottom = 670.0
+margin_bottom = 607.0
 toggle_mode = true
 text = "Sandbox"
 
 [node name="UndoButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
+margin_top = 611.0
+margin_right = 274.0
+margin_bottom = 670.0
+disabled = true
+text = "Desfazer"
+
+[node name="TurnButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
 margin_top = 674.0
 margin_right = 274.0
 margin_bottom = 733.0
-text = "Desfazer"
+text = "Passar a vez"
 
 [node name="ReadyButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
 margin_top = 737.0
@@ -227,6 +235,7 @@ text = "Pronto ▶"
 [connection signal="spell_unselected" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_unselected"]
 [connection signal="toggled" from="HamburgerContainer/SpellPanel/VBoxContainer/SandboxButton" to="." method="_on_SandboxButton_toggled"]
 [connection signal="pressed" from="HamburgerContainer/SpellPanel/VBoxContainer/UndoButton" to="." method="_on_UndoButton_pressed"]
+[connection signal="pressed" from="HamburgerContainer/SpellPanel/VBoxContainer/TurnButton" to="." method="_on_TurnButton_pressed"]
 [connection signal="toggled" from="HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_toggled"]
 [connection signal="pressed" from="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" to="HamburgerContainer/HamburgerPanel/HamburgerList/QuitButton" method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="HamburgerContainer/PanelContainer/HamburgerButton" to="HamburgerContainer/HamburgerPanel" method="_on_HamburgerButton_pressed"]

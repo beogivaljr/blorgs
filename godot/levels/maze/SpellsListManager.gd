@@ -11,33 +11,20 @@ func _ready():
 
 
 func on_spell_and_parameter_selected(spell_id, node_name, location):
-	var new_spell_call = SpellCallDTO.new(
-		GameState.character_type,
-		spell_id,
-		node_name,
-		location
-	)
-	_spell_call_list.append(new_spell_call)
+	var new_spell = GameState.get_spell(GameState.character_type, spell_id, node_name, location)
+	_spell_call_list.append(new_spell)
 	emit_signal("spell_started", spell_id)
 	call_deferred("emit_signal", "spell_done", true)
 	on_spell_call_list_updated(_spell_call_list)
 
 
 func on_spell_call_list_updated(spell_call_list):
-	# Create the list maping all SpellCallDTO to SpellDTO
-	var spell_list = []
-	var available_spells = GameState.get_all_spells()
-	for spell_call in spell_call_list:
-		var spell_id = (spell_call as SpellCallDTO).spell_id
-		for spell in available_spells:
-			if (spell as SpellDTO).spell_id == spell_id:
-				spell_list.append(spell)
-				break
-	emit_signal("spell_list_updated", spell_list)
+	_spell_call_list = spell_call_list
+	emit_signal("spell_list_updated", spell_call_list)
 
 
-func send_ready_and_spell_call_list():
-	ServerConnection.request_start_simulation(_spell_call_list)
+func send_ready_and_spell_call_list(ready):
+	ServerConnection.send_ready_state(_spell_call_list, ready)
 
 
 func start_simulation(spell_call_list, world: MazeWorld):
@@ -56,3 +43,7 @@ func start_simulation(spell_call_list, world: MazeWorld):
 func on_undo_pressed():
 	_spell_call_list.pop_back()
 	on_spell_call_list_updated(_spell_call_list)
+
+
+func on_turn_passed():
+	ServerConnection.send_pass_turn(_spell_call_list)

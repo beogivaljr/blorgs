@@ -3,6 +3,14 @@ extends Control
 enum { MAIN_BUTTONS, NEW_GAME_INFO, CONNECT_TO_GAME_INFO, CONNECTING }
 
 
+func _ready():
+	if not ServerConnection.is_connected("all_spells_updated", GameState, "on_all_spells_updated"):
+		assert(ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated") == OK)
+		assert(ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated") == OK)
+		assert(ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated") == OK)
+		assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
+
+
 func _on_MainButtons_connect_to_game():
 	_set_screen(CONNECT_TO_GAME_INFO)
 
@@ -14,7 +22,7 @@ func _on_MainButtons_new_game():
 		yield(ServerConnection.connect_to_server_async(), "completed")
 		var match_code = yield(ServerConnection.create_match_async(), "completed")
 		$ScreensContainer/NewGameInfo.set_game_code(match_code)
-		bind_server_connection(match_code)
+		_join_match(match_code)
 		_set_screen(NEW_GAME_INFO)
 	elif OS.is_debug_build():
 		_on_player_list_updated()
@@ -25,12 +33,8 @@ func _on_player_list_updated():
 	assert(get_tree().change_scene("res://levels/LevelManager.tscn") == OK)
 
 
-func bind_server_connection(match_code):
-	assert(ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated") == OK)
-	assert(ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated") == OK)
-	assert(ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated") == OK)
-	assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
-	assert(ServerConnection.request_player_spells())
+func _join_match(match_code):
+	ServerConnection.request_player_spells()
 	yield(ServerConnection.join_match_async(match_code), "completed")
 
 
@@ -39,7 +43,7 @@ func _on_NewGameInfo_on_cancelled() -> void:
 
 
 func _on_ConnectToGameInfo_play_pressed(match_code, _playerName) -> void:
-	bind_server_connection(match_code)
+	_join_match(match_code)
 	_set_screen(CONNECTING)
 
 
