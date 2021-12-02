@@ -82,4 +82,18 @@ anims/RESET = SubResource( 3 )
 [node name="HighlightMeshInstance" parent="." instance=ExtResource( 4 )]
 visible = false
 
+[node name="NavPivot" type="Spatial" parent="."]
+
+[node name="Position3D" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
+
+[node name="Position3D2" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5 )
+
+[node name="Position3D3" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )
+
+[node name="Position3D4" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5 )
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

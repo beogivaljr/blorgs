@@ -76,4 +76,19 @@ material/1 = null
 anims/Activate = SubResource( 8 )
 anims/RESET = SubResource( 10 )
 
+[node name="NavPivot" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+
+[node name="Position3D" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
+
+[node name="Position3D2" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5 )
+
+[node name="Position3D3" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )
+
+[node name="Position3D4" type="Position3D" parent="NavPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5 )
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

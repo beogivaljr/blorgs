@@ -5,6 +5,7 @@ extends BaseWorld
 
 
 func _ready() -> void:
+	GridMap
 	_active_player_id = GameState.character_type
 	_spawn_and_setup_player()
 
@@ -28,12 +29,12 @@ func begin_casting_spell(spell_id):
 
 # Gate
 func _on_gate_lowered(gate_name):
-	# TODO: Activate respective navmesh
+	._on_gate_lowered(gate_name)
 	emit_signal("spell_done", true)
 
 
 func _on_gate_raised(gate_name):
-	# TODO: Deactivate respective navmesh
+	._on_gate_raised(gate_name)
 	emit_signal("spell_done", true)
 
 
@@ -47,14 +48,9 @@ func _on_transported_down(elevator_name):
 
 
 # MagicButtons
-func _on_button_activated(button_name):
-	# TODO: Activate respective navmesh
+func _on_brigde_platform_activated(brigde_platform_name):
+	._on_brigde_platform_activated(brigde_platform_name)
 	emit_signal("spell_done", true)
-
-
-func _on_button_deactivated(button_name):
-	# TODO: Deactivate respective navmesh
-	pass
 
 
 func _handle_world_click(_event, intersection):

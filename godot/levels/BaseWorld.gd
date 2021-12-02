@@ -27,6 +27,7 @@ func _ready():
 func _bind_interactables():
 	for child in get_children():
 		if child is Gate:
+			child.setup($Navigation/NavGrid)
 			connect("spell_selected", child, "on_spell_selected")
 			connect("spell_started", child, "on_spell_started")
 			child.connect("gate_lowered", self, "_on_gate_lowered")
@@ -45,8 +46,8 @@ func _bind_interactables():
 				child.target_locations.append(bridge_platform.global_transform.origin)
 				child.connect("button_activated", bridge_platform, "activate")
 				child.connect("button_deactivated", bridge_platform, "deactivate")
-				bridge_platform.connect("platform_activated", self, "_on_button_activated")
-				bridge_platform.connect("platform_deactivated", self, "_on_button_deactivated")
+				bridge_platform.connect("platform_activated", self, "_on_brigde_platform_activated")
+				bridge_platform.connect("platform_deactivated", self, "_on_brigde_platform_deactivated")
 		elif child is FinishLine:
 			child.connect("player_entered_finish_line", self, "_on_player_entered_finish_line")
 			child.connect("player_exited_finish_line", self, "_on_player_exited_finish_line")
@@ -57,11 +58,11 @@ func _bind_interactables():
 
 # Gate
 func _on_gate_lowered(gate_name):
-	pass
+	_toggle_navigation(true, gate_name)
 
 
 func _on_gate_raised(gate_name):
-	pass
+	_toggle_navigation(false, gate_name)
 
 
 #Elevator
@@ -74,12 +75,12 @@ func _on_transported_down(elevator_name):
 
 
 # MagicButtons
-func _on_button_activated(button_name):
-	pass
+func _on_brigde_platform_activated(brigde_platform_name):
+	_toggle_navigation(true, brigde_platform_name)
 
 
-func _on_button_deactivated(button_name):
-	pass
+func _on_brigde_platform_deactivated(brigde_platform_name):
+	_toggle_navigation(false, brigde_platform_name)
 
 
 # FinishLine
@@ -91,6 +92,18 @@ func _on_player_entered_finish_line():
 
 func _on_player_exited_finish_line():
 	_players_on_finish_line -= 1
+
+
+func _toggle_navigation(activate, interactable_name):
+	var interactable = get_node(interactable_name)
+	var navigation = $Navigation/NavGrid
+	for tile_world_position in interactable.navigtion_pivot.get_children():
+		var grid_position_vector = navigation.world_to_map(tile_world_position.global_transform.origin)
+		var x = grid_position_vector.x
+		var y = grid_position_vector.y
+		var z = grid_position_vector.z
+		var item = 0 if activate else GridMap.INVALID_CELL_ITEM
+		navigation.set_cell_item(x, y, z, item)
 
 
 func begin_casting_spell(spell_id):

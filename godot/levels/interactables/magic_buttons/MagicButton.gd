@@ -12,7 +12,9 @@ const _UNLOCKED_SCALE = Vector3(1, 1, 1)
 
 var is_pressed = false
 var target_locations = []
+onready var navigtion_pivot: Spatial = $NavPivot
 var _arrow_meshes = []
+var _navigation_grid: GridMap
 onready var _animation_player = $AnimationPlayer
 onready var _collision_shape = $CollisionShape
 onready var is_locked = _collision_shape.scale == _LOCKED_SCALE setget _set_is_locked, _get_is_locked
@@ -20,6 +22,10 @@ onready var is_locked = _collision_shape.scale == _LOCKED_SCALE setget _set_is_l
 
 func _ready():
 	set_lock(true)
+
+
+func setup(navigation_grid: GridMap):
+	_navigation_grid = navigation_grid
 
 
 func press():

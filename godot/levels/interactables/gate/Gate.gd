@@ -6,8 +6,10 @@ signal gate_raised(node_name)
 
 var lever_target_a_position = Vector3.ZERO
 var lever_target_b_position = Vector3.ZERO
+onready var navigtion_pivot: Spatial = $NavPivot
 
 var _is_raised = true
+var _navigation_grid: GridMap
 onready var animation_player = $AnimationPlayer
 const _LEVER_ANIMATION_NAME = "LowerLever"
 
@@ -16,6 +18,10 @@ func _ready():
 	animation_player.connect("animation_finished", self, "_move_gate")
 	lever_target_a_position = $LeverTarget.global_transform.origin
 	lever_target_b_position = $LeverTarget2.global_transform.origin
+
+
+func setup(navigation_grid: GridMap):
+	_navigation_grid = navigation_grid
 
 
 func toggle_raise_lower():

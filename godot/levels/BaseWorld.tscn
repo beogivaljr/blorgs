@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/BaseWorld.gd" type="Script" id=1]
 [ext_resource path="res://levels/GameCamera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/floors.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://levels/walls.meshlib" type="MeshLibrary" id=4]
 [ext_resource path="res://levels/WorldInputHandler.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/navigation/Nav.tres" type="MeshLibrary" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 65, 1, 26 )
@@ -22,6 +23,19 @@ shape = SubResource( 1 )
 [node name="WorldInputHandler" parent="." instance=ExtResource( 5 )]
 
 [node name="GameCamera" parent="." instance=ExtResource( 2 )]
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavGrid" type="GridMap" parent="Navigation"]
+mesh_library = ExtResource( 6 )
+cell_size = Vector3( 1, 1, 1 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
 
 [node name="FloorGrid" type="GridMap" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )

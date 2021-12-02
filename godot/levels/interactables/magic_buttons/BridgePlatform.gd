@@ -8,6 +8,7 @@ const _ANIMATION_NAME = "Activate"
 export(GlobalConstants.SpellIds) var unlock_spell_id = GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON 
 
 onready var is_active = false setget _set_is_active, _get_is_active
+onready var navigtion_pivot: Spatial = $NavPivot
 onready var _animation_player = $AnimationPlayer
 var _arrow_mesh: MeshInstance
 
