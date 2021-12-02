@@ -172,4 +172,4 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.95, 0, 5.1 )
 
 [node name="CreatureSpawnerDescending" parent="." index="27" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.35, 0, -6.8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65, 0, -4.8 )
