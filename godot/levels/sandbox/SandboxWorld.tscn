@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -42,7 +42,20 @@ center_offset = Vector3( 0, 0.2, 0 )
 [sub_resource type="PrismMesh" id=11]
 
 [sub_resource type="NavigationMesh" id=4]
+vertices = PoolVector3Array( -11.22, 0.6, -0.424675, -11.22, 0.6, 2.57533, -4.92, 0.6, 2.57533, -4.92, 0.6, -0.424675, -13.92, 3.6, 0.175325, -13.92, 3.6, 1.97532, -7.92, 3.6, 1.97532, -7.92, 3.6, 0.175325 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 7, 6, 4 ), PoolIntArray( 4, 6, 5 ) ]
 sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=12]
+center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="NavigationMesh" id=13]
+vertices = PoolVector3Array( 3.02771, 0.6, -0.507662, 3.02771, 0.6, 2.49234, 10.8277, 0.6, 2.49234, 10.8277, 0.6, -0.507662 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=14]
+center_offset = Vector3( 0, 0.2, 0 )
 
 [node name="SandboxWorld" instance=ExtResource( 1 )]
 script = ExtResource( 6 )
@@ -118,6 +131,27 @@ material/0 = null
 
 [node name="NavMeshElevator" type="NavigationMeshInstance" parent="Navigation" index="1"]
 navmesh = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshElevator" index="0"]
+transform = Transform( 3.6288, 0, 0, 0, 1, 0, 0, 0, 2.07468, -8, 0, 1.05 )
+visible = false
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Navigation/NavMeshElevator" index="1"]
+transform = Transform( 3.52, 0, 0, 0, 1, 0, 0, 0, 1.331, -11, 3, 1 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="NavMeshGate" type="NavigationMeshInstance" parent="Navigation" index="2"]
+navmesh = SubResource( 13 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshGate" index="0"]
+transform = Transform( 4.57229, 0, 0, 0, 1, 0, 0, 0, 2.15766, 7, 0, 1.05 )
+visible = false
+mesh = SubResource( 14 )
+material/0 = null
 
 [node name="Stairs" parent="." index="6" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.5101, 0, 6.56487 )
