@@ -58,5 +58,5 @@ func _on_your_turn_started(spell_call_list):
 	_spells_list_manager.on_spell_call_list_updated(spell_call_list)
 
 
-func _on_sandbox_vote_updated(vote):
-	push_error("TODO: call servet to say to go back to sandbox level.")
+#func _on_sandbox_vote_updated(vote):
+#	push_error("TODO: call servet to say to go back to sandbox level.")

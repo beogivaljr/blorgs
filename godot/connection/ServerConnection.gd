@@ -27,7 +27,7 @@ enum OpCodes {
 }
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http", 3, NakamaLogger.LOG_LEVEL.INFO)
+var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http", 3, NakamaLogger.LOG_LEVEL.WARNING)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}
@@ -129,17 +129,17 @@ func send_spawn(spells, ready) -> void:
 
 func request_player_spells() -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_PLAYER_SPELLS, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_PLAYER_SPELLS, JSON.print({}))
 
 
 func request_all_spells() -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_AVAILABLE_SPELLS, JSON.print({}))
 
 
 func request_all_spell_calls() -> void:
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
+		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, JSON.print({}))
 
 
 func send_ready_state(spell_list, ready) -> void:

@@ -94,8 +94,7 @@ func get_all_spells():
 	randomize()
 	var spells = get_spells(CharacterTypes.A) as Array
 	spells.append_array(get_spells(CharacterTypes.B))
-#	spells.shuffle()
-	push_warning("TODO: shuffle list.")
+	spells.shuffle()
 	return spells
 
 
