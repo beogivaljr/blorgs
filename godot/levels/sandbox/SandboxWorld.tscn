@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -17,8 +17,8 @@
 [ext_resource path="res://levels/interactables/highlight_material.tres" type="Material" id=15]
 
 [sub_resource type="NavigationMesh" id=1]
-vertices = PoolVector3Array( -12.4, 0.6, 0, -12.4, 0.6, 6.6, -6.4, 0.6, 6.6, -6.4, 0.6, -6.6, -12.4, 0.6, -6.6, -12.4, 0.6, 0, 6.2, 0.6, 6.6, 12.5, 0.6, 6.6, 12.5, 0.6, 0, 12.5, 0.6, 0, 12.5, 0.6, -6.6, 6.2, 0.6, -6.6, 6.2, 0.6, 6.6, 12.5, 0.6, 0, 6.2, 0.6, -6.6, -0.0999994, 0.6, -6.6, -0.0999994, 0.6, 6.6, -6.4, 0.6, -6.6, -12.4, 0.6, 0, -6.4, 0.6, 6.6, -0.0999994, 0.6, 6.6, -0.0999994, 0.6, -6.6, -13.6, 3.6, 0.3, -13.6, 3.6, 1.8, -8.2, 3.6, 1.8, -8.2, 3.6, 0.3 )
-polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 5, 4, 3 ), PoolIntArray( 8, 7, 6 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 12, 16, 13 ), PoolIntArray( 13, 16, 14 ), PoolIntArray( 14, 16, 15 ), PoolIntArray( 17, 21, 18 ), PoolIntArray( 18, 21, 19 ), PoolIntArray( 19, 21, 20 ), PoolIntArray( 25, 24, 22 ), PoolIntArray( 22, 24, 23 ) ]
+vertices = PoolVector3Array( -6.42, 0.412001, -6.6, -12.42, 0.412001, -6.3, -4.02, 0.412001, -6.3, -0.12, 0.412001, -6.6, 2.28, 0.412001, -6, 1.98, 0.412001, -3.6, 3.48, 0.412001, -3.6, 3.48, 0.412001, -6, 0.18, 0.412001, -6.3, -0.12, 0.412001, -6.6, -1.92, 0.412001, -6, -2.22, 0.412001, -3.6, 0.18, 0.412001, -3.6, 0.18, 1.012, -4.95, -0.12, 0.412001, -6.6, -4.02, 0.412001, -6.3, -1.92, 0.412001, -6, 5.58, 0.412001, -3.3, 12.48, 0.412001, -3.3, 12.48, 0.412001, -6.6, 6.18, 0.412001, -6.6, 5.58, 0.412001, -6.3, 6.18, 0.412001, -6.6, -0.12, 0.412001, -6.6, 0.18, 0.412001, -6.3, 2.28, 0.412001, -6, 3.48, 0.412001, -6, 5.58, 0.412001, -6.3, 10.08, 0.412001, 4.76837e-07, 10.08, 0.412001, 2.1, 12.48, 0.412001, 2.1, 12.48, 0.412001, -3.3, 5.58, 0.412001, -3.3, 3.48, 0.412001, -3.6, 1.98, 0.412001, -3.6, 3.48, 0.412001, 4.76837e-07, 0.18, 0.412001, -3.6, -2.22, 0.412001, -3.6, -6.12, 0.412001, 4.76837e-07, 5.58, 0.412001, -3.3, 1.98, 0.412001, -3.6, 0.18, 0.412001, -3.6, 3.48, 0.412001, 4.76837e-07, 10.08, 0.412001, 4.76837e-07, 12.48, 0.412001, -3.3, 5.58, 0.412001, -3.3, 3.48, 0.412001, 4.76837e-07, -6.12, 0.412001, 4.76837e-07, -2.22, 0.412001, -3.6, -4.32, 0.412001, -3.9, -4.02, 0.412001, -6.3, -12.42, 0.412001, -6.3, -10.32, 0.412001, -0.3, -6.12, 0.412001, 4.76837e-07, -4.32, 0.412001, -3.9, -12.42, 0.412001, -6.3, -12.42, 0.412001, -0.3, -10.32, 0.412001, -0.3, 12.48, 0.412001, 3.9, 12.48, 0.412001, 2.1, 10.08, 0.412001, 2.1, -10.32, 0.412001, 2.4, -10.32, 0.412001, -0.3, -12.42, 0.412001, -0.3, -12.42, 0.412001, 6.6, -6.42, 0.412001, 2.4, -6.12, 0.412001, 4.2, -4.02, 0.412001, 3.9, 3.48, 0.412001, 2.1, 3.48, 0.412001, 4.76837e-07, -6.12, 0.412001, 4.76837e-07, -6.42, 0.412001, 2.4, -10.32, 0.412001, 2.4, -12.42, 0.412001, 6.6, -6.12, 0.412001, 6.6, -6.12, 0.412001, 4.2, 12.48, 0.412001, 3.9, 10.08, 0.412001, 2.1, 3.48, 0.412001, 2.1, -4.02, 0.412001, 3.9, -13.92, 3.412, 4.76837e-07, -13.92, 3.412, 1.8, -9.72, 3.412, 1.8, -9.72, 3.412, 4.76837e-07, 4.38, 0.412001, 6.6, 12.48, 0.412001, 6.6, 12.48, 0.412001, 3.9, -4.02, 0.412001, 3.9, -3.72, 0.412001, 6.6, 4.38, 0.412001, 6.6, 12.48, 0.412001, 3.9 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ), PoolIntArray( 7, 6, 4 ), PoolIntArray( 4, 6, 5 ), PoolIntArray( 8, 13, 9 ), PoolIntArray( 9, 13, 10 ), PoolIntArray( 10, 13, 12 ), PoolIntArray( 10, 12, 11 ), PoolIntArray( 14, 16, 15 ), PoolIntArray( 21, 20, 17 ), PoolIntArray( 17, 20, 19 ), PoolIntArray( 17, 19, 18 ), PoolIntArray( 24, 23, 25 ), PoolIntArray( 25, 23, 26 ), PoolIntArray( 26, 23, 27 ), PoolIntArray( 27, 23, 22 ), PoolIntArray( 29, 28, 30 ), PoolIntArray( 30, 28, 31 ), PoolIntArray( 34, 33, 32 ), PoolIntArray( 36, 35, 37 ), PoolIntArray( 37, 35, 38 ), PoolIntArray( 41, 40, 42 ), PoolIntArray( 42, 40, 39 ), PoolIntArray( 46, 45, 43 ), PoolIntArray( 43, 45, 44 ), PoolIntArray( 49, 48, 47 ), PoolIntArray( 54, 53, 50 ), PoolIntArray( 50, 53, 52 ), PoolIntArray( 50, 52, 51 ), PoolIntArray( 57, 56, 55 ), PoolIntArray( 60, 59, 58 ), PoolIntArray( 62, 61, 63 ), PoolIntArray( 63, 61, 64 ), PoolIntArray( 66, 65, 67 ), PoolIntArray( 67, 65, 70 ), PoolIntArray( 67, 70, 68 ), PoolIntArray( 68, 70, 69 ), PoolIntArray( 75, 74, 71 ), PoolIntArray( 71, 74, 72 ), PoolIntArray( 72, 74, 73 ), PoolIntArray( 77, 76, 78 ), PoolIntArray( 78, 76, 79 ), PoolIntArray( 83, 82, 80 ), PoolIntArray( 80, 82, 81 ), PoolIntArray( 86, 85, 84 ), PoolIntArray( 88, 87, 89 ), PoolIntArray( 89, 87, 90 ) ]
 sample_partition_type/sample_partition_type = 1
 
 [sub_resource type="PlaneMesh" id=2]
@@ -26,6 +26,20 @@ center_offset = Vector3( 0, 0.2, 0 )
 
 [sub_resource type="PlaneMesh" id=3]
 center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="PrismMesh" id=5]
+
+[sub_resource type="PrismMesh" id=6]
+
+[sub_resource type="PrismMesh" id=7]
+
+[sub_resource type="PrismMesh" id=8]
+
+[sub_resource type="PrismMesh" id=9]
+
+[sub_resource type="PrismMesh" id=10]
+
+[sub_resource type="PrismMesh" id=11]
 
 [sub_resource type="NavigationMesh" id=4]
 sample_partition_type/sample_partition_type = 1
@@ -55,10 +69,52 @@ mesh = SubResource( 2 )
 material/0 = ExtResource( 15 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="1"]
-transform = Transform( 3.2, 0, 0, 0, 1, 0, 0, 0, 1.1, -11, 3, 1 )
+transform = Transform( 3.52, 0, 0, 0, 1, 0, 0, 0, 1.331, -11, 3, 1 )
 visible = false
 mesh = SubResource( 3 )
 material/0 = ExtResource( 15 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="2"]
+transform = Transform( 1.8392, 0, 0, 0, 2.2, 0, 0, 0, 0.8, -5, 0, 5.4 )
+visible = false
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="3"]
+transform = Transform( 1.8392, 0, 0, 0, 2.2, 0, 0, 0, 0.72, 4.6, 0, -4.9 )
+visible = false
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="4"]
+transform = Transform( 1.8392, 0, 0, 0, 2.2, 0, 0, 0, 0.648, 1.1, 0, -4.9 )
+visible = false
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="MeshInstance6" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="5"]
+transform = Transform( 1.8392, 0, 0, 0, 2.2, 0, 0, 0, 0.648, -3.05, 0, -4.9 )
+visible = false
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="MeshInstance7" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="6"]
+transform = Transform( 1.8392, 0, 0, 0, 2.2, 0, 0, 0, 0.5832, -7.3, 0, 1.05 )
+visible = false
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="MeshInstance8" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="7"]
+transform = Transform( 1.10352, 0, 0, 0, 2.2, 0, 0, 0, 0.5832, -8.8, 2.5, 1.05 )
+visible = false
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance9" type="MeshInstance" parent="Navigation/NavigationMeshInstance" index="8"]
+transform = Transform( 5.12861, 0, 0, 0, 11.088, 0, 0, 0, 0.436868, 6.85, 2.5, 1.05 )
+visible = false
+mesh = SubResource( 11 )
+material/0 = null
 
 [node name="NavMeshElevator" type="NavigationMeshInstance" parent="Navigation" index="1"]
 navmesh = SubResource( 4 )
