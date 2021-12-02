@@ -27,7 +27,7 @@ func _set_new_level(level: BaseLevel):
 
 func _bind_level_signals(level: BaseLevel):
 	# warning-ignore:return_value_discarded
-	level.connect("level_finished", self, "_on_level_finished")
+	level.connect("level_finished", self, "_on_level_finished", [], CONNECT_ONESHOT)
 
 
 func _on_level_finished():

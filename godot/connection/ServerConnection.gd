@@ -4,10 +4,11 @@ const KEY := "blorgs"
 
 signal player_spells_updated(player_spells)
 signal all_spells_updated(all_spells)
-signal all_spell_calls_updated(spell_call_list)
-signal received_start_simulation(spell_call_list)
-signal your_turn_started(spell_call_list)
+signal all_spell_calls_updated(spell_list)
+signal received_start_simulation(spell_list)
+signal your_turn_started(spell_list)
 signal player_list_updated
+signal received_other_player_ready(ready)
 
 enum OpCodes {
 	DO_SPAWN = 1,
@@ -21,7 +22,8 @@ enum OpCodes {
 	SEND_READY_TO_START_STATE,
 	START_SIMULATION,
 	SEND_PASS_TURN,
-	YOUR_TURN
+	YOUR_TURN,
+	OTHER_PLAYER_READY
 }
 
 var _session: NakamaSession
@@ -112,13 +114,17 @@ func create_match_async() -> String:
 
 
 # Sends a message to the server stating the client is spawning in after character selection.
-func send_spawn(spells) -> void:
+func send_spawn(spells, ready) -> void:
 	var spells_dict = []
-	for spell in spells:
-		spells_dict.append((spell as SpellDTO).dict())
+	if spells:
+		for spell in spells:
+			spells_dict.append((spell as SpellDTO).dict())
 
 	if _socket:
-		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({spells = spells_dict}))
+		_socket.send_match_state_async(_match_id, OpCodes.DO_SPAWN, JSON.print({
+			spells = spells_dict, 
+			ready = ready,
+			}))
 
 
 func request_player_spells() -> void:
@@ -136,39 +142,36 @@ func request_all_spell_calls() -> void:
 		_socket.send_match_state_async(_match_id, OpCodes.REQUEST_SPELL_QUEUE, "")
 
 
-func request_start_simulation(spell_call_list) -> void:
-	var spell_call_list_dict = []
-	for spell_call in spell_call_list:
-		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
+func send_ready_state(spell_list, ready) -> void:
+	var spell_list_dict = []
+	if spell_list:
+		for spell in spell_list:
+			spell_list_dict.append(spell.dict())
 
 	if _socket:
 		_socket.send_match_state_async(
-			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({spell_queue = spell_call_list_dict})
+			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({
+				spell_queue = spell_list_dict,
+				ready = ready
+				})
 		)
 
 
-func send_pass_turn(spell_call_list) -> void:
-	var spell_call_list_dict = []
-	for spell_call in spell_call_list:
-		spell_call_list_dict.append((spell_call as SpellCallDTO).dict())
+func send_pass_turn(spell_list) -> void:
+	var spell_list_dict = []
+	for spell in spell_list:
+		spell_list_dict.append(spell.dict())
 
 	if _socket:
 		_socket.send_match_state_async(
-			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = spell_call_list_dict})
+			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = spell_list_dict})
 		)
 
 
 func _parse_spells_queue(decoded_json):
 	var spell_queue = []
 	for spell in decoded_json:
-		spell_queue.append(
-			SpellCallDTO.new(
-				spell.character_type,
-				spell.spell_id,
-				spell.target_parameter_node_name,
-				Vector3(spell.target_parameter_location.x, spell.target_parameter_location.y, spell.target_parameter_location.z)
-			)
-		)
+		spell_queue.append(SpellDTO.new(spell))
 	return spell_queue
 
 
@@ -207,3 +210,6 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 		OpCodes.YOUR_TURN:
 			var spell_queue = _parse_spells_queue(JSON.parse(raw).result)
 			emit_signal("your_turn_started", spell_queue)
+		OpCodes.OTHER_PLAYER_READY:
+			var other_player_ready: bool = JSON.parse(raw).result
+			emit_signal("received_other_player_ready", other_player_ready)

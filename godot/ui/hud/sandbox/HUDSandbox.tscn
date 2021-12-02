@@ -55,7 +55,7 @@ text = "Feitiços disponíveis"
 [node name="ScrollContainer" type="ScrollContainer" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
 margin_top = 57.0
 margin_right = 274.0
-margin_bottom = 544.0
+margin_bottom = 607.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -73,6 +73,7 @@ __meta__ = {
 }
 
 [node name="SandboxButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
+visible = false
 margin_top = 548.0
 margin_right = 274.0
 margin_bottom = 607.0
@@ -83,6 +84,7 @@ text = "Sandbox"
 margin_top = 611.0
 margin_right = 274.0
 margin_bottom = 670.0
+disabled = true
 text = "Desfazer"
 
 [node name="TurnButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]

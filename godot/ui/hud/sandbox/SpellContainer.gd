@@ -9,14 +9,24 @@ signal spell_container_button_pressed(button)
 var _spell: SpellDTO
 
 
-func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, player_type = null):
+func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false):
+	var player_a_color = "ff7878"
+	var player_b_color = "6f96ff"
 	_spell = spell
+	if GameState.character_type== GameState.CharacterTypes.A:
+		$VBoxContainer/SpellName.add_color_override("font_color", Color(player_a_color))
+	else:
+		$VBoxContainer/SpellName.add_color_override("font_color", Color(player_b_color))
 	if puzzle_mode:
 		$VBoxContainer/HBoxContainer/RenameFnButton.visible = false
 		$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
 		$VBoxContainer/HBoxContainer/SelectButton.set_text("Adicionar à lista")
 		if queue:
 			$VBoxContainer/HBoxContainer/SelectButton.visible = false
+			if spell.spell_call.character_type == GameState.CharacterTypes.A:
+				$VBoxContainer/SpellName.add_color_override("font_color", Color(player_a_color))
+			else:
+				$VBoxContainer/SpellName.add_color_override("font_color", Color(player_b_color))
 	else:
 		$VBoxContainer/HBoxContainer/RenameFnButton.button_name = _spell.spell_name.function_name
 
@@ -25,10 +35,6 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, play
 			_spell.spell_name.parameter_name = ""
 		else:
 			$VBoxContainer/HBoxContainer/RenameParamButton.button_name = _spell.spell_name.parameter_name
-	if player_type == GameState.CharacterTypes.A:
-		$VBoxContainer/SpellName.add_color_override("font_color", Color("ffbfbf"))
-	else:
-		pass
 	_update_spell_name()
 
 func toggle_enable_other_buttons(button: Button):

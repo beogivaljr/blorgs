@@ -14,7 +14,8 @@ local OpCodes = {
     send_ready_to_start_state = 9,
     start_simulation = 10,
     send_pass_turn = 11,
-    your_turn = 12
+    your_turn = 12,
+    other_player_ready = 13,
 }
 
 local commands = {}
@@ -33,8 +34,8 @@ local function find_spell(table, spell_id)
 end
 
 commands[OpCodes.do_spawn] = function(data, state, user_id)
+    state.ready_vote[user_id] = data.ready
     if not data.spells or not next(data.spells) then
-        error("Envie ao menos um feitico", 3)
         return
     end
 
@@ -48,7 +49,6 @@ commands[OpCodes.do_spawn] = function(data, state, user_id)
 
         state.available_spells[state.user_types[user_id]][user_spell_index].spell_name = spell.spell_name
     end
-    state.ready_vote[user_id] = true
 end
 
 commands[OpCodes.request_player_spells] = function(data, state, user_id)
@@ -61,8 +61,8 @@ commands[OpCodes.request_spell_queue] = function(data, state, user_id)
 end
 
 commands[OpCodes.send_ready_to_start_state] = function(data, state, user_id)
-    state.spell_queue = data.spell_queue
-    state.ready_vote[user_id] = true
+    state.spell_queue = data.spell_queue or state.spell_queue
+    state.ready_vote[user_id] = data.ready
 end
 
 commands[OpCodes.send_pass_turn] = function(data, state, user_id)
@@ -146,10 +146,14 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
             command(data, state, sender_id)
 
             if op_code == OpCodes.do_spawn then
+                local ready_count = 0
                 for _, ready in pairs(state.ready_vote) do
-                    if not ready then
-                        return state
+                    if ready then
+                        ready_count = ready_count + 1
                     end
+                end
+                if ready_count < 2 then
+                    return state
                 end
                 state.ready_vote = {}
                 dispatcher.broadcast_message(
@@ -179,10 +183,17 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                     {message.sender}
                 )
             elseif op_code == OpCodes.send_ready_to_start_state then
+                dispatcher.broadcast_message(OpCodes.other_player_ready,
+                    nakama.json_encode(state.ready_vote[sender_id]),
+                    {find_other_sender(state, sender_id)})
+                local ready_count = 0
                 for _, ready in pairs(state.ready_vote) do
-                    if not ready then
-                        return state
+                    if ready then
+                        ready_count = ready_count + 1
                     end
+                end
+                if ready_count < 2 then
+                    return state
                 end
                 state.ready_vote = {}
                 dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue))
