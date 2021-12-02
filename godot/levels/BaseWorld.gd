@@ -24,6 +24,11 @@ func _ready():
 	_bind_interactables()
 
 
+func _on_spell_started(spell_id):
+	$Navigation.visible = false
+	emit_signal("spell_started", spell_id)
+
+
 func _bind_interactables():
 	for child in get_children():
 		if child is Gate:
@@ -109,6 +114,7 @@ func _toggle_navigation(activate, interactable_name):
 func begin_casting_spell(spell_id):
 	_active_spell_id = spell_id
 	emit_signal("spell_selected", spell_id)
+	$Navigation.visible = spell_id == GlobalConstants.SpellIds.MOVE_TO
 	if _is_valid_destroy_summon(spell_id):
 		if get_active_character() is Creature:
 			_disassemble_creature()
@@ -157,7 +163,7 @@ func _disassemble_creature():
 
 func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	var creature = preload("res://players/creatures/Creature.tscn").instance()
-	creature.connect("spell_started", self, "_on_spell_started")
+	creature.connect("spell_started", self, "_on_creature_spell_started")
 	creature.connect("spell_done", self, "_on_spell_done")
 	add_child(creature, true)
 	creature.spawner = creature_spawner
@@ -172,10 +178,6 @@ func set_active_character(character: BaseCharacter):
 
 func get_active_character() -> BaseCharacter:
 	return _current_character_for_player_id[_active_player_id]
-
-
-func _on_spell_started(spell_id):
-	emit_signal("spell_started", spell_id)
 
 
 func _on_spell_done(succeded):

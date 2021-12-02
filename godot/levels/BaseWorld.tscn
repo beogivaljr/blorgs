@@ -25,6 +25,7 @@ shape = SubResource( 1 )
 [node name="GameCamera" parent="." instance=ExtResource( 2 )]
 
 [node name="Navigation" type="Navigation" parent="."]
+visible = false
 
 [node name="NavGrid" type="GridMap" parent="Navigation"]
 mesh_library = ExtResource( 6 )
