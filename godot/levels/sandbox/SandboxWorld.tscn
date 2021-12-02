@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/sandbox/stairs/Stairs.tscn" type="PackedScene" id=2]
@@ -55,6 +55,38 @@ polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
 sample_partition_type/sample_partition_type = 1
 
 [sub_resource type="PlaneMesh" id=14]
+center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="NavigationMesh" id=15]
+vertices = PoolVector3Array( -4.70753, 0.6, -6.2919, -4.70753, 0.6, -3.5919, -1.70753, 0.6, -3.5919, -1.70753, 0.6, -6.2919 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=16]
+center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="NavigationMesh" id=17]
+vertices = PoolVector3Array( -0.294365, 0.6, -6.33899, -0.294365, 0.6, -3.33899, 2.40564, 0.6, -3.33899, 2.40564, 0.6, -6.33899 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=18]
+center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="NavigationMesh" id=19]
+vertices = PoolVector3Array( -6.40753, 0.6, 3.8581, -6.40753, 0.6, 6.5581, -3.40753, 0.6, 6.5581, -3.40753, 0.6, 3.8581 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=20]
+center_offset = Vector3( 0, 0.2, 0 )
+
+[sub_resource type="NavigationMesh" id=21]
+vertices = PoolVector3Array( 3.39247, 0.6, -6.44289, 3.39247, 0.6, -3.14289, 6.39247, 0.6, -3.14289, 6.39247, 0.6, -6.44289 )
+polygons = [ PoolIntArray( 3, 2, 0 ), PoolIntArray( 0, 2, 1 ) ]
+sample_partition_type/sample_partition_type = 1
+
+[sub_resource type="PlaneMesh" id=22]
 center_offset = Vector3( 0, 0.2, 0 )
 
 [node name="SandboxWorld" instance=ExtResource( 1 )]
@@ -151,6 +183,42 @@ navmesh = SubResource( 13 )
 transform = Transform( 4.57229, 0, 0, 0, 1, 0, 0, 0, 2.15766, 7, 0, 1.05 )
 visible = false
 mesh = SubResource( 14 )
+material/0 = null
+
+[node name="NavMeshSquareButton" type="NavigationMeshInstance" parent="Navigation" index="3"]
+navmesh = SubResource( 15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshSquareButton" index="0"]
+transform = Transform( 2.05753, 0, 0, 0, 1, 0, 0, 0, 1.9419, -3.25, 0, -4.95 )
+visible = false
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="NavMeshRoundButton" type="NavigationMeshInstance" parent="Navigation" index="4"]
+navmesh = SubResource( 17 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshRoundButton" index="0"]
+transform = Transform( 1.94437, 0, 0, 0, 1, 0, 0, 0, 2.03899, 1.05, 0, -4.9 )
+visible = false
+mesh = SubResource( 18 )
+material/0 = null
+
+[node name="NavMeshAscendingSpawner" type="NavigationMeshInstance" parent="Navigation" index="5"]
+navmesh = SubResource( 19 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshAscendingSpawner" index="0"]
+transform = Transform( 2.05753, 0, 0, 0, 1, 0, 0, 0, 1.9419, -4.95, 0, 5.2 )
+visible = false
+mesh = SubResource( 20 )
+material/0 = null
+
+[node name="NavMeshDescendingSpawner2" type="NavigationMeshInstance" parent="Navigation" index="6"]
+navmesh = SubResource( 21 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Navigation/NavMeshDescendingSpawner2" index="0"]
+transform = Transform( 2.05753, 0, 0, 0, 1, 0, 0, 0, 2.24289, 4.85, 0, -4.8 )
+visible = false
+mesh = SubResource( 22 )
 material/0 = null
 
 [node name="Stairs" parent="." index="6" instance=ExtResource( 2 )]
