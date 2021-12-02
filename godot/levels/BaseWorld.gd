@@ -163,12 +163,12 @@ func _disassemble_creature():
 
 func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	var creature = preload("res://players/creatures/Creature.tscn").instance()
-	creature.connect("spell_started", self, "_on_creature_spell_started")
+	creature.connect("spell_started", self, "_on_spell_started")
 	creature.connect("spell_done", self, "_on_spell_done")
 	add_child(creature, true)
 	creature.spawner = creature_spawner
 	creature.global_transform = creature_spawner.global_transform
-	creature.setup($Navigation)
+	creature.setup($Navigation, GameState.CharacterTypes.NONE)
 	set_active_character(creature)
 
 

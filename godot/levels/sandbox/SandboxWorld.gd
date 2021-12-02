@@ -5,7 +5,6 @@ extends BaseWorld
 
 
 func _ready() -> void:
-	GridMap
 	_active_player_id = GameState.character_type
 	_spawn_and_setup_player()
 
@@ -63,7 +62,8 @@ func _handle_world_click(_event, intersection):
 
 func _on_KillYArea_body_entered(body: Node):
 	if body is Creature:
-		_spawn_and_setup_creature(body.spawner)
+		if body == get_active_character():
+			_spawn_and_setup_creature(body.spawner)
 	elif body is BaseCharacter:
 		_spawn_and_setup_player()
 	body.queue_free()
