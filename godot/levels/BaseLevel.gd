@@ -23,4 +23,4 @@ func _get_filtered_level_spells(spells):
 		var spell_dto = (spell as SpellDTO)
 		if _current_level_spells.has(spell_dto.id):
 			filtered_spells.append(spell)
-	return filtered_spells
+	return spells

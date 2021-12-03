@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://players/creatures/Skeleton.material" type="Material" id=1]
 [ext_resource path="res://players/creatures/Skeleton_Death.anim" type="Animation" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://players/creatures/Skeleton_Running.anim" type="Animation" id=5]
 [ext_resource path="res://players/creatures/Skeleton_Spawn.anim" type="Animation" id=6]
 [ext_resource path="res://players/creatures/Skeleton.gd" type="Script" id=7]
+[ext_resource path="res://players/KinematicMovement.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cylinder001"
@@ -75,6 +76,8 @@ radius = 0.2
 [node name="Skeleton" type="KinematicBody"]
 script = ExtResource( 7 )
 
+[node name="KinematicMovement" parent="." instance=ExtResource( 8 )]
+
 [node name="Skeleton" type="Skeleton" parent="."]
 transform = Transform( -0.500257, 0, -4.37339e-08, 0, 0.500257, 0, 4.37339e-08, 0, -0.500257, 0.0135427, 0.603036, 0.00185889 )
 bones/0/name = "Hips"
@@ -121,7 +124,7 @@ bones/8/name = "L.UpperLeg.001"
 bones/8/parent = 0
 bones/8/rest = Transform( 1, -1.89925e-08, 3.12041e-07, 9.9786e-08, -0.926547, -0.37618, 2.96265e-07, 0.37618, -0.926547, 0.000845076, 1.41497, 0.70224 )
 bones/8/enabled = true
-bones/8/bound_children = [  ]
+bones/8/bound_children = [ NodePath("LArmCollisionBone") ]
 bones/9/name = "L.DownLeg.001"
 bones/9/parent = 8
 bones/9/rest = Transform( -0.023689, -0.0163081, -0.999586, -0.128649, 0.991603, -0.013129, 0.991407, 0.128284, -0.0255882, -1.80356e-09, 0.791015, -1.43592e-08 )
@@ -131,7 +134,7 @@ bones/10/name = "R.UpperLeg.001"
 bones/10/parent = 0
 bones/10/rest = Transform( 1, 3.34895e-08, 6.50935e-08, 3.13191e-09, -0.907975, 0.419024, 7.31361e-08, -0.419023, -0.907975, 0.000845082, 1.44493, -0.72866 )
 bones/10/enabled = true
-bones/10/bound_children = [  ]
+bones/10/bound_children = [ NodePath("RArmCollisionBone") ]
 bones/11/name = "R.DownLeg.001"
 bones/11/parent = 10
 bones/11/rest = Transform( 0.0273579, -0.0172191, -0.999478, 0.124599, 0.992113, -0.0136817, 0.99183, -0.124159, 0.0292876, -9.93226e-10, 0.779465, -2.00172e-08 )
@@ -177,3 +180,5 @@ anims/Skeleton_Death = ExtResource( 2 )
 anims/Skeleton_Idle = ExtResource( 4 )
 anims/Skeleton_Running = ExtResource( 5 )
 anims/Skeleton_Spawn = ExtResource( 6 )
+
+[connection signal="started_movement" from="KinematicMovement" to="." method="_on_KinematicMovement_started_movement"]

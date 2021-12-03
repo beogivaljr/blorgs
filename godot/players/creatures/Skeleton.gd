@@ -85,6 +85,7 @@ func stop_moving():
 	_velocity = Vector3.ZERO
 	$AnimationPlayer.play("Skeleton_Idle")
 
+
 func follow(
 	velocity: Vector3,
 	global_position: Vector3,
@@ -102,3 +103,7 @@ func jump():
 
 func hold():
 	pass
+
+
+func _on_KinematicMovement_started_movement():
+	$AnimationPlayer.play("Skeleton_Idle")

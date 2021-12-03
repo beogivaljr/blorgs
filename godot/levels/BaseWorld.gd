@@ -163,7 +163,7 @@ func _disassemble_creature():
 
 
 func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
-	var creature = preload("res://players/creatures/Creature.tscn").instance()
+	var creature = preload("res://players/creatures/Skeleton.tscn").instance()
 	creature.connect("spell_started", self, "_on_spell_started")
 	creature.connect("spell_done", self, "_on_spell_done")
 	creature.connect("invalid_spell_target_selected", self, "_on_invalid_spell_target_selected")

@@ -90,7 +90,11 @@ func get_spells(p_player_type: int = character_type):
 					_get_new_spell(_SPELLS.USE_ELEVATOR),
 					_get_new_spell(_SPELLS.PRESS_SQUARE_BUTTON),
 					_get_new_spell(_SPELLS.TOGGLE_GATE),
-					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON)
+					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON),
+					_get_new_spell(_SPELLS.MOVE_TO),
+					_get_new_spell(_SPELLS.SUMMON_ASCENDING_PORTAL),
+					_get_new_spell(_SPELLS.DESTROY_SUMMON),
+					_get_new_spell(_SPELLS.SUMMON_DESCENDING_PORTAL)
 				]
 			)
 			_spells_a.shuffle()
