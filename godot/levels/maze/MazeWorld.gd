@@ -5,8 +5,10 @@ signal valid_parameter_selected(spell_id, node_name, location)
 
 
 func _ready():
-	_spawn_and_setup_player(GameState.CharacterTypes.A)
-	_spawn_and_setup_player(GameState.CharacterTypes.B)
+	_active_player_id = GameState.CharacterTypes.A
+	_spawn_and_setup_player(_active_player_id)
+	_active_player_id = GameState.CharacterTypes.B
+	_spawn_and_setup_player(_active_player_id)
 
 
 func auto_cast_spell(player_id, spell_id, node_name, location):
@@ -35,6 +37,8 @@ func _spawn_and_setup_player(type):
 	player.connect("spell_done", self, "_on_spell_done")
 	add_child(player)
 	player.global_transform = get_node(player_spawn_node_name).global_transform
+	if type == GameState.character_type:
+		$GameCamera.target_to_follow = player
 	player.setup($Navigation, type)
 	_players[_active_player_id] = player
 	set_active_character(player)
@@ -59,3 +63,7 @@ func _handle_world_click(_event, intersection):
 		var node = intersection.collider
 		var location = intersection.position
 		_validate_parameters(node, location)
+
+
+func _on_KillYArea_body_entered(_body: Node):
+	emit_signal("game_over", false)

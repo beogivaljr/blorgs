@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://levels/interactables/magic_buttons/tileMedium_graveyard.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://levels/interactables/magic_buttons/BridgePlatform.gd" type="Script" id=2]
@@ -53,6 +53,9 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1, 0.5, 2 )
+
 [node name="Platform" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -76,19 +79,10 @@ material/1 = null
 anims/Activate = SubResource( 8 )
 anims/RESET = SubResource( 10 )
 
-[node name="NavPivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+[node name="StaticBody" type="StaticBody" parent="."]
 
-[node name="Position3D" type="Position3D" parent="NavPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5 )
-
-[node name="Position3D2" type="Position3D" parent="NavPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5 )
-
-[node name="Position3D3" type="Position3D" parent="NavPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5 )
-
-[node name="Position3D4" type="Position3D" parent="NavPivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5 )
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1 )
+shape = SubResource( 11 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

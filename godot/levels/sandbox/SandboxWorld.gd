@@ -26,32 +26,6 @@ func begin_casting_spell(spell_id):
 	get_active_character().begin_casting_spell(spell_id)
 
 
-# Gate
-func _on_gate_lowered(gate_name):
-	._on_gate_lowered(gate_name)
-	emit_signal("spell_done", true)
-
-
-func _on_gate_raised(gate_name):
-	._on_gate_raised(gate_name)
-	emit_signal("spell_done", true)
-
-
-#Elevator
-func _on_transported_up(elevator_name):
-	emit_signal("spell_done", true)
-
-
-func _on_transported_down(elevator_name):
-	emit_signal("spell_done", true)
-
-
-# MagicButtons
-func _on_brigde_platform_activated(brigde_platform_name):
-	._on_brigde_platform_activated(brigde_platform_name)
-	emit_signal("spell_done", true)
-
-
 func _handle_world_click(_event, intersection):
 	if not intersection.empty():
 		var node = intersection.collider
@@ -68,7 +42,3 @@ func _on_KillYArea_body_entered(body: Node):
 		_spawn_and_setup_player()
 	body.queue_free()
 	emit_signal("spell_done", false)
-
-
-func _on_HUDSandbox_spell_selected(function_id, player_id):
-	pass # Replace with function body.

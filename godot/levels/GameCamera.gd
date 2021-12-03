@@ -2,8 +2,8 @@ extends Spatial
 
 const _PAN_SPEED = 0.025
 
-export var max_vertical_pan_offset = 8.0
-export var max_horizontal_pan_offset = 14.0
+export var max_vertical_pan_offset = 14.0
+export var max_horizontal_pan_offset = 20.0
 
 var target_to_follow: Node
 var _block_target_follow = false
@@ -39,9 +39,9 @@ func pan_camera_keyboard(relative_x, relative_y):
 			translate(pan_offset)
 
 
-func on_touch_began(event):
+func on_touch_began(_event):
 	_block_target_follow = true
 
 
-func on_touch_ended(event):
+func on_touch_ended(_event):
 	_block_target_follow = false

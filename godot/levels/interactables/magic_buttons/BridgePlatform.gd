@@ -8,7 +8,6 @@ const _ANIMATION_NAME = "Activate"
 export(GlobalConstants.SpellIds) var unlock_spell_id = GlobalConstants.SpellIds.PRESS_SQUARE_BUTTON 
 
 onready var is_active = false setget _set_is_active, _get_is_active
-onready var navigtion_pivot: Spatial = $NavPivot
 onready var _animation_player = $AnimationPlayer
 var _arrow_mesh: MeshInstance
 
@@ -24,11 +23,13 @@ func deactivate(button_name):
 func on_spell_selected(spell_id):
 	if spell_id == unlock_spell_id and not _get_is_active():
 		_set_platform_direction_highlight_visible(true)
+		_set_raycast_intersectable_collision(true)
 	else:
 		_set_platform_direction_highlight_visible(false)
 
 
 func on_spell_started(_spell_id):
+	_set_raycast_intersectable_collision(false)
 	on_spell_selected(null)
 
 
@@ -46,6 +47,10 @@ func _set_platform_direction_highlight_visible(is_visible):
 		else:
 			_arrow_mesh.translate(Vector3(0, 0, 1))
 	_arrow_mesh.visible = is_visible
+
+
+func _set_raycast_intersectable_collision(activated):
+	$StaticBody/CollisionShape.disabled = not activated
 
 
 func _get_is_active():

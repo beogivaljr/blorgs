@@ -7,7 +7,7 @@ signal game_over(won)
 signal spell_selected(spell_id)
 
 const _SPELLS = GlobalConstants.SpellIds
-var _players_on_finish_line = 0
+var players_on_finish_line = 0
 var _active_spell_id = null
 var _active_player_id = null
 var _players: Dictionary
@@ -64,39 +64,41 @@ func _bind_interactables():
 # Gate
 func _on_gate_lowered(gate_name):
 	_toggle_navigation(true, gate_name)
+	emit_signal("spell_done", true)
 
 
 func _on_gate_raised(gate_name):
 	_toggle_navigation(false, gate_name)
+	emit_signal("spell_done", true)
 
 
 #Elevator
 func _on_transported_up(elevator_name):
-	pass
+	emit_signal("spell_done", true)
 
 
 func _on_transported_down(elevator_name):
-	pass
+	emit_signal("spell_done", true)
 
 
 # MagicButtons
 func _on_brigde_platform_activated(brigde_platform_name):
-	_toggle_navigation(true, brigde_platform_name)
+	emit_signal("spell_done", true)
 
 
 func _on_brigde_platform_deactivated(brigde_platform_name):
-	_toggle_navigation(false, brigde_platform_name)
+	pass
 
 
 # FinishLine
 func _on_player_entered_finish_line():
-	_players_on_finish_line += 1
-	if _players_on_finish_line == 2:
+	players_on_finish_line += 1
+	if players_on_finish_line == 2:
 		emit_signal("game_over", true)
 
 
 func _on_player_exited_finish_line():
-	_players_on_finish_line -= 1
+	players_on_finish_line -= 1
 
 
 func _toggle_navigation(activate, interactable_name):

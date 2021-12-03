@@ -2,14 +2,7 @@ extends Node
 
 signal all_spells_updated
 
-enum LevelIds {
-	SANDBOX,
-	MAZE1,
-	MAZE2,
-	MAZE3,
-	MAZE4,
-}
-
+var current_level_index = 0
 enum CharacterTypes { NONE, A, B}
 var _spells_a
 var _spells_b
@@ -51,10 +44,6 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 	return spell
 
 
-var current_level_id = LevelIds.SANDBOX
-var current_maze_index = 0
-
-
 func get_spells(p_player_type: int = character_type):
 	randomize()
 	match p_player_type:
@@ -66,7 +55,6 @@ func get_spells(p_player_type: int = character_type):
 					_get_new_spell(_SPELLS.USE_ELEVATOR),
 					_get_new_spell(_SPELLS.PRESS_SQUARE_BUTTON),
 					_get_new_spell(_SPELLS.TOGGLE_GATE),
-					_get_new_spell(_SPELLS.MOVE_TO),
 					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON)
 				]
 			)
