@@ -198,6 +198,7 @@ ServerConnection="*res://connection/ServerConnection.gd"
 window/size/width=1440
 window/size/height=810
 window/size/resizable=false
+window/handheld/orientation="sensor_landscape"
 
 [editor_plugins]
 

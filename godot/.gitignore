@@ -1,5 +1,6 @@
 # Build files
 build
+android/
 
 # Godot-specific ignores
 .import/
