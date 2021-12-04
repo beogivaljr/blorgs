@@ -5,50 +5,30 @@ local match_control = {}
 local OpCodes = {
     do_spawn = 1,
     player_joined = 2,
-    request_player_spells = 3,
-    player_spells = 4,
-    request_available_spells = 5,
-    available_spells = 6,
-    request_spell_queue = 7,
-    spell_queue = 8,
-    send_ready_to_start_state = 9,
-    start_simulation = 10,
-    send_pass_turn = 11,
-    your_turn = 12,
-    other_player_ready = 13,
+    player_left = 3,
+    request_player_spells = 4,
+    player_spells = 5,
+    request_available_spells = 6,
+    available_spells = 7,
+    request_spell_queue = 8,
+    spell_queue = 9,
+    send_ready_to_start_state = 10,
+    start_simulation = 11,
+    send_pass_turn = 12,
+    your_turn = 13,
+    other_player_ready = 14,
 }
 
 local commands = {}
 
-local function find_spell(table, spell_id)
-    local index
-
-    for i, spell in ipairs(table) do
-        if spell.spell_id == spell_id then
-            index = i
-            break
-        end
-    end
-
-    return index
-end
-
 commands[OpCodes.do_spawn] = function(data, state, user_id)
     state.ready_vote[user_id] = data.ready
-    if not data.spells or not next(data.spells) then
+    if not data.spells then
+        error("A lista de feiticos não pode ser nula.", 3)
         return
     end
 
-    for _i, spell in ipairs(data.spells) do
-        local user_spell_index = find_spell(state.available_spells[state.user_types[user_id]], spell.spell_id)
-        if not user_spell_index then
-            -- user sent a name for a spell that does not belong to them
-            -- throw a nice error
-            error("Esse feitico nao deve ser nomeado por voce!", 3)
-        end
-
-        state.available_spells[state.user_types[user_id]][user_spell_index].spell_name = spell.spell_name
-    end
+    state.available_spells[state.user_types[user_id]] = data.spells
 end
 
 commands[OpCodes.request_player_spells] = function(data, state, user_id)
@@ -75,12 +55,12 @@ function match_control.match_init(context, params)
         presences = {count = 0},
         user_types = {},
         usernames = {},
-        available_spells = params.user_spells or {},
+        available_spells = {},
         spell_queue = {},
         ready_vote = {},
         sandbox_vote = {}
     }
-    local tick_rate = params.tick_rate or 10
+    local tick_rate = params.tick_rate or 5
     local label = params.label or "Game match"
 
     return state, tick_rate, label
@@ -121,12 +101,14 @@ end
 function match_control.match_leave(context, dispatcher, tick, state, presences)
     for _, presence in ipairs(presences) do
         local user_id = presence.user_id
+        state.presences.count = state.presences.count - 1
         for key, _ in pairs(state) do
             state[key][user_id] = nil
         end
     end
 
     -- if no one is present, terminates the match
+    dispatcher.broadcast_message(OpCodes.player_left, nakama.json_encode(state.presences.count))
     return next(state.presences) and state
 end
 

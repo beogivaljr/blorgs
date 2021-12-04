@@ -16,8 +16,8 @@ func _ready() -> void:
 
 func _load_level(level: BaseLevel):
 	if _current_level:
-		remove_child(_current_level)
 		_current_level.queue_free()
+		yield(_current_level, "tree_exited")
 	add_child(level)
 	_bind_level_signals(level)
 	_current_level = level
@@ -30,14 +30,10 @@ func _bind_level_signals(level: BaseLevel):
 
 
 func _on_level_finished():
-	# Wait some time to win
-	yield(get_tree().create_timer(3.0), "timeout")
 	_load_next_level()
 
 
 func _on_level_failed():
-	# Wait some time to lose
-	yield(get_tree().create_timer(3.0), "timeout")
 	_load_previous_level()
 
 

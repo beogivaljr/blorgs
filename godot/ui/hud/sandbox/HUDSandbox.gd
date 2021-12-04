@@ -103,6 +103,7 @@ func set_your_turn(your_turn):
 
 func on_spell_started(_spell_id: int):
 	_spells_list.disable_buttons()
+	$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = true
 	$SelectedSpellPanelContainer.hide()
 
 
@@ -110,7 +111,7 @@ func on_spell_done(succeded: bool = true):
 	if not succeded:
 		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
-
+	$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = false
 	_spells_list.enable_buttons()
 
 

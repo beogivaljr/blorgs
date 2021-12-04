@@ -14,7 +14,9 @@ func _ready():
 func auto_cast_spell(player_id, spell_id, node_name, location):
 	_active_player_id = player_id
 	begin_casting_spell(spell_id)
-	var node = get_node(node_name)
+	var node: Node = null
+	if has_node(node_name):
+		node = get_node(node_name)
 	get_active_character()._attempt_to_cast_spell_on_target(node, location)
 	_attempt_to_cast_spell_on_target(node, location)
 
@@ -65,5 +67,6 @@ func _handle_world_click(_event, intersection):
 		_validate_parameters(node, location)
 
 
-func _on_KillYArea_body_entered(_body: Node):
-	emit_signal("game_over", false)
+func _on_KillYArea_body_entered(body: Node):
+	body.queue_free()
+	emit_signal("spell_done", false)

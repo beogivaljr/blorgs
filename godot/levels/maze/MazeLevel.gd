@@ -40,8 +40,6 @@ func _setup_hud(spells):
 func _setup_world():
 	_world._active_player_id = _starting_player_type
 	_world.connect("valid_parameter_selected", _spells_list_manager, "on_spell_and_parameter_selected")
-	_world.connect("spell_done", self, "_on_world_spell_done")
-	_world.connect("game_over", self, "_on_world_game_over")
 	add_child(_world)
 
 
@@ -49,6 +47,7 @@ func _setup_spells_list_manager():
 	_spells_list_manager.connect("spell_started", _hud, "on_spell_started")
 	_spells_list_manager.connect("spell_done", _hud, "on_spell_done")
 	_spells_list_manager.connect("spell_list_updated", _hud, "update_spells_queue")
+	_spells_list_manager.connect("game_over", self, "_on_game_over")
 	add_child(_spells_list_manager)
 
 
@@ -62,16 +61,24 @@ func _on_your_turn_started(spell_call_list):
 	_spells_list_manager.on_spell_call_list_updated(spell_call_list)
 
 
-func _on_world_spell_done(succeded):
-	if not succeded:
-		emit_signal("level_failed")
+func _on_game_over(won):
+	get_tree().paused = true
+	var game_over_popup = preload("res://ui/game_over/GameOverPopup.tscn").instance()
+	call_deferred("add_child", game_over_popup)
+	yield(game_over_popup, "ready")
+	game_over_popup.setup(won)
+	game_over_popup.next_level_button.connect("pressed", self, "_on_next_level_button_pressed", [], CONNECT_ONESHOT)
+	game_over_popup.try_again_button.connect("pressed", self, "_on_try_again_button_pressed", [], CONNECT_ONESHOT)
 
 
-func _on_world_game_over(won):
-	if not won:
-		emit_signal("level_failed")
-	else:
-		emit_signal("level_finished")
+func _on_next_level_button_pressed():
+	get_tree().paused = false
+	emit_signal("level_finished")
+
+
+func _on_try_again_button_pressed():
+	get_tree().paused = false
+	emit_signal("level_failed")
 
 
 #func _on_sandbox_vote_updated(vote):

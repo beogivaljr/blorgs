@@ -24,7 +24,7 @@ func _on_Area_body_entered(body):
 
 
 func _on_Area_body_exited(body):
-	if _on_Area_body_exited(body):
+	if _body_is_right_player(body):
 		$AnimationPlayer.play_backwards("OpenClose")
 		emit_signal("player_exited_finish_line")
 

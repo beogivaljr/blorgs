@@ -3,3 +3,6 @@
 
 # Server ignores
 logs/
+
+# Intelij
+nakama/.idea

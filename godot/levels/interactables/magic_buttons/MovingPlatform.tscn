@@ -8,7 +8,7 @@ extents = Vector3( 1, 0.4, 1 )
 
 [sub_resource type="Animation" id=8]
 resource_name = "Activate"
-length = 0.75
+length = 0.7
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Pivot:translation:z")
 tracks/0/interp = 1
@@ -16,7 +16,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 0, -0.5, 0.00567651, 0.5, -0.00567651, 2, -0.4, -0.00559723, 0.4, 0.00559723 ),
 "times": PoolRealArray( 0, 0.7 )
 }
 

@@ -86,7 +86,7 @@ func _get_is_locked():
 	return is_locked
 
 
-func _on_AnimationPlayer_animation_finished(animation_name):
+func _on_AnimationPlayer_animation_started(animation_name):
 	match animation_name:
 		_BUTTON_ANIMATION_NAME:
 			is_pressed = not is_pressed

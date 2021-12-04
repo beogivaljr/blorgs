@@ -3,7 +3,6 @@ extends Spatial
 
 signal spell_started(spell_id)
 signal spell_done(succeded)
-signal game_over(won)
 signal spell_selected(spell_id)
 
 const _SPELLS = GlobalConstants.SpellIds
@@ -93,8 +92,6 @@ func _on_brigde_platform_deactivated(brigde_platform_name):
 # FinishLine
 func _on_player_entered_finish_line():
 	players_on_finish_line += 1
-	if players_on_finish_line == 2:
-		emit_signal("game_over", true)
 
 
 func _on_player_exited_finish_line():

@@ -15,9 +15,9 @@ var _path = []
 var _target_node = null
 
 var _velocity = Vector3.ZERO
-var _snap_vector = Vector3.ZERO
+var _snap_vector = Vector3.DOWN
 var _current_physics_frames_without_moving = 0
-const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 6
+const _MAX_PHYSICS_FRAMES_WITHOUT_MOVING = 8
 
 
 func setup(navigation: Navigation):
@@ -68,6 +68,7 @@ func _physics_process(delta):
 #			_snap_vector = Vector3.ZERO
 #		elif just_landed:
 #			_snap_vector = Vector3.DOWN
+	_velocity = _velocity + _body.get_floor_velocity() * 1.2 # Prevents it from sliding on platforms
 	_velocity = _body.move_and_slide_with_snap(_velocity, _snap_vector, Vector3.UP, true)
 		
 	## Look at movement direction

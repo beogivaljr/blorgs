@@ -3,6 +3,7 @@ extends Node
 signal spell_started(spell_id)
 signal spell_done(succeded)
 signal spell_list_updated(spell_list)
+signal game_over(won)
 
 var _spell_call_list = []
 
@@ -28,9 +29,7 @@ func send_ready_and_spell_call_list(ready):
 
 
 func start_simulation(spell_list, world: MazeWorld):
-	if spell_list.empty():
-		emit_signal("spell_done", false)
-	else:
+	if not spell_list.empty():
 		var any_spell_id = GlobalConstants.SpellIds.MOVE_TO
 		emit_signal("spell_started", any_spell_id)
 		for spell in spell_list:
@@ -42,8 +41,11 @@ func start_simulation(spell_list, world: MazeWorld):
 			var location = spell_call_dto.target_parameter_location
 			world.auto_cast_spell(player_id, spell_id, node_name, location)
 			yield(world, "spell_done")
-		if world.players_on_finish_line < 2:
-			emit_signal("spell_done", false)
+			yield(get_tree().create_timer(0.25), "timeout") # Small delay between spells
+		if world.players_on_finish_line >= 2:
+			_game_over(true)
+			return
+	_game_over(false)
 
 
 func on_undo_pressed():
@@ -53,3 +55,7 @@ func on_undo_pressed():
 
 func on_turn_passed():
 	ServerConnection.send_pass_turn(_spell_call_list)
+
+
+func _game_over(won):
+	emit_signal("game_over", won)

@@ -4,11 +4,11 @@ enum { MAIN_BUTTONS, NEW_GAME_INFO, CONNECT_TO_GAME_INFO, CONNECTING }
 
 
 func _ready():
+	assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
 	if not ServerConnection.is_connected("all_spells_updated", GameState, "on_all_spells_updated"):
 		assert(ServerConnection.connect("all_spells_updated", GameState, "on_all_spells_updated") == OK)
 		assert(ServerConnection.connect("player_spells_updated", GameState, "on_player_spells_updated") == OK)
 		assert(ServerConnection.connect("player_list_updated", GameState, "on_player_list_updated") == OK)
-		assert(ServerConnection.connect("player_list_updated", self, "_on_player_list_updated") == OK)
 
 
 func _on_MainButtons_connect_to_game():
@@ -27,16 +27,15 @@ func _on_MainButtons_new_game():
 		_join_match(match_code)
 		_set_screen(NEW_GAME_INFO)
 	elif OS.is_debug_build():
-		_on_player_list_updated()
+		_on_player_list_updated(1)
 
 
-func _on_player_list_updated():
+func _on_player_list_updated(player_count):
 	ServerConnection.request_player_spells()
 	assert(get_tree().change_scene("res://levels/LevelManager.tscn") == OK)
 
 
 func _join_match(match_code):
-	ServerConnection.request_player_spells()
 	yield(ServerConnection.join_match_async(match_code), "completed")
 
 

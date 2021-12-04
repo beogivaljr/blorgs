@@ -53,9 +53,9 @@ margin_bottom = 53.0
 text = "Feitiços disponíveis"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
-margin_top = 57.0
+margin_top = 77.0
 margin_right = 274.0
-margin_bottom = 607.0
+margin_bottom = 547.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -81,16 +81,16 @@ toggle_mode = true
 text = "Sandbox"
 
 [node name="UndoButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
-margin_top = 611.0
+margin_top = 571.0
 margin_right = 274.0
-margin_bottom = 670.0
+margin_bottom = 630.0
 disabled = true
 text = "Desfazer"
 
 [node name="TurnButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
-margin_top = 674.0
+margin_top = 654.0
 margin_right = 274.0
-margin_bottom = 733.0
+margin_bottom = 713.0
 text = "Passar a vez"
 
 [node name="ReadyButton" type="Button" parent="HamburgerContainer/SpellPanel/VBoxContainer"]
@@ -204,9 +204,9 @@ margin_bottom = 53.0
 text = "Próximos feitiços"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SpellPanel/VBoxContainer"]
-margin_top = 57.0
+margin_top = 77.0
 margin_right = 247.0
-margin_bottom = 733.0
+margin_bottom = 713.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
