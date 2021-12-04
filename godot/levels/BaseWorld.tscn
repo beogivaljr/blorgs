@@ -25,6 +25,7 @@ shape = SubResource( 1 )
 [node name="GameCamera" parent="." instance=ExtResource( 2 )]
 
 [node name="Navigation" type="Navigation" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0 )
 visible = false
 
 [node name="NavGrid" type="GridMap" parent="Navigation"]
