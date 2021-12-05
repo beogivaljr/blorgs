@@ -4,15 +4,15 @@ extends Spatial
 signal player_entered_finish_line
 signal player_exited_finish_line
 
-export(GameState.CharacterTypes) var character_type
+export var character_type = GlobalConstants.CharacterTypes.NONE
 
 
 func _ready():
 	match character_type:
-		GameState.CharacterTypes.A:
+		GlobalConstants.CharacterTypes.A:
 			$OmniLightA.visible = true
 			$OmniLightB.visible = false
-		GameState.CharacterTypes.B:
+		GlobalConstants.CharacterTypes.B:
 			$OmniLightA.visible = false
 			$OmniLightB.visible = true
 

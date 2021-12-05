@@ -16,7 +16,7 @@ func _on_MainButtons_connect_to_game():
 
 
 func _on_MainButtons_new_game():
-	GameState.character_type = GameState.CharacterTypes.A
+	GameState.character_type = GlobalConstants.CharacterTypes.A
 	randomize()
 	var user_name = String(rand_range(1, 999999)) + String(GameState.character_type)
 	var result = yield(ServerConnection.authenticate_async(user_name), "completed")

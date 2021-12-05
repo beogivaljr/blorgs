@@ -11,6 +11,8 @@ enum SpellIds {
 	DESTROY_SUMMON,
 }
 
+enum CharacterTypes { NONE, A, B}
+
 const RANDOM_NAMES = [
 	"Blorgs",
 	"BIRL",

@@ -5,9 +5,9 @@ signal valid_parameter_selected(spell_id, node_name, location)
 
 
 func _ready():
-	_active_player_id = GameState.CharacterTypes.A
+	_active_player_id = GlobalConstants.CharacterTypes.A
 	_spawn_and_setup_player(_active_player_id)
-	_active_player_id = GameState.CharacterTypes.B
+	_active_player_id = GlobalConstants.CharacterTypes.B
 	_spawn_and_setup_player(_active_player_id)
 
 
@@ -28,9 +28,9 @@ func begin_casting_spell(spell_id):
 
 func _spawn_and_setup_player(type):
 	var player_spawn_node_name = "PlayerSpawn"
-	if type == GameState.CharacterTypes.A:
+	if type == GlobalConstants.CharacterTypes.A:
 		player_spawn_node_name += "A"
-	elif type == GameState.CharacterTypes.B:
+	elif type == GlobalConstants.CharacterTypes.B:
 		player_spawn_node_name += "B"
 	else:
 		assert(false)

@@ -2,17 +2,18 @@ extends Node
 
 signal all_spells_updated
 
+const _SPELLS = GlobalConstants.SpellIds
+const _CHARACTER_TYPES = GlobalConstants.CharacterTypes
+
 var current_level_index = 0
-enum CharacterTypes { NONE, A, B}
 var _spells_a
 var _spells_b
-const _SPELLS = GlobalConstants.SpellIds
 var character_type
 
 
 func on_player_list_updated(player_count):
 	if player_count < 2:
-		var game_over_popup = preload("res://ui/game_over/GameOverPopup.tscn").instance()
+		var game_over_popup = load("res://ui/game_over/GameOverPopup.tscn").instance()
 		get_tree().paused = true
 		get_tree().root.call_deferred("add_child", game_over_popup)
 		yield(game_over_popup, "ready")
@@ -26,9 +27,9 @@ func on_player_list_updated(player_count):
 
 func on_player_spells_updated(spells, p_player_type: int = character_type):
 	match p_player_type:
-		CharacterTypes.A:
+		_CHARACTER_TYPES.A:
 			_spells_a = spells
-		CharacterTypes.B:
+		_CHARACTER_TYPES.B:
 			_spells_b = spells
 
 
@@ -55,7 +56,7 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 func get_spells(p_player_type: int = character_type):
 	randomize()
 	match p_player_type:
-		CharacterTypes.A:
+		_CHARACTER_TYPES.A:
 			_spells_a = (
 				_spells_a
 				if _spells_a
@@ -69,7 +70,7 @@ func get_spells(p_player_type: int = character_type):
 
 			_spells_a.shuffle()
 			return _spells_a.duplicate()
-		CharacterTypes.B:
+		_CHARACTER_TYPES.B:
 			_spells_b = (
 				_spells_b
 				if _spells_b
@@ -87,8 +88,8 @@ func get_spells(p_player_type: int = character_type):
 
 func get_all_spells():
 	randomize()
-	var spells = get_spells(CharacterTypes.A) as Array
-	spells.append_array(get_spells(CharacterTypes.B))
+	var spells = get_spells(_CHARACTER_TYPES.A) as Array
+	spells.append_array(get_spells(_CHARACTER_TYPES.B))
 	spells.shuffle()
 	return spells
 

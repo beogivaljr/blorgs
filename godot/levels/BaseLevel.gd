@@ -4,16 +4,16 @@ extends Node
 signal level_finished
 signal level_failed
 
-export(GameState.CharacterTypes) var _starting_player_type
+export var _starting_player_type = GlobalConstants.CharacterTypes.NONE
 export(PackedScene) var _packed_world_a
 export(PackedScene) var _packed_world_b
 export(Array, GlobalConstants.SpellIds) var _current_level_spells = []
 
 onready var _world: BaseWorld = (
-		_packed_world_a.instance() if GameState.character_type == GameState.CharacterTypes.A
-		else _packed_world_b.instance() if GameState.character_type == GameState.CharacterTypes.B
+		_packed_world_a.instance() if (GameState.character_type == GlobalConstants.CharacterTypes.A)
+		else _packed_world_b.instance() if (GameState.character_type == GlobalConstants.CharacterTypes.B)
 		else null
-)
+	)
 onready var _hud = preload("res://ui/hud/sandbox/HUDSandbox.tscn").instance()
 
 

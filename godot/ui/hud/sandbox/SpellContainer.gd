@@ -14,7 +14,7 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, spel
 	var player_a_color = "ff7878"
 	var player_b_color = "6f96ff"
 	_spell = spell
-	if GameState.character_type== GameState.CharacterTypes.A:
+	if GameState.character_type == GlobalConstants.CharacterTypes.A:
 		$VBoxContainer/SpellName.add_color_override("font_color", Color(player_a_color))
 	else:
 		$VBoxContainer/SpellName.add_color_override("font_color", Color(player_b_color))

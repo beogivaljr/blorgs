@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://levels/maze/MazeLevel.gd" type="Script" id=1]
+[ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/maze/maze_2/MazeWorld2.tscn" type="PackedScene" id=3]
+
+[node name="MazeLevel2" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+_starting_player_type = 2
+_packed_world_a = ExtResource( 3 )
+_packed_world_b = ExtResource( 3 )
+_current_level_spells = [ 0, 1, 2, 3, 5, 7 ]
