@@ -25,7 +25,7 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, spel
 		if queue:
 			self.spell_queue_index = spell_queue_index
 			$VBoxContainer/HBoxContainer/SelectButton.visible = false
-			if spell.spell_call.character_type == GameState.CharacterTypes.A:
+			if spell.spell_call.character_type == GlobalConstants.CharacterTypes.A:
 				$VBoxContainer/SpellName.add_color_override("font_color", Color(player_a_color))
 			else:
 				$VBoxContainer/SpellName.add_color_override("font_color", Color(player_b_color))
@@ -62,7 +62,7 @@ func enable_buttons():
 func mark_spell_queue_item_as_done():
 	var disable_player_a_color = "a38989"
 	var disable_player_b_color = "76809c"
-	if _spell.spell_call.character_type == GameState.CharacterTypes.A:
+	if _spell.spell_call.character_type == GlobalConstants.CharacterTypes.A:
 		$VBoxContainer/SpellName.add_color_override("font_color", Color(disable_player_a_color))
 	else:
 		$VBoxContainer/SpellName.add_color_override("font_color", Color(disable_player_b_color))

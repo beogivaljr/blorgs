@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/interactables/gate/Gate.tscn" type="PackedScene" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://levels/interactables/magic_buttons/MagicRoundButton.tscn" type="PackedScene" id=6]
 [ext_resource path="res://levels/interactables/magic_buttons/MagicButton.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/interactables/finish_line/FinishLine.tscn" type="PackedScene" id=8]
+[ext_resource path="res://levels/maze/MazeLevel.gd" type="Script" id=9]
 
 [node name="MazeWorld3" instance=ExtResource( 1 )]
+script = ExtResource( 9 )
 
 [node name="NavGrid" parent="Navigation" index="0"]
 data = {

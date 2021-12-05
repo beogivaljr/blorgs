@@ -167,7 +167,7 @@ func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	add_child(creature, true)
 	creature.spawner = creature_spawner
 	creature.global_transform = creature_spawner.global_transform
-	creature.setup($Navigation, GameState.CharacterTypes.NONE)
+	creature.setup($Navigation, GlobalConstants.CharacterTypes.NONE)
 	set_active_character(creature)
 
 

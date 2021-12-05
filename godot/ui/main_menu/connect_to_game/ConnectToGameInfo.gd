@@ -4,7 +4,7 @@ signal play_pressed(code, playerName)
 
 
 func _on_PlayButton_pressed() -> void:
-	GameState.character_type = GameState.CharacterTypes.B
+	GameState.character_type = GlobalConstants.CharacterTypes.B
 	var game_code = $GameCodeLineEdit.text
 	var player_name = $PlayerName.text
 	yield(ServerConnection.authenticate_async("Jogador2"), "completed")

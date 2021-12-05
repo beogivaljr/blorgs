@@ -109,7 +109,7 @@ function match_control.match_leave(context, dispatcher, tick, state, presences)
 
     -- if no one is present, terminates the match
     dispatcher.broadcast_message(OpCodes.player_left, nakama.json_encode(state.presences.count))
-    return next(state.presences) and state???
+    return next(state.presences) and state
 end
 
 function match_control.match_loop(context, dispatcher, tick, state, messages)
