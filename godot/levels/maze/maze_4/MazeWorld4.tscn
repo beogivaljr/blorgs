@@ -8,7 +8,7 @@
 [ext_resource path="res://levels/interactables/magic_buttons/MovingPlatform.tscn" type="PackedScene" id=6]
 [ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawnerDescending.tscn" type="PackedScene" id=7]
 [ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawnerAscending.tscn" type="PackedScene" id=8]
-[ext_resource path="res://levels/maze/MazeLevel.gd" type="Script" id=9]
+[ext_resource path="res://levels/maze/MazeWorld.gd" type="Script" id=9]
 
 [node name="BaseWorld4" instance=ExtResource( 1 )]
 script = ExtResource( 9 )
