@@ -19,7 +19,7 @@ services:
       - "-ecx"
       - >
         /nakama/nakama migrate up --database.address root@cockroachdb:26257 &&
-        exec /nakama/nakama --name nakama1 --database.address root@cockroachdb:26257 --logger.level WARN --session.token_expiry_sec 7200 --metrics.prometheus_port 9100 --socket.server_key "blorgs"
+        exec /nakama/nakama --config /nakama/data/local.yaml --name nakama1 --database.address root@cockroachdb:26257 --logger.level WARN --session.token_expiry_sec 7200 --metrics.prometheus_port 9100 --socket.server_key "blorgs"
     restart: "no"
     links:
       - "cockroachdb:db"

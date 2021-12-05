@@ -38,10 +38,12 @@ func update_spells_queue(spell_queue):
 		_spells_queue.remove_child(container)
 		container.queue_free()
 
+	var spell_queue_index = 0
 	for spell in spell_queue:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell, _puzzle_mode, true)
-
+		spell_container.setup(spell, _puzzle_mode, true, spell_queue_index)
+		spell_queue_index += 1
+		
 		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
 
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
@@ -51,6 +53,12 @@ func update_spells_queue(spell_queue):
 		on_disable_undo(true)
 	elif spell_queue[-1].spell_call.character_type == GameState.character_type:
 		on_disable_undo(false)
+
+
+func on_started_autocasting_spell(spell_queue_index):
+	for container in _spells_queue.get_children():
+		if container.spell_queue_index == spell_queue_index:
+			container.mark_spell_queue_item_as_done()
 
 
 func _update_spells_list(spells):

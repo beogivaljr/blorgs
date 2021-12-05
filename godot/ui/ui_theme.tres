@@ -6,7 +6,7 @@
 default_font = ExtResource( 1 )
 Button/colors/font_color = Color( 1, 1, 1, 1 )
 Button/colors/font_color_disabled = Color( 0.41, 0.41, 0.41, 1 )
-Button/colors/font_color_focus = Color( 0.701961, 0.701961, 0.701961, 1 )
+Button/colors/font_color_focus = Color( 0.96, 0.96, 0.96, 1 )
 Button/colors/font_color_hover = Color( 0.701961, 0.701961, 0.701961, 1 )
 Button/colors/font_color_pressed = Color( 0.501961, 0.501961, 0.501961, 1 )
 Button/constants/hseparation = 0

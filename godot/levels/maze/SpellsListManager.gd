@@ -1,6 +1,7 @@
 extends Node
 
 signal spell_started(spell_id)
+signal started_autocasting_spell(spell_queue_index)
 signal spell_done(succeded)
 signal spell_list_updated(spell_list)
 signal game_over(won)
@@ -32,9 +33,12 @@ func start_simulation(spell_list, world: MazeWorld):
 	if not spell_list.empty():
 		var any_spell_id = GlobalConstants.SpellIds.MOVE_TO
 		emit_signal("spell_started", any_spell_id)
+		var spell_queue_index = 0
 		for spell in spell_list:
 			var spell_dto = (spell as SpellDTO)
 			var spell_id = spell_dto.spell_id
+			emit_signal("started_autocasting_spell", spell_queue_index)
+			spell_queue_index += 1
 			var spell_call_dto = spell_dto.spell_call
 			var player_id = spell_call_dto.character_type
 			var node_name = spell_call_dto.target_parameter_node_name

@@ -60,7 +60,7 @@ function match_control.match_init(context, params)
         ready_vote = {},
         sandbox_vote = {}
     }
-    local tick_rate = params.tick_rate or 5
+    local tick_rate = params.tick_rate or 10
     local label = params.label or "Game match"
 
     return state, tick_rate, label
@@ -99,7 +99,7 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
 end
 
 function match_control.match_leave(context, dispatcher, tick, state, presences)
-    for _, presence in ipairs(presences) do
+    for k, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences.count = state.presences.count - 1
         for key, _ in pairs(state) do

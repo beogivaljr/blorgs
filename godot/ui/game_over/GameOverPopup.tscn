@@ -40,16 +40,17 @@ __meta__ = {
 }
 
 [node name="WonLabel" type="Label" parent="VBoxContainer"]
-margin_top = 80.0
+margin_top = 52.0
 margin_right = 586.0
-margin_bottom = 133.0
-text = "Você venceu!"
+margin_bottom = 161.0
+text = "Vocês conseguiram!
+brab"
 align = 1
 
 [node name="NextLevelButton" type="Button" parent="VBoxContainer"]
-margin_top = 157.0
+margin_top = 185.0
 margin_right = 586.0
-margin_bottom = 216.0
+margin_bottom = 244.0
 text = "Próximo nível"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,17 +58,17 @@ __meta__ = {
 
 [node name="LostLabel" type="Label" parent="VBoxContainer"]
 visible = false
-margin_top = 42.0
-margin_right = 145.0
-margin_bottom = 56.0
+margin_top = 121.0
+margin_right = 586.0
+margin_bottom = 174.0
 text = "Ops, algo deu errado..."
 align = 1
 
 [node name="TryAgainButton" type="Button" parent="VBoxContainer"]
 visible = false
-margin_top = 60.0
-margin_right = 145.0
-margin_bottom = 80.0
+margin_top = 226.0
+margin_right = 586.0
+margin_bottom = 285.0
 text = "Tentar novamente"
 __meta__ = {
 "_edit_use_anchors_": false

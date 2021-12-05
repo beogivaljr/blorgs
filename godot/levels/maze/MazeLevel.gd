@@ -47,6 +47,7 @@ func _setup_spells_list_manager():
 	_spells_list_manager.connect("spell_started", _hud, "on_spell_started")
 	_spells_list_manager.connect("spell_done", _hud, "on_spell_done")
 	_spells_list_manager.connect("spell_list_updated", _hud, "update_spells_queue")
+	_spells_list_manager.connect("started_autocasting_spell", _hud, "on_started_autocasting_spell")
 	_spells_list_manager.connect("game_over", self, "_on_game_over")
 	add_child(_spells_list_manager)
 

@@ -31,7 +31,6 @@ func _on_MainButtons_new_game():
 
 
 func _on_player_list_updated(player_count):
-	ServerConnection.request_player_spells()
 	assert(get_tree().change_scene("res://levels/LevelManager.tscn") == OK)
 
 
