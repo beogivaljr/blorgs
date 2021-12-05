@@ -62,6 +62,7 @@ anims/Activate = SubResource( 8 )
 anims/RESET = SubResource( 10 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )

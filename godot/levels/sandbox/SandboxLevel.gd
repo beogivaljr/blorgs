@@ -21,8 +21,8 @@ func _setup_world():
 
 func _on_player_ready(spells):
 	var ready = spells != null
-	ServerConnection.send_spawn(_get_merged_spell_list(spells), ready)
 	if ready:
+		ServerConnection.send_spawn(_get_merged_spell_list(spells), ready)
 		yield(ServerConnection, "all_spells_updated")
 		emit_signal("level_finished")
 

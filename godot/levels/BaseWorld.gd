@@ -115,12 +115,11 @@ func begin_casting_spell(spell_id):
 	emit_signal("spell_selected", spell_id)
 	$Navigation.visible = spell_id == GlobalConstants.SpellIds.MOVE_TO
 	if _is_valid_destroy_summon(spell_id):
+		emit_signal("spell_started", spell_id)
 		if get_active_character() is Creature:
 			_disassemble_creature()
-			emit_signal("spell_started", spell_id)
 			call_deferred("emit_signal", "spell_done", true)
 		else:
-			emit_signal("spell_started", spell_id)
 			call_deferred("emit_signal", "spell_done", false)
 
 

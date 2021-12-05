@@ -44,8 +44,10 @@ func start_simulation(spell_list, world: MazeWorld):
 			var node_name = spell_call_dto.target_parameter_node_name
 			var location = spell_call_dto.target_parameter_location
 			world.auto_cast_spell(player_id, spell_id, node_name, location)
-			yield(world, "spell_done")
+			var spell_succeded = yield(world, "spell_done")
 			yield(get_tree().create_timer(0.25), "timeout") # Small delay between spells
+			if not spell_succeded:
+				break
 		if world.players_on_finish_line >= 2:
 			_game_over(true)
 			return

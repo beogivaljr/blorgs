@@ -24,6 +24,9 @@ func auto_cast_spell(player_id, spell_id, node_name, location):
 func begin_casting_spell(spell_id):
 	.begin_casting_spell(spell_id)
 	get_active_character().begin_casting_spell(spell_id)
+	if spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
+		begin_casting_spell(null)
+		emit_signal("valid_parameter_selected", spell_id, "no_param", Vector3.ZERO)
 
 
 func _spawn_and_setup_player(type):
@@ -54,7 +57,6 @@ func _validate_parameters(node, location):
 		or _is_valid_magic_button(spell, node)
 		or _is_valid_use_elevator(spell, node)
 		or _is_valid_summon_creature(spell, node)
-		or _is_valid_destroy_summon(spell)
 		):
 		begin_casting_spell(null)
 		emit_signal("valid_parameter_selected", spell, node.name, location)

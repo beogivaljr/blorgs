@@ -42,8 +42,37 @@ func on_all_spells_updated(spells):
 func _get_new_spell(spell_id: int) -> SpellDTO:
 	randomize()
 	var spell_name = SpellNameDTO.new()
-	spell_name.function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-	spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	
+	var SPD = GlobalConstants.SpellIds
+	match spell_id:
+		SPD.MOVE_TO:
+			spell_name.function_name = "Mover para"
+			spell_name.parameter_name = "local"
+		SPD.TOGGLE_GATE:
+			spell_name.function_name = "AbaixarOuLevantar"
+			spell_name.parameter_name = "portão"
+		SPD.USE_ELEVATOR:
+			spell_name.function_name = "Usar elevador"
+			spell_name.parameter_name = "elevador"
+		SPD.PRESS_SQUARE_BUTTON:
+			spell_name.function_name = "Pressionar quadrado"
+			spell_name.parameter_name = "botão"
+		SPD.PRESS_ROUND_BUTTON:
+			spell_name.function_name = "Pressionar redondo"
+			spell_name.parameter_name = "botão"
+		SPD.SUMMON_ASCENDING_PORTAL:
+			spell_name.function_name = "Invocar ascendente"
+			spell_name.parameter_name = "portal"
+		SPD.SUMMON_DESCENDING_PORTAL:
+			spell_name.function_name = "Invocar descendente"
+			spell_name.parameter_name = "portal"
+		SPD.DESTROY_SUMMON:
+			spell_name.function_name = "Destruir criatura"
+			spell_name.parameter_name = ""
+#	spell_name.function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+#	spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	
+	
 	var spell_call = SpellCallDTO.new()
 	spell_call.character_type = character_type
 	var spell = SpellDTO.new()
@@ -67,9 +96,9 @@ func get_spells(p_player_type: int = character_type):
 					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON)
 				]
 			)
-
 			_spells_a.shuffle()
-			return _spells_a.duplicate()
+			return _deep_copy(_spells_a)
+			
 		_CHARACTER_TYPES.B:
 			_spells_b = (
 				_spells_b
@@ -81,9 +110,8 @@ func get_spells(p_player_type: int = character_type):
 					_get_new_spell(_SPELLS.SUMMON_DESCENDING_PORTAL)
 				]
 			)
-
 			_spells_b.shuffle()
-			return _spells_b.duplicate()
+			return _deep_copy(_spells_b)
 
 
 func get_all_spells():
@@ -103,6 +131,11 @@ func get_spell(character_id, spell_id, node_name, location):
 			spell.spell_call.target_parameter_location = location
 			return spell
 	return null
+
+
+func _deep_copy(node):
+	return str2var(var2str(node))
+
 
 func clear():
 	current_level_index = 0
