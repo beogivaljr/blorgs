@@ -30,8 +30,8 @@ socket:
   protocol: tcp
   max_message_size_bytes: 16384
   max_request_size_bytes: 262144
-  read_buffer_size_bytes: 4096
-  write_buffer_size_bytes: 4096
+  read_buffer_size_bytes: 16384
+  write_buffer_size_bytes: 16384
   read_timeout_ms: 10000
   write_timeout_ms: 10000
   idle_timeout_ms: 60000

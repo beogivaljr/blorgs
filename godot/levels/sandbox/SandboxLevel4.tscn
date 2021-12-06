@@ -7,4 +7,4 @@
 [node name="SandboxLevel4" instance=ExtResource( 1 )]
 _packed_world_a = ExtResource( 3 )
 _packed_world_b = ExtResource( 2 )
-_current_level_spells = [ 0, 1, 2, 3, 5, 7 ]
+_current_level_spells = [ 0, 1, 2, 3, 5, 7, 6, 4 ]

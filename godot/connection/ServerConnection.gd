@@ -30,7 +30,7 @@ enum OpCodes {
 }
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, LOCAL_IP_ADDRESS, 7350, "http", 3, NakamaLogger.LOG_LEVEL.WARNING)
+var _client := Nakama.create_client(KEY, LOCAL_IP_ADDRESS, 7350, "http", 3, NakamaLogger.LOG_LEVEL.DEBUG)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}

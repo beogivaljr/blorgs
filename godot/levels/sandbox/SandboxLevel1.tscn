@@ -1,5 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://levels/sandbox/SandboxLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/sandbox/SandboxWorldB1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/sandbox/SandboxWorldA1.tscn" type="PackedScene" id=3]
 
 [node name="SandboxLevel1" instance=ExtResource( 1 )]
+_packed_world_a = ExtResource( 3 )
+_packed_world_b = ExtResource( 2 )
+_current_level_spells = [ 0, 1, 2, 3 ]
