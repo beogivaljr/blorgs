@@ -41,12 +41,12 @@ commands[OpCodes.request_spell_queue] = function(data, state, user_id)
 end
 
 commands[OpCodes.send_ready_to_start_state] = function(data, state, user_id)
-    state.spell_queue = data.spell_queue or state.spell_queue
+    state.spell_queue.all = data.spell_queue or state.spell_queue.all
     state.ready_vote[user_id] = data.ready
 end
 
 commands[OpCodes.send_pass_turn] = function(data, state, user_id)
-    state.spell_queue = data.spell_queue
+    state.spell_queue.all = data.spell_queue
 end
 
 function match_control.match_init(context, params)
@@ -161,7 +161,7 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
             elseif op_code == OpCodes.request_spell_queue then
                 dispatcher.broadcast_message(
                     OpCodes.spell_queue,
-                    nakama.json_encode(state.spell_queue),
+                    nakama.json_encode(state.spell_queue.all),
                     {message.sender}
                 )
             elseif op_code == OpCodes.send_ready_to_start_state then
@@ -178,12 +178,17 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                     return state
                 end
                 state.ready_vote = {}
-                dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue))
+                dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue.all))
             elseif op_code == OpCodes.send_pass_turn then
+                local other_player_presence = find_other_sender(state, sender_id)
+                if state.ready_vote[other_player_presence.user_id] then
+                    -- Do not send your_turn if player has already passed their turn
+                    return state
+                end
                 dispatcher.broadcast_message(
                     OpCodes.your_turn,
-                    nakama.json_encode(state.spell_queue),
-                    {find_other_sender(state, sender_id)}
+                    nakama.json_encode(state.spell_queue.all),
+                    {other_player_presence}
                 )
             end
         end

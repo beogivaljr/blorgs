@@ -30,7 +30,7 @@ enum OpCodes {
 }
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, LOCAL_IP_ADDRESS, 7350, "http", 3, NakamaLogger.LOG_LEVEL.DEBUG)
+var _client := Nakama.create_client(KEY, LOCAL_IP_ADDRESS, 7350, "http", 3, NakamaLogger.LOG_LEVEL.WARNING)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}
@@ -148,7 +148,6 @@ func send_pass_turn(spell_list) -> void:
 func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 	var code := match_state.op_code
 	var raw := match_state.data
-
 	match code:
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result

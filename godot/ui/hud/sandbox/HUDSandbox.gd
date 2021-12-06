@@ -49,10 +49,11 @@ func update_spells_queue(spell_queue):
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
 		_spells_queue.add_child(spell_container)
-	if spell_queue.empty() or spell_queue[-1].spell_call.character_type != GameState.character_type:
-		on_disable_undo(true)
-	elif spell_queue[-1].spell_call.character_type == GameState.character_type:
-		on_disable_undo(false)
+	if not $HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed:
+		if spell_queue.empty() or spell_queue[-1].spell_call.character_type != GameState.character_type:
+			on_disable_undo(true)
+		elif spell_queue[-1].spell_call.character_type == GameState.character_type:
+			on_disable_undo(false)
 
 
 func on_started_autocasting_spell(spell_queue_index):
@@ -169,3 +170,7 @@ func _on_TurnButton_pressed():
 
 func on_received_other_player_ready(ready):
 	$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = ready
+
+
+func hide_available_spells_container(_spell_list):
+	$AnimationPlayer.play("CollapseAvailableSpells")

@@ -10,7 +10,7 @@ var _spell: SpellDTO
 var spell_queue_index = INF
 
 
-func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, spell_queue_index: int = INF):
+func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, new_spell_queue_index: int = INF):
 	var player_a_color = "ff7878"
 	var player_b_color = "6f96ff"
 	_spell = spell
@@ -23,7 +23,7 @@ func setup(spell: SpellDTO, puzzle_mode: bool = false, queue: bool = false, spel
 		$VBoxContainer/HBoxContainer/RenameParamButton.visible = false
 		$VBoxContainer/HBoxContainer/SelectButton.set_text("Adicionar à lista")
 		if queue:
-			self.spell_queue_index = spell_queue_index
+			self.spell_queue_index = new_spell_queue_index
 			$VBoxContainer/HBoxContainer/SelectButton.visible = false
 			if spell.spell_call.character_type == GlobalConstants.CharacterTypes.A:
 				$VBoxContainer/SpellName.add_color_override("font_color", Color(player_a_color))

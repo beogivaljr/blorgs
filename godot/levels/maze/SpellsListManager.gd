@@ -29,7 +29,13 @@ func send_ready_and_spell_call_list(ready):
 	ServerConnection.send_ready_state(_spell_call_list, ready)
 
 
-func start_simulation(spell_list, world: MazeWorld):
+func on_received_start_simulation(spell_list, world: MazeWorld):
+	_spell_call_list = spell_list
+	emit_signal("spell_list_updated", spell_list)
+	call_deferred("_start_simulation", spell_list, world)
+
+
+func _start_simulation(spell_list, world: MazeWorld):
 	if not spell_list.empty():
 		var any_spell_id = GlobalConstants.SpellIds.MOVE_TO
 		emit_signal("spell_started", any_spell_id)

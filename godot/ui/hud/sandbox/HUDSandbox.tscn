@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ui/hud/sandbox/SelectedSpellPanelContainer.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/sandbox/QuitButton.gd" type="Script" id=2]
@@ -7,6 +7,32 @@
 [ext_resource path="res://ui/hud/sandbox/HamburgerPanel.gd" type="Script" id=5]
 [ext_resource path="res://ui/hud/sandbox/HUDSandbox.gd" type="Script" id=6]
 [ext_resource path="res://ui/hud/sandbox/SpellsList.gd" type="Script" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "CollapseAvailableSpells"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("HamburgerContainer:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -600, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1 )
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("HamburgerContainer:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
 
 [node name="HUDSandbox" type="Control"]
 anchor_right = 1.0
@@ -24,7 +50,7 @@ __meta__ = {
 
 [node name="HamburgerContainer" type="HBoxContainer" parent="."]
 anchor_bottom = 1.0
-margin_right = 147.0
+margin_right = 288.0
 size_flags_horizontal = 0
 size_flags_vertical = 3
 __meta__ = {
@@ -229,6 +255,10 @@ margin_right = 247.0
 margin_bottom = 796.0
 toggle_mode = true
 text = "Pronto ▶"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/CollapseAvailableSpells = SubResource( 1 )
+anims/RESET = SubResource( 2 )
 
 [connection signal="spell_renamed" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]
 [connection signal="spell_selected" from="HamburgerContainer/SpellPanel/VBoxContainer/ScrollContainer/SpellsList" to="SelectedSpellPanelContainer" method="_on_spell_selected"]

@@ -23,7 +23,8 @@ func _ready():
 func _bind_server_signals():
 	ServerConnection.connect("all_spell_calls_updated", _spells_list_manager, "on_spell_call_list_updated")
 	ServerConnection.connect("your_turn_started", self, "_on_your_turn_started")
-	ServerConnection.connect("received_start_simulation", _spells_list_manager, "start_simulation", [_world])
+	ServerConnection.connect("received_start_simulation", _spells_list_manager, "on_received_start_simulation", [_world])
+	ServerConnection.connect("received_start_simulation", _hud, "hide_available_spells_container")
 	ServerConnection.connect("received_other_player_ready", _hud, "on_received_other_player_ready")
 
 

@@ -6,7 +6,7 @@
 
 [node name="MazeLevel3" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-_starting_player_type = 1
+_starting_player_type = 2
 _packed_world_a = ExtResource( 3 )
 _packed_world_b = ExtResource( 3 )
 _current_level_spells = [ 0, 1, 2, 3, 5, 7, 4 ]

@@ -43,34 +43,34 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 	randomize()
 	var spell_name = SpellNameDTO.new()
 	
-	var SPD = GlobalConstants.SpellIds
-	match spell_id:
-		SPD.MOVE_TO:
-			spell_name.function_name = "Mover para"
-			spell_name.parameter_name = "local"
-		SPD.TOGGLE_GATE:
-			spell_name.function_name = "AbaixarOuLevantar"
-			spell_name.parameter_name = "portão"
-		SPD.USE_ELEVATOR:
-			spell_name.function_name = "Usar elevador"
-			spell_name.parameter_name = "elevador"
-		SPD.PRESS_SQUARE_BUTTON:
-			spell_name.function_name = "Pressionar quadrado"
-			spell_name.parameter_name = "botão"
-		SPD.PRESS_ROUND_BUTTON:
-			spell_name.function_name = "Pressionar redondo"
-			spell_name.parameter_name = "botão"
-		SPD.SUMMON_ASCENDING_PORTAL:
-			spell_name.function_name = "Invocar ascendente"
-			spell_name.parameter_name = "portal"
-		SPD.SUMMON_DESCENDING_PORTAL:
-			spell_name.function_name = "Invocar descendente"
-			spell_name.parameter_name = "portal"
-		SPD.DESTROY_SUMMON:
-			spell_name.function_name = "Destruir criatura"
-			spell_name.parameter_name = ""
-#	spell_name.function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-#	spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+#	var SPD = GlobalConstants.SpellIds
+#	match spell_id:
+#		SPD.MOVE_TO:
+#			spell_name.function_name = "Mover para"
+#			spell_name.parameter_name = "local"
+#		SPD.TOGGLE_GATE:
+#			spell_name.function_name = "AbaixarOuLevantar"
+#			spell_name.parameter_name = "portão"
+#		SPD.USE_ELEVATOR:
+#			spell_name.function_name = "Usar elevador"
+#			spell_name.parameter_name = "elevador"
+#		SPD.PRESS_SQUARE_BUTTON:
+#			spell_name.function_name = "Pressionar quadrado"
+#			spell_name.parameter_name = "botão"
+#		SPD.PRESS_ROUND_BUTTON:
+#			spell_name.function_name = "Pressionar redondo"
+#			spell_name.parameter_name = "botão"
+#		SPD.SUMMON_ASCENDING_PORTAL:
+#			spell_name.function_name = "Invocar ascendente"
+#			spell_name.parameter_name = "portal"
+#		SPD.SUMMON_DESCENDING_PORTAL:
+#			spell_name.function_name = "Invocar descendente"
+#			spell_name.parameter_name = "portal"
+#		SPD.DESTROY_SUMMON:
+#			spell_name.function_name = "Destruir criatura"
+#			spell_name.parameter_name = ""
+	spell_name.function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 	
 	
 	var spell_call = SpellCallDTO.new()

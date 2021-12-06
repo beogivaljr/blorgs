@@ -12,6 +12,7 @@ var _active_player_id = null
 var _players: Dictionary
 var _current_character_for_player_id: Dictionary
 var _disassembled_creatures_for_player_id: Dictionary
+var _has_started_auto_casting = false
 onready var _world_input_handler = $WorldInputHandler
 
 

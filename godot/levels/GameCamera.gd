@@ -6,14 +6,18 @@ export var max_vertical_pan_offset = 14.0
 export var max_horizontal_pan_offset = 20.0
 
 var target_to_follow: Node
+var follow_persist_frames = 6
 var _block_target_follow = false
 
 
 func _process(delta):
 	if target_to_follow and not _block_target_follow:
 		transform.origin = lerp(transform.origin, target_to_follow.transform.origin, delta)
-		if transform.origin.distance_squared_to(target_to_follow.transform.origin) < 0.1:
-			target_to_follow = null
+		if transform.origin.distance_squared_to(target_to_follow.transform.origin) < 0.4:
+			follow_persist_frames -= 1
+			if follow_persist_frames < 0:
+				follow_persist_frames = 6
+				target_to_follow = null
 	
 	var relative_x = Input.get_action_strength("camera_right") - Input.get_action_strength("camera_left")
 	var relative_z = Input.get_action_strength("camera_down") - Input.get_action_strength("camera_up")

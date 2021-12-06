@@ -2,8 +2,8 @@ extends Node
 
 
 var _level_list = [
-	preload("res://levels/sandbox/SandboxLevel1.tscn"),
-	preload("res://levels/maze/maze_1/MazeLevel1.tscn"),
+#	preload("res://levels/sandbox/SandboxLevel1.tscn"),
+#	preload("res://levels/maze/maze_1/MazeLevel1.tscn"),
 	preload("res://levels/sandbox/SandboxLevel2.tscn"),
 	preload("res://levels/maze/maze_2/MazeLevel2.tscn"),
 	preload("res://levels/sandbox/SandboxLevel3.tscn"),

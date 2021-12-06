@@ -3,7 +3,6 @@ extends BaseWorld
 
 signal valid_parameter_selected(spell_id, node_name, location)
 
-
 func _ready():
 	_active_player_id = GlobalConstants.CharacterTypes.A
 	_spawn_and_setup_player(_active_player_id)
@@ -12,7 +11,9 @@ func _ready():
 
 
 func auto_cast_spell(player_id, spell_id, node_name, location):
+	_has_started_auto_casting = true
 	_active_player_id = player_id
+	$GameCamera.target_to_follow = get_active_character()
 	begin_casting_spell(spell_id)
 	var node: Node = null
 	if has_node(node_name):
@@ -24,7 +25,10 @@ func auto_cast_spell(player_id, spell_id, node_name, location):
 func begin_casting_spell(spell_id):
 	.begin_casting_spell(spell_id)
 	get_active_character().begin_casting_spell(spell_id)
-	if spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON:
+	if (
+			spell_id == GlobalConstants.SpellIds.DESTROY_SUMMON
+			and not _has_started_auto_casting
+	):
 		begin_casting_spell(null)
 		emit_signal("valid_parameter_selected", spell_id, "no_param", Vector3.ZERO)
 
@@ -50,6 +54,8 @@ func _spawn_and_setup_player(type):
 
 
 func _validate_parameters(node, location):
+	if _has_started_auto_casting:
+		return
 	var spell = _active_spell_id
 	if (
 		_is_valid_move_to(spell, location)
