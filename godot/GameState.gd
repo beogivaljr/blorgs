@@ -40,7 +40,6 @@ func on_all_spells_updated(spells):
 
 
 func _get_new_spell(spell_id: int) -> SpellDTO:
-	randomize()
 	var spell_name = SpellNameDTO.new()
 	
 #	var SPD = GlobalConstants.SpellIds
@@ -69,8 +68,9 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 #		SPD.DESTROY_SUMMON:
 #			spell_name.function = "Destruir criatura"
 #			spell_name.parameter = ""
-	spell_name.function = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-	spell_name.parameter = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	var random_name_pair = _get_random_name_pair()
+	spell_name.function = random_name_pair.function
+	spell_name.parameter = random_name_pair.parameter
 	
 	
 	var spell_call = SpellCallDTO.new()
@@ -133,12 +133,26 @@ func get_spell(character_id, spell_id, node_name, location):
 	return null
 
 
-func _deep_copy(node):
-	return str2var(var2str(node))
-
-
 func clear():
 	current_level_index = 0
 	_spells_a = null
 	_spells_b = null
 	character_type = null
+
+
+func _deep_copy(node):
+	return str2var(var2str(node))
+
+func _get_random_name_pair():
+	randomize()
+	var function: String
+	var parameter: String
+	for i in range(20):
+		function = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+		parameter = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+		if function.length() + parameter.length() < 28:
+			break
+	return {
+		function = function,
+		parameter = parameter
+	}

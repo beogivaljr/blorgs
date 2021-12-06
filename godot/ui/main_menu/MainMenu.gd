@@ -23,7 +23,7 @@ func _on_MainButtons_new_game():
 	if result == OK:
 		yield(ServerConnection.connect_to_server_async(), "completed")
 		var match_code = yield(ServerConnection.create_match_async(), "completed")
-		$ScreensContainer/NewGameInfo.set_game_code(match_code)
+		$VBoxContainer/ScreensContainer/NewGameInfo.set_game_code(match_code)
 		_join_match(match_code)
 		_set_screen(NEW_GAME_INFO)
 	elif OS.is_debug_build():
@@ -48,18 +48,18 @@ func _on_ConnectToGameInfo_play_pressed(match_code, _playerName) -> void:
 
 
 func _set_screen(screen):
-	for child in $ScreensContainer.get_children():
+	for child in $VBoxContainer/ScreensContainer.get_children():
 		child.visible = false
 
 	match screen:
 		MAIN_BUTTONS:
-			$ScreensContainer/MainButtons.visible = true
+			$VBoxContainer/ScreensContainer/MainButtons.visible = true
 		NEW_GAME_INFO:
-			$ScreensContainer/NewGameInfo.visible = true
+			$VBoxContainer/ScreensContainer/NewGameInfo.visible = true
 		CONNECT_TO_GAME_INFO:
-			$ScreensContainer/ConnectToGameInfo.visible = true
+			$VBoxContainer/ScreensContainer/ConnectToGameInfo.visible = true
 		CONNECTING:
-			$ScreensContainer/Connecting.visible = true
+			$VBoxContainer/ScreensContainer/Connecting.visible = true
 
 
 func _on_Connecting_canceled() -> void:

@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/main_menu/new_game/NewGameInfo.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [node name="NewGameInfo" type="VBoxContainer"]
 anchor_right = 1.0
@@ -11,29 +17,34 @@ __meta__ = {
 }
 
 [node name="GameCodeMessage" type="Label" parent="."]
-margin_right = 1920.0
+margin_right = 1440.0
 margin_bottom = 14.0
 text = "O código para o seu jogo é:"
 
-[node name="GameCode" type="RichTextLabel" parent="."]
+[node name="GameCode" type="LineEdit" parent="."]
 margin_top = 18.0
-margin_right = 1920.0
-margin_bottom = 33.0
-focus_mode = 2
+margin_right = 1440.0
+margin_bottom = 32.0
+custom_colors/font_color_uneditable = Color( 1, 1, 1, 1 )
+custom_styles/read_only = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 text = "GAMECODE"
-fit_content_height = true
-selection_enabled = true
+editable = false
+expand_to_text_length = true
+virtual_keyboard_enabled = false
 
 [node name="WaitingMessage" type="Label" parent="."]
-margin_top = 37.0
-margin_right = 1920.0
-margin_bottom = 51.0
+margin_top = 36.0
+margin_right = 1440.0
+margin_bottom = 50.0
 text = "Aguardando a conexão de um amigo..."
 
 [node name="Cancel" type="Button" parent="."]
-margin_top = 55.0
-margin_right = 1920.0
-margin_bottom = 75.0
+margin_top = 54.0
+margin_right = 1440.0
+margin_bottom = 74.0
 text = "Cancelar"
 
+[connection signal="gui_input" from="GameCode" to="." method="_on_GameCode_gui_input"]
 [connection signal="pressed" from="Cancel" to="." method="_on_Cancel_pressed"]

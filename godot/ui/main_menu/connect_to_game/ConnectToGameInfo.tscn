@@ -4,9 +4,8 @@
 [ext_resource path="res://ui/main_menu/connect_to_game/ConnectToGameInfo.gd" type="Script" id=2]
 
 [node name="ConnectToGameInfo" type="VBoxContainer"]
-margin_left = 280.0
-margin_right = 680.0
-margin_bottom = 200.0
+anchor_right = 1.0
+margin_bottom = 131.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
@@ -15,15 +14,16 @@ __meta__ = {
 }
 
 [node name="GameCodeMessage" type="Label" parent="."]
-margin_right = 400.0
+margin_right = 1440.0
 margin_bottom = 14.0
 text = "Código do jogo"
 
 [node name="GameCodeLineEdit" type="LineEdit" parent="."]
 margin_top = 18.0
-margin_right = 400.0
+margin_right = 1440.0
 margin_bottom = 107.0
 custom_fonts/font = ExtResource( 1 )
+clear_button_enabled = true
 placeholder_text = "XXXXXX"
 
 [node name="PlayerNameMessage" type="Label" parent="."]
@@ -44,7 +44,7 @@ placeholder_text = "Digite seu Nome..."
 
 [node name="PlayButton" type="Button" parent="."]
 margin_top = 111.0
-margin_right = 400.0
+margin_right = 1440.0
 margin_bottom = 131.0
 text = "Jogar"
 
