@@ -50,9 +50,9 @@ func update_spells_queue(spell_queue):
 
 		_spells_queue.add_child(spell_container)
 	if not $HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed:
-		if spell_queue.empty() or spell_queue[-1].spell_call.character_type != GameState.character_type:
+		if spell_queue.empty() or spell_queue[-1].call_dto.character_type != GameState.character_type:
 			on_disable_undo(true)
-		elif spell_queue[-1].spell_call.character_type == GameState.character_type:
+		elif spell_queue[-1].call_dto.character_type == GameState.character_type:
 			on_disable_undo(false)
 
 
@@ -118,7 +118,7 @@ func on_spell_started(_spell_id: int):
 
 func on_spell_done(succeded: bool = true):
 	if not succeded:
-		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
+		var spell_name = _active_spell.name_dto.function if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
 	$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = false
 	_spells_list.enable_buttons()
@@ -127,7 +127,7 @@ func on_spell_done(succeded: bool = true):
 func _on_spell_selected(spell: SpellDTO):
 	_active_spell = spell
 	if spell:
-		emit_signal("spell_selected", _active_spell.spell_id)
+		emit_signal("spell_selected", _active_spell.id)
 	else:
 		emit_signal("spell_selected", null)
 

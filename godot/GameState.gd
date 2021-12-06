@@ -46,39 +46,39 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 #	var SPD = GlobalConstants.SpellIds
 #	match spell_id:
 #		SPD.MOVE_TO:
-#			spell_name.function_name = "Mover para"
-#			spell_name.parameter_name = "local"
+#			spell_name.function = "Mover para"
+#			spell_name.parameter = "local"
 #		SPD.TOGGLE_GATE:
-#			spell_name.function_name = "AbaixarOuLevantar"
-#			spell_name.parameter_name = "portão"
+#			spell_name.function = "AbaixarOuLevantar"
+#			spell_name.parameter = "portão"
 #		SPD.USE_ELEVATOR:
-#			spell_name.function_name = "Usar elevador"
-#			spell_name.parameter_name = "elevador"
+#			spell_name.function = "Usar elevador"
+#			spell_name.parameter = "elevador"
 #		SPD.PRESS_SQUARE_BUTTON:
-#			spell_name.function_name = "Pressionar quadrado"
-#			spell_name.parameter_name = "botão"
+#			spell_name.function = "Pressionar quadrado"
+#			spell_name.parameter = "botão"
 #		SPD.PRESS_ROUND_BUTTON:
-#			spell_name.function_name = "Pressionar redondo"
-#			spell_name.parameter_name = "botão"
+#			spell_name.function = "Pressionar redondo"
+#			spell_name.parameter = "botão"
 #		SPD.SUMMON_ASCENDING_PORTAL:
-#			spell_name.function_name = "Invocar ascendente"
-#			spell_name.parameter_name = "portal"
+#			spell_name.function = "Invocar ascendente"
+#			spell_name.parameter = "portal"
 #		SPD.SUMMON_DESCENDING_PORTAL:
-#			spell_name.function_name = "Invocar descendente"
-#			spell_name.parameter_name = "portal"
+#			spell_name.function = "Invocar descendente"
+#			spell_name.parameter = "portal"
 #		SPD.DESTROY_SUMMON:
-#			spell_name.function_name = "Destruir criatura"
-#			spell_name.parameter_name = ""
-	spell_name.function_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
-	spell_name.parameter_name = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+#			spell_name.function = "Destruir criatura"
+#			spell_name.parameter = ""
+	spell_name.function = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
+	spell_name.parameter = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 	
 	
 	var spell_call = SpellCallDTO.new()
 	spell_call.character_type = character_type
 	var spell = SpellDTO.new()
-	spell.spell_id = spell_id
-	spell.spell_name = spell_name
-	spell.spell_call = spell_call
+	spell.id = spell_id
+	spell.name_dto = spell_name
+	spell.call_dto = spell_call
 	return spell
 
 
@@ -125,10 +125,10 @@ func get_all_spells():
 func get_spell(character_id, spell_id, node_name, location):
 	var all_spells = get_all_spells()
 	for spell in all_spells:
-		if spell.spell_id == spell_id:
-			spell.spell_call.character_type = character_id
-			spell.spell_call.target_parameter_node_name = node_name
-			spell.spell_call.target_parameter_location = location
+		if spell.id == spell_id:
+			spell.call_dto.character_type = character_id
+			spell.call_dto.param_node_name = node_name
+			spell.call_dto.param_location = location
 			return spell
 	return null
 

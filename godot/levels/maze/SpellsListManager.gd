@@ -42,13 +42,13 @@ func _start_simulation(spell_list, world: MazeWorld):
 		var spell_queue_index = 0
 		for spell in spell_list:
 			var spell_dto = (spell as SpellDTO)
-			var spell_id = spell_dto.spell_id
+			var spell_id = spell_dto.id
 			emit_signal("started_autocasting_spell", spell_queue_index)
 			spell_queue_index += 1
-			var spell_call_dto = spell_dto.spell_call
+			var spell_call_dto = spell_dto.call_dto
 			var player_id = spell_call_dto.character_type
-			var node_name = spell_call_dto.target_parameter_node_name
-			var location = spell_call_dto.target_parameter_location
+			var node_name = spell_call_dto.param_node_name
+			var location = spell_call_dto.param_location
 			world.auto_cast_spell(player_id, spell_id, node_name, location)
 			var spell_succeded = yield(world, "spell_done")
 			yield(get_tree().create_timer(0.25), "timeout") # Small delay between spells

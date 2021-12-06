@@ -1,5 +1,5 @@
 class_name SpellNameDTO
 extends Object
 
-var function_name: String
-var parameter_name: String
+var function: String
+var parameter: String
