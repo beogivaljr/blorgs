@@ -3,6 +3,9 @@ extends BaseWorld
 
 signal valid_parameter_selected(spell_id, node_name, location)
 
+var _has_started_auto_casting = false
+
+
 func _ready():
 	_active_player_id = GlobalConstants.CharacterTypes.A
 	_spawn_and_setup_player(_active_player_id)
