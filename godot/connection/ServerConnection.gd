@@ -1,9 +1,5 @@
 extends Node
 
-const KEY := "blorgs"
-const ONLINE_IP_ADDRESS = "159.203.114.254"
-const LOCAL_IP_ADDRESS = "127.0.0.1"
-
 signal player_spells_updated(player_spells)
 signal all_spells_updated(all_spells)
 signal all_spell_calls_updated(spell_list)
@@ -30,7 +26,7 @@ enum OpCodes {
 }
 
 var _session: NakamaSession
-var _client := Nakama.create_client(KEY, LOCAL_IP_ADDRESS, 7350, "http", 3, NakamaLogger.LOG_LEVEL.WARNING)
+var _client := Nakama.create_client(ServerConstants.SERVER_KEY, ServerConstants.ONLINE_IP_ADDRESS)
 var _socket: NakamaSocket
 var _match_id := ""
 var _presences := {}
@@ -128,6 +124,7 @@ func request_all_spell_calls() -> void:
 
 
 func send_ready_state(spell_list, ready) -> void:
+	print("send_ready_state")
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({
@@ -138,6 +135,7 @@ func send_ready_state(spell_list, ready) -> void:
 
 
 func send_pass_turn(spell_list) -> void:
+	print("send_pass_turn")
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = var2str(spell_list)})
@@ -171,10 +169,12 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 			emit_signal("all_spell_calls_updated", spell_queue)
 		OpCodes.START_SIMULATION:
 			var spell_queue = str2var(JSON.parse(raw).result)
+			print("StartSimularion")
 			emit_signal("received_start_simulation", spell_queue)
 		OpCodes.YOUR_TURN:
 			var spell_queue = str2var(JSON.parse(raw).result)
 			emit_signal("your_turn_started", spell_queue)
 		OpCodes.OTHER_PLAYER_READY:
 			var other_player_ready: bool = JSON.parse(raw).result
+			print("other_player_ready")
 			emit_signal("received_other_player_ready", other_player_ready)

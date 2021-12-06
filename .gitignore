@@ -1,3 +1,7 @@
+# Keys ignores
+godot/keys
+nakama/local.yaml
+
 # MacOs files
 .DS_Store
 

@@ -11,13 +11,13 @@ __meta__ = {
 }
 
 [node name="GameCodeMessage" type="Label" parent="."]
-margin_right = 1440.0
+margin_right = 1920.0
 margin_bottom = 14.0
 text = "O código para o seu jogo é:"
 
 [node name="GameCode" type="RichTextLabel" parent="."]
 margin_top = 18.0
-margin_right = 1440.0
+margin_right = 1920.0
 margin_bottom = 33.0
 focus_mode = 2
 text = "GAMECODE"
@@ -26,13 +26,13 @@ selection_enabled = true
 
 [node name="WaitingMessage" type="Label" parent="."]
 margin_top = 37.0
-margin_right = 1440.0
+margin_right = 1920.0
 margin_bottom = 51.0
 text = "Aguardando a conexão de um amigo..."
 
 [node name="Cancel" type="Button" parent="."]
 margin_top = 55.0
-margin_right = 1440.0
+margin_right = 1920.0
 margin_bottom = 75.0
 text = "Cancelar"
 

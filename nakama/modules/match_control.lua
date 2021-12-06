@@ -134,19 +134,18 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                         ready_count = ready_count + 1
                     end
                 end
-                if ready_count < 2 then
-                    return state
-                end
-                state.ready_vote = {}
-                dispatcher.broadcast_message(
-                    OpCodes.available_spells,
-                    nakama.json_encode(
-                        {
-                            player_a_spells = state.available_spells[1],
-                            player_b_spells = state.available_spells[2]
-                        }
+                if ready_count >= 2 then
+                    state.ready_vote = {}
+                    dispatcher.broadcast_message(
+                            OpCodes.available_spells,
+                            nakama.json_encode(
+                                    {
+                                        player_a_spells = state.available_spells[1],
+                                        player_b_spells = state.available_spells[2]
+                                    }
+                            )
                     )
-                )
+                end
             elseif op_code == OpCodes.request_available_spells then
                 dispatcher.broadcast_message(
                     OpCodes.available_spells,
@@ -165,31 +164,30 @@ function match_control.match_loop(context, dispatcher, tick, state, messages)
                     {message.sender}
                 )
             elseif op_code == OpCodes.send_ready_to_start_state then
+                local other_player_presence = find_other_sender(state, sender_id)
                 dispatcher.broadcast_message(OpCodes.other_player_ready,
                     nakama.json_encode(state.ready_vote[sender_id]),
-                    {find_other_sender(state, sender_id)})
+                    {other_player_presence})
                 local ready_count = 0
                 for _, ready in pairs(state.ready_vote) do
                     if ready then
                         ready_count = ready_count + 1
                     end
                 end
-                if ready_count < 2 then
-                    return state
+                if ready_count >= 2 then
+                    state.ready_vote = {}
+                    dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue.all))
                 end
-                state.ready_vote = {}
-                dispatcher.broadcast_message(OpCodes.start_simulation, nakama.json_encode(state.spell_queue.all))
             elseif op_code == OpCodes.send_pass_turn then
                 local other_player_presence = find_other_sender(state, sender_id)
-                if state.ready_vote[other_player_presence.user_id] then
+                if not state.ready_vote[other_player_presence.user_id] then
                     -- Do not send your_turn if player has already passed their turn
-                    return state
+                    dispatcher.broadcast_message(
+                            OpCodes.your_turn,
+                            nakama.json_encode(state.spell_queue.all),
+                            {other_player_presence}
+                    )
                 end
-                dispatcher.broadcast_message(
-                    OpCodes.your_turn,
-                    nakama.json_encode(state.spell_queue.all),
-                    {other_player_presence}
-                )
             end
         end
     end
