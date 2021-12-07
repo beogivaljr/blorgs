@@ -64,7 +64,6 @@ func _on_your_turn_started(spell_call_list):
 
 
 func _on_game_over(won):
-	get_tree().paused = true
 	var game_over_popup = preload("res://ui/game_over/GameOverPopup.tscn").instance()
 	call_deferred("add_child", game_over_popup)
 	yield(game_over_popup, "ready")
@@ -74,12 +73,10 @@ func _on_game_over(won):
 
 
 func _on_next_level_button_pressed():
-	get_tree().paused = false
 	emit_signal("level_finished")
 
 
 func _on_try_again_button_pressed():
-	get_tree().paused = false
 	emit_signal("level_failed")
 
 

@@ -68,7 +68,7 @@ func _physics_process(delta):
 #			_snap_vector = Vector3.ZERO
 #		elif just_landed:
 #			_snap_vector = Vector3.DOWN
-	_velocity = _velocity + _body.get_floor_velocity() * 1.2 # Prevents it from sliding on platforms
+	_velocity = _velocity + _body.get_floor_velocity() * 1.1 # Prevents it from sliding on platforms
 	_velocity = _body.move_and_slide_with_snap(_velocity, _snap_vector, Vector3.UP, true)
 		
 	## Look at movement direction

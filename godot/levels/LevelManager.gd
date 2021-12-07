@@ -46,6 +46,7 @@ func _on_level_failed():
 func _load_next_level():
 	GameState.current_level_index += 1
 	if GameState.current_level_index >= _level_list.size():
+		GameState.clear()
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Main.tscn")
 	else:
@@ -55,6 +56,7 @@ func _load_next_level():
 func _load_previous_level():
 	GameState.current_level_index -= 1
 	if GameState.current_level_index < 0:
+		GameState.clear()
 		# warning-ignore:return_value_discarded
 		get_tree().change_scene("res://Main.tscn")
 	else:

@@ -51,21 +51,15 @@ func connect_to_server_async() -> int:
 	if _session:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
 		if not result.is_exception():
-			assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
-			assert(
-				(
-					_socket.connect(
-						"received_match_state", self, "_on_NakamaSocket_received_match_state"
-					)
-					== OK
-				)
-			)
+			_bind_socket_signals()
 			return OK
 	return ERR_CANT_CONNECT
 
 
 func on_NakamaSocket_closed() -> void:
 	_socket = null
+	# Player was disconnected
+	GameState.on_player_list_updated(0)
 
 
 func join_match_async(match_code: String) -> Dictionary:
@@ -124,7 +118,6 @@ func request_all_spell_calls() -> void:
 
 
 func send_ready_state(spell_list, ready) -> void:
-	print("send_ready_state")
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_READY_TO_START_STATE, JSON.print({
@@ -135,7 +128,6 @@ func send_ready_state(spell_list, ready) -> void:
 
 
 func send_pass_turn(spell_list) -> void:
-	print("send_pass_turn")
 	if _socket:
 		_socket.send_match_state_async(
 			_match_id, OpCodes.SEND_PASS_TURN, JSON.print({spell_queue = var2str(spell_list)})
@@ -143,18 +135,16 @@ func send_pass_turn(spell_list) -> void:
 
 
 # Called when the server received a custom message from the server.
-func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
+func _on_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 	var code := match_state.op_code
 	var raw := match_state.data
 	match code:
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result
 			if decoded > 1:
-				print("Other player just joined")
 				emit_signal("player_list_updated", decoded)
 		OpCodes.PLAYER_LEFT:
 			var decoded: int = JSON.parse(raw).result
-			print("Other player just left")
 			emit_signal("player_list_updated", decoded)
 		OpCodes.PLAYER_SPELLS:
 			var spells = str2var(JSON.parse(raw).result)
@@ -169,12 +159,21 @@ func _on_NakamaSocket_received_match_state(match_state: NakamaRTAPI.MatchData) -
 			emit_signal("all_spell_calls_updated", spell_queue)
 		OpCodes.START_SIMULATION:
 			var spell_queue = str2var(JSON.parse(raw).result)
-			print("StartSimularion")
 			emit_signal("received_start_simulation", spell_queue)
 		OpCodes.YOUR_TURN:
 			var spell_queue = str2var(JSON.parse(raw).result)
 			emit_signal("your_turn_started", spell_queue)
 		OpCodes.OTHER_PLAYER_READY:
 			var other_player_ready: bool = JSON.parse(raw).result
-			print("other_player_ready")
 			emit_signal("received_other_player_ready", other_player_ready)
+
+
+func _on_received_error_from_socket(error):
+	var header = "Error received from the socket: "
+	push_error(header + error)
+
+
+func _bind_socket_signals():
+	assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
+	assert(_socket.connect("received_match_state", self, "_on_received_match_state") == OK)
+	assert(_socket.connect("received_error", self, "_on_received_error_from_socket") == OK)

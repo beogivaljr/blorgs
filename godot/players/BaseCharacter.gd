@@ -29,6 +29,8 @@ func _attempt_to_cast_spell_on_target(node, location):
 		spell == _SPELLS.MOVE_TO
 		and location is Vector3
 	):
+		if node is Gate:
+			location = node.transform.origin
 		_cast_move_to_spell(location)
 	elif (
 		spell == _SPELLS.TOGGLE_GATE

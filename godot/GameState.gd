@@ -14,14 +14,12 @@ var character_type
 func on_player_list_updated(player_count):
 	if player_count < 2:
 		var game_over_popup = load("res://ui/game_over/GameOverPopup.tscn").instance()
-		get_tree().paused = true
 		get_tree().root.call_deferred("add_child", game_over_popup)
 		yield(game_over_popup, "ready")
 		game_over_popup.setup(false)
 		yield(game_over_popup.try_again_button, "pressed")
 		game_over_popup.queue_free()
 		self.clear()
-		get_tree().paused = false
 		get_tree().change_scene("res://Main.tscn")
 
 
