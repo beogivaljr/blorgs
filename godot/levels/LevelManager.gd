@@ -30,7 +30,6 @@ func _load_level(level: BaseLevel):
 
 
 func _bind_level_signals(level: BaseLevel):
-	# warning-ignore:return_value_discarded
 	level.connect("level_finished", self, "_on_level_finished", [], CONNECT_ONESHOT)
 	level.connect("level_failed", self, "_on_level_failed", [], CONNECT_ONESHOT)
 

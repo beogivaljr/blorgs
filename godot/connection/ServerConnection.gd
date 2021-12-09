@@ -76,7 +76,7 @@ func join_match_async(match_code: String) -> Dictionary:
 	if match_join_result.is_exception():
 		var exception: NakamaException = match_join_result.get_exception()
 		printerr("Could not join the match: %s - %s" % [exception.status_code, exception.message])
-		return {}
+		return null
 
 	for presence in match_join_result.presences:
 		_presences[presence.user_id] = presence

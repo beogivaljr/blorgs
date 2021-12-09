@@ -30,15 +30,22 @@ func _on_MainButtons_new_game():
 		_on_player_list_updated(1)
 
 
-func _on_player_list_updated(player_count):
+func _on_player_list_updated(_player_count):
 	assert(get_tree().change_scene("res://levels/LevelManager.tscn") == OK)
 
 
 func _join_match(match_code):
-	yield(ServerConnection.join_match_async(match_code), "completed")
+	var presences = yield(ServerConnection.join_match_async(match_code), "completed")
+	if presences == null:
+		var title = "A conexão falhou!"
+		var message = "Verifique se o código está correto e se o seu aparelho\n"
+		message += " está conectado a internet, em seguida tente novamente."
+		var alert = GlobalConstants.alert(title, message)
+		alert.connect("popup_hide", self, "_on_Connecting_canceled")
+		
 
 
-func _on_NewGameInfo_on_cancelled() -> void:
+func _on_NewGameInfo_canceled() -> void:
 	_set_screen(MAIN_BUTTONS)
 
 
@@ -63,5 +70,4 @@ func _set_screen(screen):
 
 
 func _on_Connecting_canceled() -> void:
-	print("TODO: Cancel game connection")
 	_set_screen(MAIN_BUTTONS)

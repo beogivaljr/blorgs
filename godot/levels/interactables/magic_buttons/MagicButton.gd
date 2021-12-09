@@ -78,7 +78,7 @@ func _set_platform_connection_highlight_visible(is_visible):
 		arrow_mesh.visible = is_visible
 
 
-func _set_is_locked(value):
+func _set_is_locked(_value):
 	push_error("Cannot set this variable directly, use set_lock(bool) instead.")
 
 

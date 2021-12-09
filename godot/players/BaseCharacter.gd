@@ -71,7 +71,7 @@ func _cast_press_button_spell(button: MagicButton):
 	_kinematic_movement.move_to_button(button)
 
 
-func _on_spell_done(succeded, interactable):
+func _on_spell_done(succeded, _interactable):
 	emit_signal("spell_done", succeded)
 	begin_casting_spell(null)
 

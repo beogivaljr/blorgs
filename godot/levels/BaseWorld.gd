@@ -229,5 +229,5 @@ func _handle_world_click(_event, _intersection):
 	pass
 
 
-func _on_KillYArea_body_entered(body):
+func _on_KillYArea_body_entered(_body):
 	pass

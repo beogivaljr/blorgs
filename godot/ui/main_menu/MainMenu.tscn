@@ -90,6 +90,6 @@ alignment = 1
 
 [connection signal="connect_to_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_connect_to_game"]
 [connection signal="new_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_new_game"]
-[connection signal="on_cancelled" from="VBoxContainer/ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_on_cancelled"]
+[connection signal="canceled" from="VBoxContainer/ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_canceled"]
 [connection signal="play_pressed" from="VBoxContainer/ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_play_pressed"]
 [connection signal="canceled" from="VBoxContainer/ScreensContainer/Connecting" to="." method="_on_Connecting_canceled"]

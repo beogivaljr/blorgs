@@ -12,11 +12,11 @@ onready var _animation_player = $AnimationPlayer
 var _arrow_mesh: MeshInstance
 
 
-func activate(button_name):
+func activate(_button_name):
 	_animation_player.play(_ANIMATION_NAME)
 
 
-func deactivate(button_name):
+func deactivate(_button_name):
 	_animation_player.play_backwards(_ANIMATION_NAME)
 
 
@@ -51,11 +51,11 @@ func _get_is_active():
 	return is_active
 
 
-func _set_is_active(value):
+func _set_is_active(_value):
 	push_error("Cannot set this variable directly, use activate() instead.")
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	if _get_is_active():
 		is_active = false
 		emit_signal("platform_deactivated", self.name)

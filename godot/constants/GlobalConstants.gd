@@ -71,3 +71,14 @@ const RANDOM_NAMES = [
 	"hello",
 	"world"
 ]
+
+
+func alert(title: String, text: String) -> AcceptDialog:
+	var dialog = AcceptDialog.new()
+	dialog.popup_exclusive = true
+	dialog.dialog_text = text
+	dialog.window_title = title
+	dialog.connect("popup_hide", dialog, "queue_free")
+	get_tree().current_scene.add_child(dialog)
+	dialog.popup_centered_minsize(Vector2(200, 100))
+	return dialog

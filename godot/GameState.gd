@@ -13,14 +13,13 @@ var character_type
 
 func on_player_list_updated(player_count):
 	if player_count < 2:
-		var game_over_popup = load("res://ui/game_over/GameOverPopup.tscn").instance()
-		get_tree().root.call_deferred("add_child", game_over_popup)
-		yield(game_over_popup, "ready")
-		game_over_popup.setup(false)
-		yield(game_over_popup.try_again_button, "pressed")
-		game_over_popup.queue_free()
+		var title = "A conexão falhou!"
+		var message = "Você se desconectou ou perdemos a conexão com o outro\n"
+		message += " jogador ou jogadora, sentimos muito... =("
+		var alert = GlobalConstants.alert(title, message)
+		yield(alert, "popup_hide")
 		self.clear()
-		get_tree().change_scene("res://Main.tscn")
+		assert(get_tree().change_scene("res://Main.tscn") == OK)
 
 
 func on_player_spells_updated(spells, p_player_type: int = character_type):
@@ -145,7 +144,7 @@ func _get_random_name_pair():
 	randomize()
 	var function: String
 	var parameter: String
-	for i in range(20):
+	for _i in range(20):
 		function = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 		parameter = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 		if function.length() + parameter.length() < 28:
