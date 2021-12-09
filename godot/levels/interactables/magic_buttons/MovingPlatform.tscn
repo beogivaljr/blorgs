@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://levels/interactables/magic_buttons/tileMedium_graveyard.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://levels/interactables/magic_buttons/BridgePlatform.gd" type="Script" id=2]
@@ -8,7 +8,7 @@ extents = Vector3( 1, 0.4, 1 )
 
 [sub_resource type="Animation" id=8]
 resource_name = "Activate"
-length = 0.5
+length = 0.7
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Pivot:translation:z")
 tracks/0/interp = 1
@@ -16,8 +16,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.5 )
+"points": PoolRealArray( 0, -0.5, 0.00567651, 0.5, -0.00567651, 2, -0.4, -0.00559723, 0.4, 0.00559723 ),
+"times": PoolRealArray( 0, 0.7 )
 }
 
 [sub_resource type="Animation" id=10]
@@ -53,13 +53,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 1, 0.5, 2 )
+
 [node name="Platform" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[node name="PlatformBody" type="StaticBody" parent="Pivot"]
+[node name="PlatformBody" type="KinematicBody" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Pivot/PlatformBody"]
@@ -76,5 +78,12 @@ material/1 = null
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Activate = SubResource( 8 )
 anims/RESET = SubResource( 10 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1 )
+shape = SubResource( 11 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

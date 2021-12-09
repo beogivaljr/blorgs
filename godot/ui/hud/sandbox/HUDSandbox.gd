@@ -8,6 +8,7 @@ signal pass_turn
 signal undo_pressed
 
 var _spells = []
+var _spell_queue = []
 var _active_spell: SpellDTO = null
 var _puzzle_mode: bool = false
 var _your_turn = null
@@ -30,26 +31,35 @@ func setup(spells, puzzle_mode: bool = false):
 	_update_spells_list(spells)
 
 
-func update_spells_queue(spells):
-	_spells = spells
+func update_spells_queue(spell_queue):
+	_spell_queue = spell_queue
 
 	for container in _spells_queue.get_children():
 		_spells_queue.remove_child(container)
 		container.queue_free()
 
-	for spell in spells:
+	var spell_queue_index = 0
+	for spell in spell_queue:
 		var spell_container: SpellContainer = spellContainer.instance()
-		spell_container.setup(spell, _puzzle_mode, true)
-
+		spell_container.setup(spell, _puzzle_mode, true, spell_queue_index)
+		spell_queue_index += 1
+		
 		spell_container.connect("spell_selected", _spells_queue, "_on_spell_selected")
 
 		spell_container.connect("spell_selected", self, "_on_spell_selected")
 
 		_spells_queue.add_child(spell_container)
-	if spells.empty() or spells[-1].spell_call.character_type != GameState.character_type:
-		on_disable_undo(true)
-	elif spells[-1].spell_call.character_type == GameState.character_type:
-		on_disable_undo(false)
+	if not $HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.pressed:
+		if spell_queue.empty() or spell_queue[-1].call_dto.character_type != GameState.character_type:
+			on_disable_undo(true)
+		elif spell_queue[-1].call_dto.character_type == GameState.character_type:
+			on_disable_undo(false)
+
+
+func on_started_autocasting_spell(spell_queue_index):
+	for container in _spells_queue.get_children():
+		if container.spell_queue_index == spell_queue_index:
+			container.mark_spell_queue_item_as_done()
 
 
 func _update_spells_list(spells):
@@ -102,21 +112,22 @@ func set_your_turn(your_turn):
 
 func on_spell_started(_spell_id: int):
 	_spells_list.disable_buttons()
+	$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = true
 	$SelectedSpellPanelContainer.hide()
 
 
 func on_spell_done(succeded: bool = true):
 	if not succeded:
-		var spell_name = _active_spell.spell_name.function_name if _active_spell else ""
+		var spell_name = _active_spell.name_dto.function if _active_spell else ""
 		$SelectedSpellPanelContainer.display_failed_spell_message(spell_name)
-
+	$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = false
 	_spells_list.enable_buttons()
 
 
 func _on_spell_selected(spell: SpellDTO):
 	_active_spell = spell
 	if spell:
-		emit_signal("spell_selected", _active_spell.spell_id)
+		emit_signal("spell_selected", _active_spell.id)
 	else:
 		emit_signal("spell_selected", null)
 
@@ -159,3 +170,7 @@ func _on_TurnButton_pressed():
 
 func on_received_other_player_ready(ready):
 	$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = ready
+
+
+func hide_available_spells_container(_spell_list):
+	$AnimationPlayer.play("CollapseAvailableSpells")

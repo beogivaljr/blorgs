@@ -3,10 +3,10 @@ extends Spatial
 
 signal spell_started(spell_id)
 signal spell_done(succeded)
-signal game_over(won)
+signal spell_selected(spell_id)
 
 const _SPELLS = GlobalConstants.SpellIds
-var _players_on_finish_line = 0
+var players_on_finish_line = 0
 var _active_spell_id = null
 var _active_player_id = null
 var _players: Dictionary
@@ -23,72 +23,103 @@ func _ready():
 	_bind_interactables()
 
 
+func _on_spell_started(spell_id):
+	$Navigation.visible = false
+	emit_signal("spell_started", spell_id)
+
+
 func _bind_interactables():
 	for child in get_children():
 		if child is Gate:
+			child.setup($Navigation/NavGrid)
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			child.connect("gate_lowered", self, "_on_gate_lowered")
 			child.connect("gate_raised", self, "_on_gate_raised")
 		elif child is Elevator:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			child.connect("transported_up", self, "_on_transported_up")
 			child.connect("transported_down", self, "_on_transported_down")
 		elif child is MagicButton:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 			for bridge_platform in get_tree().get_nodes_in_group(child.name):
+				connect("spell_selected", bridge_platform, "on_spell_selected")
+				connect("spell_started", bridge_platform, "on_spell_started")
+				child.target_locations.append(bridge_platform.global_transform.origin)
 				child.connect("button_activated", bridge_platform, "activate")
 				child.connect("button_deactivated", bridge_platform, "deactivate")
-				bridge_platform.connect("platform_activated", self, "_on_button_activated")
-				bridge_platform.connect("platform_deactivated", self, "_on_button_deactivated")
+				bridge_platform.connect("platform_activated", self, "_on_brigde_platform_activated")
+				bridge_platform.connect("platform_deactivated", self, "_on_brigde_platform_deactivated")
 		elif child is FinishLine:
 			child.connect("player_entered_finish_line", self, "_on_player_entered_finish_line")
 			child.connect("player_exited_finish_line", self, "_on_player_exited_finish_line")
+		elif child is CreatureSpawner:
+			connect("spell_selected", child, "on_spell_selected")
+			connect("spell_started", child, "on_spell_started")
 
 
 # Gate
 func _on_gate_lowered(gate_name):
-	pass
+	_toggle_navigation(true, gate_name)
+	emit_signal("spell_done", true)
 
 
 func _on_gate_raised(gate_name):
-	pass
+	_toggle_navigation(false, gate_name)
+	emit_signal("spell_done", true)
 
 
 #Elevator
 func _on_transported_up(elevator_name):
-	pass
+	emit_signal("spell_done", true)
 
 
 func _on_transported_down(elevator_name):
-	pass
+	emit_signal("spell_done", true)
 
 
 # MagicButtons
-func _on_button_activated(button_name):
-	pass
+func _on_brigde_platform_activated(brigde_platform_name):
+	emit_signal("spell_done", true)
 
 
-func _on_button_deactivated(button_name):
+func _on_brigde_platform_deactivated(brigde_platform_name):
 	pass
 
 
 # FinishLine
 func _on_player_entered_finish_line():
-	_players_on_finish_line += 1
-	if _players_on_finish_line == 2:
-		emit_signal("game_over", true)
+	players_on_finish_line += 1
 
 
 func _on_player_exited_finish_line():
-	_players_on_finish_line -= 1
+	players_on_finish_line -= 1
+
+
+func _toggle_navigation(activate, interactable_name):
+	var interactable = get_node(interactable_name)
+	var navigation = $Navigation/NavGrid
+	for tile_world_position in interactable.navigtion_pivot.get_children():
+		var grid_position_vector = navigation.world_to_map(tile_world_position.global_transform.origin)
+		var x = grid_position_vector.x
+		var y = grid_position_vector.y
+		var z = grid_position_vector.z
+		var item = 0 if activate else GridMap.INVALID_CELL_ITEM
+		navigation.set_cell_item(x, y, z, item)
 
 
 func begin_casting_spell(spell_id):
 	_active_spell_id = spell_id
+	emit_signal("spell_selected", spell_id)
+	$Navigation.visible = spell_id == GlobalConstants.SpellIds.MOVE_TO
 	if _is_valid_destroy_summon(spell_id):
+		emit_signal("spell_started", spell_id)
 		if get_active_character() is Creature:
 			_disassemble_creature()
-			emit_signal("spell_started", spell_id)
 			call_deferred("emit_signal", "spell_done", true)
 		else:
-			emit_signal("spell_started", spell_id)
 			call_deferred("emit_signal", "spell_done", false)
 
 
@@ -135,7 +166,7 @@ func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	add_child(creature, true)
 	creature.spawner = creature_spawner
 	creature.global_transform = creature_spawner.global_transform
-	creature.setup($Navigation)
+	creature.setup($Navigation, GlobalConstants.CharacterTypes.NONE)
 	set_active_character(creature)
 
 
@@ -145,10 +176,6 @@ func set_active_character(character: BaseCharacter):
 
 func get_active_character() -> BaseCharacter:
 	return _current_character_for_player_id[_active_player_id]
-
-
-func _on_spell_started(spell_id):
-	emit_signal("spell_started", spell_id)
 
 
 func _on_spell_done(succeded):
@@ -202,5 +229,5 @@ func _handle_world_click(_event, _intersection):
 	pass
 
 
-func _on_KillYArea_body_entered(body):
+func _on_KillYArea_body_entered(_body):
 	pass

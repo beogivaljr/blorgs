@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/game_over/GameOverPopup.gd" type="Script" id=2]
+
+[node name="GameOverPopup" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -125.0
+margin_right = 320.0
+margin_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -293.0
+margin_top = -148.0
+margin_right = 293.0
+margin_bottom = 148.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WonLabel" type="Label" parent="VBoxContainer"]
+margin_top = 52.0
+margin_right = 586.0
+margin_bottom = 161.0
+text = "Vocês conseguiram!
+brab"
+align = 1
+
+[node name="NextLevelButton" type="Button" parent="VBoxContainer"]
+margin_top = 185.0
+margin_right = 586.0
+margin_bottom = 244.0
+text = "Próximo nível"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LostLabel" type="Label" parent="VBoxContainer"]
+visible = false
+margin_top = 121.0
+margin_right = 586.0
+margin_bottom = 174.0
+text = "Ops, algo deu errado..."
+align = 1
+
+[node name="TryAgainButton" type="Button" parent="VBoxContainer"]
+visible = false
+margin_top = 226.0
+margin_right = 586.0
+margin_bottom = 285.0
+text = "Tentar novamente"
+__meta__ = {
+"_edit_use_anchors_": false
+}

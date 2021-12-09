@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://levels/BaseLevel.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/maze/maze_2/Maze2World.tscn" type="PackedScene" id=2]
-
-[node name="Maze2Level" instance=ExtResource( 1 )]
-_packed_world = ExtResource( 2 )
-_current_level_spells = [ 0 ]

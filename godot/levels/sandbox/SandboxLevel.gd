@@ -21,7 +21,17 @@ func _setup_world():
 
 func _on_player_ready(spells):
 	var ready = spells != null
-	ServerConnection.send_spawn(spells, ready)
 	if ready:
+		ServerConnection.send_spawn(_get_merged_spell_list(spells), ready)
 		yield(ServerConnection, "all_spells_updated")
 		emit_signal("level_finished")
+
+func _get_merged_spell_list(filtered_spell_list):
+	var full_spell_list = GameState.get_spells()
+	for new_spell in filtered_spell_list:
+		for old_spell in full_spell_list:
+			if (old_spell as SpellDTO).id == (new_spell as SpellDTO).id:
+				var list = (full_spell_list as Array)
+				list.erase(old_spell)
+				list.append(new_spell)
+	return full_spell_list

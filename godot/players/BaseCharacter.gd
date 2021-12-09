@@ -7,6 +7,7 @@ signal spell_done(succeded)
 const _SPELLS = GlobalConstants.SpellIds
 
 var character_type = null
+var _navigation_grid: GridMap
 var _active_spell_id = null setget begin_casting_spell
 onready var _kinematic_movement = $KinematicMovement
 
@@ -14,6 +15,7 @@ onready var _kinematic_movement = $KinematicMovement
 func setup(navigation: Navigation, type):
 	assert(type != null)
 	self.character_type = type
+	_navigation_grid = navigation.get_child(0)
 	$KinematicMovement.setup(navigation)
 
 
@@ -27,6 +29,8 @@ func _attempt_to_cast_spell_on_target(node, location):
 		spell == _SPELLS.MOVE_TO
 		and location is Vector3
 	):
+		if node is Gate:
+			location = node.transform.origin
 		_cast_move_to_spell(location)
 	elif (
 		spell == _SPELLS.TOGGLE_GATE
@@ -43,7 +47,8 @@ func _attempt_to_cast_spell_on_target(node, location):
 		and node is MagicButton
 		and node.unlock_spell_id == _active_spell_id and not node.is_pressed
 		):
-		_cast_press_button_spell(node)
+		_toggle_navigation(true, node)
+		call_deferred("_cast_press_button_spell", node)
 	else:
 		# Not a valid target
 		return
@@ -66,9 +71,19 @@ func _cast_press_button_spell(button: MagicButton):
 	_kinematic_movement.move_to_button(button)
 
 
-func _on_spell_done(succeded, interactable):
+func _on_spell_done(succeded, _interactable):
 	emit_signal("spell_done", succeded)
 	begin_casting_spell(null)
+
+
+func _toggle_navigation(activate, interactable):
+	for tile_world_position in interactable.navigtion_pivot.get_children():
+		var grid_position_vector = _navigation_grid.world_to_map(tile_world_position.global_transform.origin)
+		var x = grid_position_vector.x
+		var y = grid_position_vector.y
+		var z = grid_position_vector.z
+		var item = 0 if activate else GridMap.INVALID_CELL_ITEM
+		_navigation_grid.set_cell_item(x, y, z, item)
 
 
 func _on_KinematicMovement_reached_target(target):
@@ -80,6 +95,7 @@ func _on_KinematicMovement_reached_target(target):
 	elif target is MagicButton:
 		target.press()
 		yield(_kinematic_movement, "started_movement")
+		_toggle_navigation(false, target)
 		target.release()
 
 

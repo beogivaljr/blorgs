@@ -5,5 +5,6 @@
 
 [node name="SandboxLevel" type="Node"]
 script = ExtResource( 3 )
-_packed_world = ExtResource( 1 )
-_current_level_spells = [ 0, 1, 2, 3 ]
+_packed_world_a = ExtResource( 1 )
+_packed_world_b = ExtResource( 1 )
+_current_level_spells = [ 0, 1, 2, 3, 4, 5, 6, 7 ]

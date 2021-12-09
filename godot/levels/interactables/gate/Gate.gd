@@ -6,8 +6,10 @@ signal gate_raised(node_name)
 
 var lever_target_a_position = Vector3.ZERO
 var lever_target_b_position = Vector3.ZERO
+onready var navigtion_pivot: Spatial = $NavPivot
 
 var _is_raised = true
+var _navigation_grid: GridMap
 onready var animation_player = $AnimationPlayer
 const _LEVER_ANIMATION_NAME = "LowerLever"
 
@@ -18,12 +20,31 @@ func _ready():
 	lever_target_b_position = $LeverTarget2.global_transform.origin
 
 
+func setup(navigation_grid: GridMap):
+	_navigation_grid = navigation_grid
+
+
 func toggle_raise_lower():
 	_is_raised = not _is_raised
 	if _is_raised:
 		animation_player.play_backwards("LowerLever")
 	else:
 		animation_player.play("LowerLever")
+
+
+func on_spell_selected(spell_id):
+	if spell_id == GlobalConstants.SpellIds.TOGGLE_GATE:
+		_set_touch_highlight_visible(true)
+	else:
+		_set_touch_highlight_visible(false)
+
+
+func on_spell_started(_spell_id):
+	on_spell_selected(null)
+
+
+func _set_touch_highlight_visible(is_visible):
+	$HighlightMeshInstance.visible = is_visible
 
 
 func _on_interaction_done_raised():

@@ -24,3 +24,19 @@ func transport(body: KinematicBody):
 	else:
 		body.global_transform.origin = lower_position + Vector3(0, 1, 0)
 		emit_signal("transported_down", self.name)
+
+
+func on_spell_selected(spell_id):
+	if spell_id == GlobalConstants.SpellIds.USE_ELEVATOR:
+		_set_touch_highlight_visible(true)
+	else:
+		_set_touch_highlight_visible(false)
+
+
+func on_spell_started(_spell_id):
+	on_spell_selected(null)
+
+
+func _set_touch_highlight_visible(is_visible):
+	$HighlightMeshInstance.visible = is_visible
+	$HighlightMeshInstance2.visible = is_visible

@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "SpellCallDTO",
 "language": "GDScript",
 "path": "res://data_objects/SpellCall.gd"
@@ -139,12 +139,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/hud/sandbox/SpellContainer.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "SpellDTO",
 "language": "GDScript",
 "path": "res://data_objects/Spell.gd"
 }, {
-"base": "Node",
+"base": "Object",
 "class": "SpellNameDTO",
 "language": "GDScript",
 "path": "res://data_objects/SpellName.gd"
@@ -189,6 +189,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalConstants="*res://constants/GlobalConstants.gd"
+ServerConstants="*res://keys/BlorgsServerKeys.gd"
 GameState="*res://GameState.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 ServerConnection="*res://connection/ServerConnection.gd"
@@ -198,6 +199,7 @@ ServerConnection="*res://connection/ServerConnection.gd"
 window/size/width=1440
 window/size/height=810
 window/size/resizable=false
+window/handheld/orientation="sensor_landscape"
 
 [editor_plugins]
 

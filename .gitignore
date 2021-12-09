@@ -1,5 +1,13 @@
+# Keys ignores
+godot/keys
+nakama/local.yaml
+
 # MacOs files
 .DS_Store
 
 # Server ignores
 logs/
+
+# Intelij
+nakama/.idea
+.idea/

@@ -27,9 +27,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameName" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
-margin_bottom = 79.0
+anchor_bottom = 1.0
+margin_left = 200.0
+margin_right = -200.0
+margin_bottom = -200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameName" type="Label" parent="VBoxContainer"]
+margin_right = 1040.0
+margin_bottom = 105.0
 custom_fonts/font = ExtResource( 2 )
 text = "Blorgs"
 align = 1
@@ -37,55 +47,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScreensContainer" type="AspectRatioContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -480.0
-margin_top = -179.5
-margin_right = 480.0
-margin_bottom = 179.5
-size_flags_horizontal = 3
+[node name="ScreensContainer" type="AspectRatioContainer" parent="VBoxContainer"]
+margin_top = 129.0
+margin_right = 1040.0
+margin_bottom = 610.0
 size_flags_vertical = 3
 ratio = 2.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainButtons" parent="ScreensContainer" instance=ExtResource( 4 )]
+[node name="MainButtons" parent="VBoxContainer/ScreensContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 121.0
-margin_right = 839.0
-margin_bottom = 359.0
+margin_left = 39.0
+margin_right = 1001.0
+margin_bottom = 481.0
 alignment = 1
 
-[node name="NewGameInfo" parent="ScreensContainer" instance=ExtResource( 6 )]
+[node name="NewGameInfo" parent="VBoxContainer/ScreensContainer" instance=ExtResource( 6 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 121.0
-margin_right = 839.0
-margin_bottom = 359.0
+margin_left = 39.0
+margin_right = 1001.0
+margin_bottom = 481.0
 alignment = 1
 
-[node name="ConnectToGameInfo" parent="ScreensContainer" instance=ExtResource( 5 )]
+[node name="ConnectToGameInfo" parent="VBoxContainer/ScreensContainer" instance=ExtResource( 5 )]
 visible = false
-margin_left = 121.0
-margin_right = 839.0
-margin_bottom = 359.0
-alignment = 1
+anchor_right = 0.0
+margin_left = 39.0
+margin_right = 1001.0
+margin_bottom = 481.0
 
-[node name="Connecting" parent="ScreensContainer" instance=ExtResource( 7 )]
+[node name="Connecting" parent="VBoxContainer/ScreensContainer" instance=ExtResource( 7 )]
 visible = false
-margin_left = 121.0
-margin_right = 839.0
-margin_bottom = 359.0
+margin_left = 39.0
+margin_right = 1001.0
+margin_bottom = 481.0
 alignment = 1
 
-[connection signal="connect_to_game" from="ScreensContainer/MainButtons" to="." method="_on_MainButtons_connect_to_game"]
-[connection signal="new_game" from="ScreensContainer/MainButtons" to="." method="_on_MainButtons_new_game"]
-[connection signal="on_cancelled" from="ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_on_cancelled"]
-[connection signal="play_pressed" from="ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_play_pressed"]
-[connection signal="canceled" from="ScreensContainer/Connecting" to="." method="_on_Connecting_canceled"]
+[connection signal="connect_to_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_connect_to_game"]
+[connection signal="new_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_new_game"]
+[connection signal="canceled" from="VBoxContainer/ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_canceled"]
+[connection signal="play_pressed" from="VBoxContainer/ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_play_pressed"]
+[connection signal="canceled" from="VBoxContainer/ScreensContainer/Connecting" to="." method="_on_Connecting_canceled"]

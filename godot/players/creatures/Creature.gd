@@ -1,9 +1,8 @@
 class_name Creature
 extends BaseCharacter
 
-signal creature_destroyed
-
 var spawner: CreatureSpawner
+
 
 func destroy():
 	push_error("TODO: play bones disassembling")
