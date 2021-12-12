@@ -8,16 +8,16 @@ const _CHARACTER_TYPES = GlobalConstants.CharacterTypes
 var current_level_index = 0
 var _spells_a
 var _spells_b
-var character_type
+var character_type = _CHARACTER_TYPES.NONE
+var match_has_started = false
 
 
 func on_player_list_updated(player_count):
-	if player_count < 2:
-		var title = "A conexão falhou!"
-		var message = "Você se desconectou ou perdemos a conexão com o outro\n"
+	if player_count < 2 and match_has_started:
+		var message = "A conexão falhou!\nVocê se desconectou ou perdemos a conexão com o outro"
 		message += " jogador ou jogadora, sentimos muito... =("
-		var alert = GlobalConstants.alert(title, message)
-		yield(alert, "popup_hide")
+		var alert = GlobalConstants.alert(message)
+		yield(alert, "ok_pressed")
 		self.clear()
 		assert(get_tree().change_scene("res://Main.tscn") == OK)
 
@@ -134,7 +134,8 @@ func clear():
 	current_level_index = 0
 	_spells_a = null
 	_spells_b = null
-	character_type = null
+	character_type = _CHARACTER_TYPES.NONE
+	match_has_started = false
 
 
 func _deep_copy(node):

@@ -25,6 +25,8 @@ func _on_GameCode_gui_input(event):
 		if not tried_to_auto_copy:
 			tried_to_auto_copy = true
 			OS.clipboard = code
+			$GameCode.selecting_enabled = false
 			$GameCode.text = "Copiado!"
 			yield(get_tree().create_timer(2.0), "timeout")
+			$GameCode.selecting_enabled = true
 			$GameCode.text = code
