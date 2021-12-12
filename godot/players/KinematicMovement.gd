@@ -56,8 +56,8 @@ func _physics_process(delta):
 	
 	## Movement with gravity
 	move_direction = move_direction.normalized()
-	_velocity.x = move_direction.x * speed
-	_velocity.z = move_direction.z * speed
+	_velocity.x = move_direction.x * speed * (delta * 60.0) # Phys frame rate
+	_velocity.z = move_direction.z * speed * (delta * 60.0) # Phys frame rate
 	_velocity.y -=  gravity * delta
 	
 	## Jump logic
@@ -68,7 +68,6 @@ func _physics_process(delta):
 #			_snap_vector = Vector3.ZERO
 #		elif just_landed:
 #			_snap_vector = Vector3.DOWN
-	_velocity = _velocity + _body.get_floor_velocity() * 1.1 # Prevents it from sliding on platforms
 	_velocity = _body.move_and_slide_with_snap(_velocity, _snap_vector, Vector3.UP, true)
 		
 	## Look at movement direction

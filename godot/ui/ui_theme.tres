@@ -16,4 +16,5 @@ Button/styles/focus = null
 Button/styles/hover = null
 Button/styles/normal = null
 Button/styles/pressed = null
+HBoxContainer/constants/separation = 12
 VBoxContainer/constants/separation = 24

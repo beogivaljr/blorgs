@@ -17,6 +17,7 @@ var _current_level: BaseLevel
 
 
 func _ready() -> void:
+	GameState.match_has_started = true
 	_load_level(_level_list[GameState.current_level_index].instance())
 
 

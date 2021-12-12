@@ -25,6 +25,12 @@ enum OpCodes {
 	OTHER_PLAYER_READY
 }
 
+enum Exceptions {
+	INVALID_MATCH_CODE = -1,
+	INVALID_MATCH_ID = 3,
+	USER_ALREADY_LOGGED_IN = 5,
+}
+
 var _session: NakamaSession
 var _client := Nakama.create_client(ServerConstants.SERVER_KEY, ServerConstants.ONLINE_IP_ADDRESS)
 var _socket: NakamaSocket
@@ -32,21 +38,18 @@ var _match_id := ""
 var _presences := {}
 
 
-func authenticate_async(username: String) -> int:
-	var deviceid = OS.get_unique_id() + username
-	var result := OK
-
+func authenticate_async(device_id: String):
 	var new_session: NakamaSession = yield(
-		_client.authenticate_device_async(deviceid, username, true), "completed"
+		_client.authenticate_device_async(device_id, null, true), "completed"
 	)
 	if not new_session.is_exception():
 		_session = new_session
+		return OK
 	else:
-		result = new_session.get_exception().status_code
-	return result
+		return new_session.get_exception()
 
 
-func connect_to_server_async() -> int:
+func connect_to_server_async():
 	_socket = Nakama.create_socket_from(_client)
 	if _session:
 		var result: NakamaAsyncResult = yield(_socket.connect_async(_session), "completed")
@@ -56,41 +59,47 @@ func connect_to_server_async() -> int:
 	return ERR_CANT_CONNECT
 
 
-func on_NakamaSocket_closed() -> void:
-	_socket = null
-	# Player was disconnected
-	GameState.on_player_list_updated(0)
-
-
-func join_match_async(match_code: String) -> Dictionary:
+func request_match_id_async(match_code: String):
 	var match_id_response: NakamaAPI.ApiRpc = yield(
 		_client.rpc_async(_session, "get_match_id", match_code), "completed"
 	)
 	if not match_id_response.is_exception():
-		_match_id = match_id_response.payload
-	
+		var match_id_response_payload = JSON.parse(match_id_response.payload).result
+		if (
+			match_id_response_payload is float
+			and match_id_response_payload == Exceptions.INVALID_MATCH_CODE
+		):
+			return NakamaException.new("Invalid match code!", Exceptions.INVALID_MATCH_CODE)
+		_match_id = match_id_response_payload
+		return OK
+	else:
+		return match_id_response.get_exception()
+
+
+func join_match_async() -> Dictionary:
 	# Request to join the match through the NakamaSocket API.
 	var match_join_result: NakamaRTAPI.Match = yield(
 		_socket.join_match_async(_match_id), "completed"
 	)
 	if match_join_result.is_exception():
 		var exception: NakamaException = match_join_result.get_exception()
-		printerr("Could not join the match: %s - %s" % [exception.status_code, exception.message])
-		return null
-
+		return exception
 	for presence in match_join_result.presences:
 		_presences[presence.user_id] = presence
-	return _presences
+	return OK
 
 
 func create_match_async() -> String:
 	var response: NakamaAPI.ApiRpc = yield(
-			_client.rpc_async(_session, "create_match", JSON.print({})), "completed")
+			_client.rpc_async(_session, "create_match", JSON.print({})), 
+			"completed"
+	)
 	if not response.is_exception():
-		var hash_code: String = response.payload
-		return hash_code
+		var create_match_result = JSON.parse(response.payload).result
+		_match_id = create_match_result.match_id
+		return create_match_result.match_code
 	else:
-		return "Error"
+		return response.get_exception()
 
 
 # Sends a message to the server stating the client is spawning in after character selection.
@@ -141,8 +150,7 @@ func _on_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 	match code:
 		OpCodes.PLAYER_JOINED:
 			var decoded: int = JSON.parse(raw).result
-			if decoded > 1:
-				emit_signal("player_list_updated", decoded)
+			emit_signal("player_list_updated", decoded)
 		OpCodes.PLAYER_LEFT:
 			var decoded: int = JSON.parse(raw).result
 			emit_signal("player_list_updated", decoded)
@@ -168,12 +176,27 @@ func _on_received_match_state(match_state: NakamaRTAPI.MatchData) -> void:
 			emit_signal("received_other_player_ready", other_player_ready)
 
 
+func on_NakamaSocket_closed() -> void:
+	if _socket:
+		_socket = null
+		# Player was disconnected
+		GameState.on_player_list_updated(0)
+
+
 func _on_received_error_from_socket(error):
 	var header = "Error received from the socket: "
 	push_error(header + error)
+	disconnect_from_server()
 
 
 func _bind_socket_signals():
 	assert(_socket.connect("closed", self, "on_NakamaSocket_closed") == OK)
 	assert(_socket.connect("received_match_state", self, "_on_received_match_state") == OK)
 	assert(_socket.connect("received_error", self, "_on_received_error_from_socket") == OK)
+
+
+func disconnect_from_server():
+	if _socket:
+		if _socket.is_connected_to_host() or _socket.is_connecting_to_host():
+			_socket.close()
+		_socket = null

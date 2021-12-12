@@ -48,4 +48,12 @@ margin_right = 1440.0
 margin_bottom = 131.0
 text = "Jogar"
 
+[node name="CancelButton" type="Button" parent="."]
+margin_top = 135.0
+margin_right = 1440.0
+margin_bottom = 155.0
+text = "Cancelar"
+
+[connection signal="visibility_changed" from="." to="." method="_on_ConnectToGameInfo_visibility_changed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_CancelButton_pressed"]

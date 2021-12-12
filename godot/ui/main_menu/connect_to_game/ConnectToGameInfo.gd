@@ -1,14 +1,27 @@
 extends VBoxContainer
 
-signal play_pressed(code, playerName)
+signal play_pressed(code)
+signal connection_canceled
 
 
 func _on_PlayButton_pressed() -> void:
-	randomize()
-	GameState.character_type = GlobalConstants.CharacterTypes.B
 	var game_code = $GameCodeLineEdit.text.to_upper()
-	var player_name = $PlayerName.text
-	var user_name = String(rand_range(1, 999999)) + String(GameState.character_type)
-	yield(ServerConnection.authenticate_async(user_name), "completed")
-	yield(ServerConnection.connect_to_server_async(), "completed")
-	emit_signal("play_pressed", game_code, player_name)
+	emit_signal("play_pressed", game_code)
+
+
+func _on_ConnectToGameInfo_visibility_changed():
+	if visible:
+		var clipboard = OS.clipboard as String
+		if clipboard.length() == 8:
+			var message = "Encontramos algo que parece com um código de jogo\n"
+			message += " em sua área de transferência. Gostaria de \ncolá-lo automaticamente?"
+			var alert = GlobalConstants.alert(message, true)
+			alert.connect("ok_pressed", self, "_paste_clipboard_code", [clipboard])
+
+
+func _paste_clipboard_code(code):
+	$GameCodeLineEdit.text = code
+
+
+func _on_CancelButton_pressed():
+	emit_signal("connection_canceled")

@@ -58,6 +58,7 @@ __meta__ = {
 }
 
 [node name="MainButtons" parent="VBoxContainer/ScreensContainer" instance=ExtResource( 4 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 39.0
@@ -88,8 +89,17 @@ margin_right = 1001.0
 margin_bottom = 481.0
 alignment = 1
 
+[node name="LoadingLabel" type="Label" parent="VBoxContainer/ScreensContainer"]
+margin_left = 39.0
+margin_top = 214.0
+margin_right = 1001.0
+margin_bottom = 267.0
+text = "Carregando..."
+align = 1
+
 [connection signal="connect_to_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_connect_to_game"]
 [connection signal="new_game" from="VBoxContainer/ScreensContainer/MainButtons" to="." method="_on_MainButtons_new_game"]
 [connection signal="canceled" from="VBoxContainer/ScreensContainer/NewGameInfo" to="." method="_on_NewGameInfo_canceled"]
+[connection signal="connection_canceled" from="VBoxContainer/ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_connection_canceled"]
 [connection signal="play_pressed" from="VBoxContainer/ScreensContainer/ConnectToGameInfo" to="." method="_on_ConnectToGameInfo_play_pressed"]
 [connection signal="canceled" from="VBoxContainer/ScreensContainer/Connecting" to="." method="_on_Connecting_canceled"]

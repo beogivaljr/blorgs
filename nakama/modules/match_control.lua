@@ -99,17 +99,23 @@ function match_control.match_join(context, dispatcher, tick, state, presences)
 end
 
 function match_control.match_leave(context, dispatcher, tick, state, presences)
-    for k, presence in ipairs(presences) do
+    for _, presence in ipairs(presences) do
         local user_id = presence.user_id
         state.presences.count = state.presences.count - 1
-        for key, _ in pairs(state) do
-            state[key][user_id] = nil
+        dispatcher.broadcast_message(OpCodes.player_left, nakama.json_encode(state.presences.count))
+        if state.presences.count == 0 then
+            for k, v in pairs(state) do
+                state[k][v] = nil
+            end
+            state = nil
+        else
+            for key, _ in pairs(state) do
+                state[key][user_id] = nil
+            end
         end
     end
-
     -- if no one is present, terminates the match
-    dispatcher.broadcast_message(OpCodes.player_left, nakama.json_encode(state.presences.count))
-    return next(state.presences) and state
+    return state
 end
 
 function match_control.match_loop(context, dispatcher, tick, state, messages)
