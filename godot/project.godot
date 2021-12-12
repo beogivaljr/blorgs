@@ -194,6 +194,10 @@ GameState="*res://GameState.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 ServerConnection="*res://connection/ServerConnection.gd"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=1440
