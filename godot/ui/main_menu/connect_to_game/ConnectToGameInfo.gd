@@ -13,8 +13,8 @@ func _on_ConnectToGameInfo_visibility_changed():
 	if visible:
 		var clipboard = OS.clipboard as String
 		if clipboard.length() == 8:
-			var message = "Encontramos algo que parece com um código de jogo\n"
-			message += " em sua área de transferência. Gostaria de \ncolá-lo automaticamente?"
+			var message = "Encontramos algo que parece com um código de jogo"
+			message += " em sua área de transferência. Gostaria de colá-lo automaticamente?"
 			var alert = GlobalConstants.alert(message, true)
 			alert.connect("ok_pressed", self, "_paste_clipboard_code", [clipboard])
 
