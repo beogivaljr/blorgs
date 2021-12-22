@@ -16,6 +16,16 @@ onready var _world: BaseWorld = (
 	)
 onready var _hud = preload("res://ui/hud/sandbox/HUDSandbox.tscn").instance()
 
+func _ready():
+	_world.connect("ar_mode_toggled", self, "_on_ar_mode_toggled")
+
+
+func _on_ar_mode_toggled(turned_on):
+	if turned_on:
+		_hud.visible = false
+	else:
+		_hud.visible = true
+
 
 func _get_filtered_level_spells(spells):
 	var filtered_spells = []

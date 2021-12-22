@@ -14,6 +14,13 @@ var _current_character_for_player_id: Dictionary
 var _disassembled_creatures_for_player_id: Dictionary
 onready var _world_input_handler = $WorldInputHandler
 
+# AR interface
+signal ar_mode_toggled(turned_on)
+var arkit: ARVRInterface = ARVRServer.find_interface("ARKit")
+onready var ar_origin: ARVROrigin = $ARVROrigin
+onready var ar_camera: ARVRCamera = $ARVROrigin/ARVRCamera
+#
+
 
 func _ready():
 	_world_input_handler.connect("dragged", $GameCamera, "pan_camera")
@@ -21,6 +28,8 @@ func _ready():
 	_world_input_handler.connect("touch_ended", $GameCamera, "on_touch_ended")
 	_world_input_handler.connect("clicked", self, "_handle_world_click")
 	_bind_interactables()
+	
+	_ar_setup()
 
 
 func _on_spell_started(spell_id):
@@ -227,6 +236,33 @@ func _is_valid_destroy_summon(spell_id):
 
 func _handle_world_click(_event, _intersection):
 	pass
+
+
+func _ar_setup():
+	if arkit:
+		ScreenOrientation.connect("screen_orientation_changed", self, "_on_orientation_changed")
+		arkit.initialize()
+
+
+func _on_orientation_changed(new_orientation):
+	match new_orientation:
+		ScreenOrientation.LANDSCAPE:
+			_toggle_ar_mode(false)
+		ScreenOrientation.PORTRAIT:
+			_toggle_ar_mode(true)
+
+
+func _toggle_ar_mode(turn_on):
+	if turn_on:
+		get_viewport().arvr = true
+		ar_camera.current = true
+		ar_camera.environment.background_camera_feed_id = arkit.get_camera_feed_id()
+		emit_signal("ar_mode_toggled", true)
+	else:
+		get_viewport().arvr = false
+#		arkit.uninitialize()
+		ar_camera.current = false
+		emit_signal("ar_mode_toggled", false)
 
 
 func _on_KillYArea_body_entered(_body):

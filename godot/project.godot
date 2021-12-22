@@ -193,6 +193,11 @@ ServerConstants="*res://keys/BlorgsServerKeys.gd"
 GameState="*res://GameState.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 ServerConnection="*res://connection/ServerConnection.gd"
+ScreenOrientation="*res://ar/ScreenOrientation.gd"
+
+[debug]
+
+settings/fps/force_fps=60
 
 [debug]
 
@@ -202,8 +207,7 @@ settings/fps/force_fps=60
 
 window/size/width=1440
 window/size/height=810
-window/size/resizable=false
-window/handheld/orientation="sensor_landscape"
+window/handheld/orientation="sensor"
 
 [editor_plugins]
 
