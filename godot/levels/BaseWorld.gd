@@ -156,13 +156,13 @@ func _disassemble_creature():
 	set_active_character(_players[_active_player_id])
 	creature.disassemble()
 	_disassembled_creatures_for_player_id[_active_player_id] = creature
-	call_deferred("emit_signal", "spell_done", true)
 
 
 func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	var creature = preload("res://players/creatures/Creature.tscn").instance()
 	creature.connect("spell_started", self, "_on_spell_started")
 	creature.connect("spell_done", self, "_on_spell_done")
+	creature.connect("invalid_spell_target_selected", self, "_on_invalid_spell_target_selected")
 	add_child(creature, true)
 	creature.spawner = creature_spawner
 	creature.global_transform = creature_spawner.global_transform
@@ -223,6 +223,10 @@ func _is_valid_summon_creature(spell, node):
 
 func _is_valid_destroy_summon(spell_id):
 	 return spell_id == _SPELLS.DESTROY_SUMMON
+
+
+func _on_invalid_spell_target_selected():
+	pass
 
 
 func _handle_world_click(_event, _intersection):

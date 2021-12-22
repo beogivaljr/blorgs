@@ -3,6 +3,7 @@ extends KinematicBody
 
 signal spell_started(spell_id)
 signal spell_done(succeded)
+signal invalid_spell_target_selected
 
 const _SPELLS = GlobalConstants.SpellIds
 
@@ -21,6 +22,11 @@ func setup(navigation: Navigation, type):
 
 func begin_casting_spell(spell_id):
 	_active_spell_id = spell_id
+
+
+func force_fail_current_spell():
+	emit_signal("spell_started", _active_spell_id)
+	call_deferred("_on_spell_done", false, null)
 
 
 func _attempt_to_cast_spell_on_target(node, location):
@@ -49,8 +55,15 @@ func _attempt_to_cast_spell_on_target(node, location):
 		):
 		_toggle_navigation(true, node)
 		call_deferred("_cast_press_button_spell", node)
+	elif (
+		spell == _SPELLS.SUMMON_ASCENDING_PORTAL
+		or spell == _SPELLS.SUMMON_DESCENDING_PORTAL
+		or spell == _SPELLS.DESTROY_SUMMON
+	):
+		pass
 	else:
 		# Not a valid target
+		emit_signal("invalid_spell_target_selected")
 		return
 	emit_signal("spell_started", _active_spell_id)
 

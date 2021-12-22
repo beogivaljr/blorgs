@@ -3,6 +3,7 @@ extends BaseWorld
 ## This will be very handy because the Level Manager won't have to know
 ## exactly which level it is managing.
 
+var _spell_consumed = true
 
 func _ready() -> void:
 	_active_player_id = GameState.character_type
@@ -22,12 +23,18 @@ func _spawn_and_setup_player():
 
 
 func begin_casting_spell(spell_id):
+	_spell_consumed = false
 	.begin_casting_spell(spell_id)
 	get_active_character().begin_casting_spell(spell_id)
 
 
+func _on_spell_started(spell_id):
+	._on_spell_started(spell_id)
+	_spell_consumed = true
+
+
 func _handle_world_click(_event, intersection):
-	if not intersection.empty():
+	if not intersection.empty() and not _spell_consumed:
 		var node = intersection.collider
 		var location = intersection.position
 		get_active_character()._attempt_to_cast_spell_on_target(node, location)

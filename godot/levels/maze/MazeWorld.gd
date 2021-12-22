@@ -47,6 +47,7 @@ func _spawn_and_setup_player(type):
 	var player = preload("res://players/BaseCharacter.tscn").instance()
 	player.connect("spell_started", self, "_on_spell_started")
 	player.connect("spell_done", self, "_on_spell_done")
+	player.connect("invalid_spell_target_selected", self, "_on_invalid_spell_target_selected")
 	add_child(player)
 	player.global_transform = get_node(player_spawn_node_name).global_transform
 	if type == GameState.character_type:
@@ -69,6 +70,11 @@ func _validate_parameters(node, location):
 		):
 		begin_casting_spell(null)
 		emit_signal("valid_parameter_selected", spell, node.name, location)
+
+
+func _on_invalid_spell_target_selected():
+	if _has_started_auto_casting:
+		get_active_character().force_fail_current_spell()
 
 
 func _handle_world_click(_event, intersection):
