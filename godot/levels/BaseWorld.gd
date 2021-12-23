@@ -140,8 +140,8 @@ func _attempt_to_cast_spell_on_target(node, location):
 # Creature spawner
 func _cast_summon_spell(creature_spawner: CreatureSpawner):
 	_cleanup_creatures()
-	_spawn_and_setup_creature(creature_spawner)
-	call_deferred("emit_signal", "spell_done", true)
+	yield(_spawn_and_setup_creature(creature_spawner), "completed")
+	emit_signal("spell_done", true)
 
 
 func _cleanup_creatures():
@@ -163,7 +163,7 @@ func _disassemble_creature():
 
 
 func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
-	var creature = preload("res://players/creatures/Skeleton.tscn").instance()
+	var creature = preload("res://players/creatures/Creature.tscn").instance()
 	creature.connect("spell_started", self, "_on_spell_started")
 	creature.connect("spell_done", self, "_on_spell_done")
 	creature.connect("invalid_spell_target_selected", self, "_on_invalid_spell_target_selected")
@@ -172,6 +172,7 @@ func _spawn_and_setup_creature(creature_spawner: CreatureSpawner):
 	creature.global_transform = creature_spawner.global_transform
 	creature.setup($Navigation, GlobalConstants.CharacterTypes.NONE)
 	set_active_character(creature)
+	yield(creature, "spawn_animation_finished")
 
 
 func set_active_character(character: BaseCharacter):
