@@ -53,7 +53,7 @@ function match_control.match_init(context, params)
     params = params or {}
     local tick_rate = params.tick_rate or 10
     local state = {
-        timeout = tick_rate * 12,
+        timeout = {count = tick_rate * 12},
         presences = {count = 0},
         user_types = {},
         usernames = {},
@@ -118,8 +118,8 @@ end
 
 function match_control.match_loop(context, dispatcher, tick, state, messages)
     if state.presences.count == 0 then
-        state.timeout = state.timeout -1
-        if state.timeout <= 0 then
+        state.timeout.count = state.timeout.count -1
+        if state.timeout.count <= 0 then
             return nil
         end
     end
