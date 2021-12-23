@@ -129,6 +129,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
 }, {
+"base": "BaseCharacter",
+"class": "Player",
+"language": "GDScript",
+"path": "res://players/Player.gd"
+}, {
+"base": "BaseCharacter",
+"class": "Skeleton2",
+"language": "GDScript",
+"path": "res://players/creatures/Skeleton2.gd"
+}, {
 "base": "Object",
 "class": "SpellCallDTO",
 "language": "GDScript",
@@ -174,6 +184,8 @@ _global_script_class_icons={
 "NakamaSocketAdapter": "",
 "NakamaStorageObjectId": "",
 "NakamaWriteStorageObject": "",
+"Player": "",
+"Skeleton2": "",
 "SpellCallDTO": "",
 "SpellContainer": "",
 "SpellDTO": "",

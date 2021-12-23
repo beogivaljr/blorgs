@@ -44,7 +44,7 @@ func _spawn_and_setup_player(type):
 		player_spawn_node_name += "B"
 	else:
 		assert(false)
-	var player = preload("res://players/BaseCharacter.tscn").instance()
+	var player = preload("res://players/Player.tscn").instance()
 	player.connect("spell_started", self, "_on_spell_started")
 	player.connect("spell_done", self, "_on_spell_done")
 	player.connect("invalid_spell_target_selected", self, "_on_invalid_spell_target_selected")
