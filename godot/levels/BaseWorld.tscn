@@ -30,7 +30,7 @@ visible = false
 
 [node name="NavGrid" type="GridMap" parent="Navigation"]
 mesh_library = ExtResource( 6 )
-cell_size = Vector3( 1, 1, 1 )
+cell_size = Vector3( 2, 1, 2 )
 data = {
 "cells": PoolIntArray(  )
 }
