@@ -51,7 +51,9 @@ end
 
 function match_control.match_init(context, params)
     params = params or {}
+    local tick_rate = params.tick_rate or 10
     local state = {
+        timeout = tick_rate * 12,
         presences = {count = 0},
         user_types = {},
         usernames = {},
@@ -60,7 +62,6 @@ function match_control.match_init(context, params)
         ready_vote = {},
         sandbox_vote = {}
     }
-    local tick_rate = params.tick_rate or 10
     local label = params.label or "Game match"
 
     return state, tick_rate, label
@@ -104,9 +105,6 @@ function match_control.match_leave(context, dispatcher, tick, state, presences)
         state.presences.count = state.presences.count - 1
         dispatcher.broadcast_message(OpCodes.player_left, nakama.json_encode(state.presences.count))
         if state.presences.count == 0 then
-            for k, v in pairs(state) do
-                state[k][v] = nil
-            end
             state = nil
         else
             for key, _ in pairs(state) do
@@ -119,6 +117,12 @@ function match_control.match_leave(context, dispatcher, tick, state, presences)
 end
 
 function match_control.match_loop(context, dispatcher, tick, state, messages)
+    if state.presences.count == 0 then
+        state.timeout = state.timeout -1
+        if state.timeout <= 0 then
+            return nil
+        end
+    end
     for _, message in ipairs(messages) do
         local op_code = message.op_code
         local command = commands[op_code]
