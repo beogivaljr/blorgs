@@ -60,7 +60,7 @@ func _attempt_to_cast_spell_on_target(node, location):
 		or spell == _SPELLS.SUMMON_DESCENDING_PORTAL
 		or spell == _SPELLS.DESTROY_SUMMON
 	):
-		pass
+		return
 	else:
 		# Not a valid target
 		emit_signal("invalid_spell_target_selected")

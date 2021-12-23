@@ -126,11 +126,11 @@ func begin_casting_spell(spell_id):
 func _attempt_to_cast_spell_on_target(node, location):
 	var spell = _active_spell_id
 	if _is_valid_summon_creature(spell, node):
+		emit_signal("spell_started", _active_spell_id)
 		_cast_summon_spell(node)
 	else:
 		# Not a valid target
 		return
-	emit_signal("spell_started", _active_spell_id)
 
 
 # Creature spawner
