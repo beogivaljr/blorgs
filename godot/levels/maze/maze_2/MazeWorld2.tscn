@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/BaseWorld.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/interactables/magic_buttons/MovingPlatform.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/interactables/magic_buttons/MagicButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/interactables/magic_buttons/MagicSquareButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://levels/interactables/creature_spawners/CreatureSpawnerAscending.tscn" type="PackedScene" id=4]
 [ext_resource path="res://levels/interactables/elevator/Elevator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://levels/interactables/gate/Gate.tscn" type="PackedScene" id=6]
@@ -39,25 +39,25 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -4 )
 [node name="Gate" parent="." index="9" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 5 )
 
-[node name="MagicButton" parent="." index="10" instance=ExtResource( 3 )]
+[node name="MagicSquareButton" parent="." index="10" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -9 )
 
-[node name="Platform4" parent="." index="11" groups=["MagicButton"] instance=ExtResource( 2 )]
+[node name="Platform4" parent="." index="11" groups=["MagicSquareButton"] instance=ExtResource( 2 )]
 transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, -1, 0, -7 )
 
-[node name="Platform5" parent="." index="12" groups=["MagicButton"] instance=ExtResource( 2 )]
+[node name="Platform5" parent="." index="12" groups=["MagicSquareButton"] instance=ExtResource( 2 )]
 transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, -1, 0, -5 )
 
-[node name="MagicButton2" parent="." index="13" instance=ExtResource( 3 )]
+[node name="MagicSquareButton2" parent="." index="13" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -7 )
 
-[node name="Platform" parent="." index="14" groups=["MagicButton2"] instance=ExtResource( 2 )]
+[node name="Platform" parent="." index="14" groups=["MagicSquareButton2"] instance=ExtResource( 2 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, -1 )
 
-[node name="Platform2" parent="." index="15" groups=["MagicButton2"] instance=ExtResource( 2 )]
+[node name="Platform2" parent="." index="15" groups=["MagicSquareButton2"] instance=ExtResource( 2 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 0, -1 )
 
-[node name="Platform3" parent="." index="16" groups=["MagicButton2"] instance=ExtResource( 2 )]
+[node name="Platform3" parent="." index="16" groups=["MagicSquareButton2"] instance=ExtResource( 2 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 0, -1 )
 
 [node name="Elevator" parent="." index="17" instance=ExtResource( 5 )]

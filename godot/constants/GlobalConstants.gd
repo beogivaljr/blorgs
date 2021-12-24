@@ -72,6 +72,14 @@ const RANDOM_NAMES = [
 	"world"
 ]
 
+const MAGIC_BUTTON_COLORS = [
+	Color.teal,
+	Color.mediumslateblue,
+	Color.mediumvioletred,
+	Color.steelblue,
+	Color.sienna
+]
+
 
 func alert(message: String, has_cancel_button: bool = false, ok_button_title = "Ok"):
 	var popup = load("res://ui/alert/ConfirmationPopup.tscn").instance()
