@@ -104,8 +104,10 @@ func set_your_turn(your_turn):
 	if your_turn:
 		_spells_list.enable_buttons()
 		$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = false
+		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = false
 	else:
 		$HamburgerContainer/SpellPanel/VBoxContainer/TurnButton.disabled = true
+		$HamburgerContainer/SpellPanel/VBoxContainer/ReadyButton.disabled = true
 		_spells_list.disable_buttons()
 		$SelectedSpellPanelContainer.hide()
 
