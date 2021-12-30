@@ -31,13 +31,21 @@ func on_spell_started(_spell_id):
 	on_spell_selected(null)
 
 
+func set_color(color: Color):
+	var mesh = $Pivot/PlatformBody/PlatformMesh.mesh
+	var new_material = (mesh.surface_get_material(0) as SpatialMaterial).duplicate()
+	new_material.albedo_color = color
+	mesh.surface_set_material(0, new_material)
+
+
 func _set_platform_direction_highlight_visible(is_visible):
 	if not _arrow_mesh:
 		_arrow_mesh = MeshInstance.new()
 		_arrow_mesh.mesh = preload("res://levels/interactables/arrow.obj")
 		add_child(_arrow_mesh)
 		for material_index in range(_arrow_mesh.get_surface_material_count()):
-			_arrow_mesh.set_surface_material(material_index, preload("res://levels/interactables/highlight_material.tres"))
+			var material = $Pivot/PlatformBody/PlatformMesh.mesh.surface_get_material(0)
+			_arrow_mesh.set_surface_material(material_index, material)
 		_arrow_mesh.transform.origin = Vector3.ZERO
 		_arrow_mesh.transform = _arrow_mesh.transform.scaled(Vector3(2, 2, 2))
 		if unlock_spell_id == GlobalConstants.SpellIds.PRESS_ROUND_BUTTON:

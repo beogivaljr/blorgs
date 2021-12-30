@@ -11,7 +11,6 @@ const _LOCKED_SCALE = Vector3(1, 2, 1)
 const _UNLOCKED_SCALE = Vector3(1, 1, 1)
 
 var is_pressed = false
-var target_locations = []
 onready var navigtion_pivot: Spatial = $NavPivot
 var _arrow_meshes = []
 var _navigation_grid: GridMap
@@ -46,36 +45,23 @@ func set_lock(lock: bool):
 func on_spell_selected(spell_id):
 	if spell_id == unlock_spell_id and not is_pressed:
 		_set_touch_highlight_visible(true)
-		_set_platform_connection_highlight_visible(true)
 	else:
 		_set_touch_highlight_visible(false)
-		_set_platform_connection_highlight_visible(false)
 
 
 func on_spell_started(_spell_id):
 	on_spell_selected(null)
 
 
+func set_color(color: Color):
+	var mesh = $ButtonMesh.mesh
+	var new_material = (mesh.surface_get_material(0) as SpatialMaterial).duplicate()
+	new_material.albedo_color = color
+	mesh.surface_set_material(0, new_material)
+
+
 func _set_touch_highlight_visible(is_visible):
 	$HighlightMeshInstance.visible = is_visible
-
-
-func _set_platform_connection_highlight_visible(is_visible):
-	if _arrow_meshes.empty():
-		for index in range(target_locations.size()):
-			var arrow_mesh = MeshInstance.new()
-			arrow_mesh.mesh = CapsuleMesh.new()
-			(arrow_mesh.mesh as CapsuleMesh).radius = 0.1
-			var new_mid_height = global_transform.origin.distance_to(target_locations[index])
-			(arrow_mesh.mesh as CapsuleMesh).mid_height = new_mid_height / 2.0
-			add_child(arrow_mesh)
-			for material_index in range(arrow_mesh.get_surface_material_count()):
-				arrow_mesh.set_surface_material(material_index, preload("res://levels/interactables/highlight_material.tres"))
-			arrow_mesh.global_transform = global_transform.looking_at(target_locations[index], Vector3.UP)
-			arrow_mesh.global_transform.origin = (target_locations[index] + global_transform.origin) / 2.0
-			_arrow_meshes.append(arrow_mesh)
-	for arrow_mesh in _arrow_meshes:
-		arrow_mesh.visible = is_visible
 
 
 func _set_is_locked(_value):
