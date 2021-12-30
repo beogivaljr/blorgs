@@ -22,6 +22,7 @@ func _ready():
 	_kinematic_movement.connect("started_movement", $Skeleton, "play_running")
 	_kinematic_movement.connect("succeded_movement", $Skeleton, "play_idle")
 	_kinematic_movement.connect("failed_movement", $Skeleton, "play_idle")
+	_kinematic_movement.connect("reached_target", $Skeleton, "play_idle")
 
 
 func _on_Skeleton_spawn_animation_finished():

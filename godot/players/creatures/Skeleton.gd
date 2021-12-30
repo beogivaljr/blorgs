@@ -4,7 +4,7 @@ extends Spatial
 signal spawn_animation_finished
 
 
-func play_idle():
+func play_idle(_dummy = null):
 	$AnimationPlayer.play("Skeleton_Idle")
 	
 	
