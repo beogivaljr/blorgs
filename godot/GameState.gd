@@ -38,7 +38,7 @@ func on_all_spells_updated(spells):
 
 func _get_new_spell(spell_id: int) -> SpellDTO:
 	var spell_name = SpellNameDTO.new()
-	
+
 #	var SPD = GlobalConstants.SpellIds
 #	match spell_id:
 #		SPD.MOVE_TO:
@@ -68,8 +68,7 @@ func _get_new_spell(spell_id: int) -> SpellDTO:
 	var random_name_pair = _get_random_name_pair()
 	spell_name.function = random_name_pair.function
 	spell_name.parameter = random_name_pair.parameter
-	
-	
+
 	var spell_call = SpellCallDTO.new()
 	spell_call.character_type = character_type
 	var spell = SpellDTO.new()
@@ -90,16 +89,12 @@ func get_spells(p_player_type: int = character_type):
 					_get_new_spell(_SPELLS.USE_ELEVATOR),
 					_get_new_spell(_SPELLS.PRESS_SQUARE_BUTTON),
 					_get_new_spell(_SPELLS.TOGGLE_GATE),
-					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON),
-					_get_new_spell(_SPELLS.MOVE_TO),
-					_get_new_spell(_SPELLS.SUMMON_ASCENDING_PORTAL),
-					_get_new_spell(_SPELLS.DESTROY_SUMMON),
-					_get_new_spell(_SPELLS.SUMMON_DESCENDING_PORTAL)
+					_get_new_spell(_SPELLS.PRESS_ROUND_BUTTON)
 				]
 			)
 			_spells_a.shuffle()
 			return _deep_copy(_spells_a)
-			
+
 		_CHARACTER_TYPES.B:
 			_spells_b = (
 				_spells_b
@@ -145,6 +140,7 @@ func clear():
 func _deep_copy(node):
 	return str2var(var2str(node))
 
+
 func _get_random_name_pair():
 	randomize()
 	var function: String
@@ -154,7 +150,4 @@ func _get_random_name_pair():
 		parameter = GlobalConstants.RANDOM_NAMES[randi() % GlobalConstants.RANDOM_NAMES.size()]
 		if function.length() + parameter.length() < 28:
 			break
-	return {
-		function = function,
-		parameter = parameter
-	}
+	return {function = function, parameter = parameter}
