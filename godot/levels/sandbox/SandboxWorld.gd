@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _spawn_and_setup_player():
-	var player = preload("res://players/BaseCharacter.tscn").instance()
+	var player = preload("res://players/Player.tscn").instance()
 	player.connect("spell_started", self, "_on_spell_started")
 	player.connect("spell_done", self, "_on_spell_done")
 	add_child(player)
